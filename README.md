@@ -1,11 +1,11 @@
 # builderApp
 
-##### Start
+#### Start
 ###### npm install
 ###### npm install http-server -g
 ###### http-server
 
-##### Dependencies
+#### Dependencies
 ###### Angular 1.5.1
 ###### Angular UI Router 0.2.18
 ###### Firebase 2.4.1
