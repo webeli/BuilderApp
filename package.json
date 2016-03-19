@@ -1,0 +1,28 @@
+{
+  "name": "builderapp",
+  "version": "1.0.0",
+  "description": "app for builders",
+  "main": "app.js",
+  "dependencies": {
+    "angular": "^1.5.2",
+    "angularfire": "^1.1.4",
+    "firebase": "^2.4.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/earthquaker/builderapp.git"
+  },
+  "keywords": [
+    "project",
+    "builder"
+  ],
+  "author": "Elias Hansen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/earthquaker/builderapp/issues"
+  },
+  "homepage": "https://github.com/earthquaker/builderapp#readme"
+}
