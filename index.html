@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>Builder App</title>
 
-    <!-- Load Node Modules -->
+    <!-- Load Node Modules and Firebase CDN-->
     <script src="./node_modules/angular/angular.min.js"></script>
     <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="./node_modules/firebase/lib/firebase-web.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
     <script src="./node_modules/angularfire/dist/angularfire.min.js"></script>
     <!-- Load Source Files -->
     <script src="./src/app.js"></script>
 
 </head>
-<body>
+<body ng-app="builderApp">
     <h1>Builder app</h1>
+    <div ui-view></div>
 </body>
 </html>

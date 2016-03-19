@@ -6,8 +6,7 @@
   "dependencies": {
     "angular": "^1.5.2",
     "angular-ui-router": "^0.2.18",
-    "angularfire": "^1.1.4",
-    "firebase": "^2.4.1"
+    "angularfire": "^1.1.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
