@@ -6,7 +6,7 @@
 ##### http-server
 
 ### Dependencies
-####1
-####2
-####3
-####4
+#### AngularJS
+#### Angular UI Router
+#### Firebase
+#### AngularFire
