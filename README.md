@@ -17,3 +17,14 @@ Angular UI Router 0.2.18
 Firebase 2.4.1
 
 AngularFire 1.1.4
+
+<dl>
+  <dt>Start</dt>
+  <dd>npm install</dd>
+  <dd>npm install</dd>
+  <dd>npm install</dd>
+  <dd>npm install</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
