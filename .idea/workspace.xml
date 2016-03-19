@@ -2,98 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdad1fa2-771a-4949-aabd-cc2d67743c8a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/CONTRIBUTING.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/release/angular-ui-router.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/release/angular-ui-router.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/common.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/resolve.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/state.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/stateDirectives.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/stateFilters.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/templateFactory.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/urlMatcherFactory.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/urlRouter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/view.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/viewDirective.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/src/viewScroll.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/ui-router2.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/ui-router2.ipr" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular-ui-router/ui-router2.iws" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/angular-csp.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/angular.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js.gzip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angular/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/changelog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/dist/angularfire.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/dist/angularfire.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/angularfire/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/lib/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/lib/firebase-node.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/lib/firebase-web.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/autobahn_client.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/client.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/haproxy.conf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/proxy_server.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/server.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/sse.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/examples/ws.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/eventsource.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/websocket.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/websocket/api.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/websocket/api/event.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/websocket/api/event_target.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/lib/faye/websocket/client.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/examples/tcp_server.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/base.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/client.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/draft75.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/draft76.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/headers.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/hybi.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/hybi/frame.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/hybi/message.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/hybi/stream_reader.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/proxy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/driver/server.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/http_parser.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/lib/websocket/streams.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/parser.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/cell.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/functor.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/pledge.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/pipeline/ring_buffer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/lib/websocket_extensions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/node_modules/websocket-extensions/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/node_modules/websocket-driver/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/node_modules/faye-websocket/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/npm-shrinkwrap.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/firebase/package.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.js" afterPath="$PROJECT_DIR$/src/app.js" />
     </list>
     <ignored path="builderApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -114,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.6">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.74733096">
+              <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -144,10 +54,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6725979">
+            <state vertical-scroll-proportion="-12.6">
               <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
               <folding />
             </state>
@@ -183,8 +93,8 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/app.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -255,6 +165,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="builderApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="builderApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,18 +454,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.6">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6725979">
-          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.74733096">
+          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
           <folding />
         </state>
       </provider>
