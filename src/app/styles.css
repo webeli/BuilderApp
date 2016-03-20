@@ -1,0 +1,30 @@
+/*
+GENERAL
+*/
+.nav-tabs>li {
+    float:right;
+}
+/*
+LANDING
+*/
+.builder-landing-center {
+    text-align:center;
+}
+.builder-landing-center h2 {
+    margin-top:50px;
+    margin-bottom:20px;
+}
+.builder-landing-center .form-control {
+    width:30%;
+    display:inline-block;
+}
+.builder-landing-center .btn {
+    vertical-align:initial;
+}
+/*
+ACCOUNT
+*/
+
+/*
+MAIN
+*/
