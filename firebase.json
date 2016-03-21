@@ -3,6 +3,7 @@
   "public": "../builderapp",
   "ignore": [
     "firebase.json",
-    "**/.*"
+    "**/.*",
+    "**/.idea/**"
   ]
 }
