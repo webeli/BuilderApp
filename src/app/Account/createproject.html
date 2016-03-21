@@ -3,8 +3,8 @@
         <form>
             <div class="form-group">
                 <h4>Create project</h4>
-                <input type="text" class="form-control" id="projectId" placeholder="Project Name">
-                <button type="button" class="btn btn-default">Go</button>
+                <input ng-model="projectName" type="text" class="form-control" id="projectId" placeholder="Project Name">
+                <button ng-click="createProject(projectName)" type="button" class="btn btn-default">Go</button>
             </div>
         </form>
     </div>

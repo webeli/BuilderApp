@@ -4,15 +4,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('landing', {
             url: '/landing/',
-            templateUrl: './src/app/Landing/landing.html'
+            templateUrl: './src/app/Landing/landing.html',
+            controller: 'LandingController'
         })
         .state('main', {
             url: '/main/',
-            templateUrl: './src/app/Main/main.html'
+            templateUrl: './src/app/Main/main.html',
+            controller: 'MainController'
         })
         .state('account', {
             url: '/account/',
-            templateUrl: './src/app/Account/account.html'
+            templateUrl: './src/app/Account/account.html',
+            controller: 'AccountController'
         })
             .state('account.myprojects', {
                 url: 'my-projects/',

@@ -1,3 +1,4 @@
-/**
- * Created by eliash on 20/03/16.
- */
+app.controller('LandingController', function($scope) {
+    $scope.greeting = 'Hola!';
+    console.log("LandingController");
+});
