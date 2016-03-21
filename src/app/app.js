@@ -13,7 +13,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('account', {
             url: '/account/',
             templateUrl: './src/app/Account/account.html'
-        });
+        })
+            .state('account.myprojects', {
+                url: 'my-projects/',
+                templateUrl: './src/app/Account/myprojects.html'
+            })
+            .state('account.createproject', {
+                url: 'create-project/',
+                templateUrl: './src/app/Account/createproject.html'
+            });
 
     $urlRouterProvider.otherwise('/landing/');
 });
