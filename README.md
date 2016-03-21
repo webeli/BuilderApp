@@ -10,7 +10,7 @@ http-server
 
 **Dependencies**
 
-Angular 1.5.1
+Angular 1.5.2
 
 Angular UI Router 0.2.18
 
