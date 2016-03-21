@@ -1,0 +1,8 @@
+{
+  "firebase": "100meter",
+  "public": "../builderapp",
+  "ignore": [
+    "firebase.json",
+    "**/.*"
+  ]
+}
