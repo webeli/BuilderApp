@@ -8,8 +8,8 @@
         <form>
             <div class="form-group builder-landing-center">
                 <h2>Enter Project ID</h2>
-                <input type="text" class="form-control" id="projectId" placeholder="Project ID">
-                <button type="button" class="btn btn-default">Go</button>
+                <input ng-model="pId" type="text" class="form-control" id="projectId" placeholder="Project ID">
+                <button ng-click="goToProject(pId)" type="button" class="btn btn-default">Go</button>
             </div>
         </form>
     </div>
