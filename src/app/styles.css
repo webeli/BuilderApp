@@ -47,7 +47,10 @@ ul.builder-account-menu {
     cursor:pointer;
 }
 
-.builder-account-list.list-group li:hover {
+.builder-account-list.list-group p.builder-link {
+    color:#337ab7;
+}
+.builder-account-list.list-group p.builder-link:hover {
     background:#EAEAEA;
     cursor:pointer;
 }
