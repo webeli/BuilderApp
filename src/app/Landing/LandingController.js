@@ -10,7 +10,7 @@ app.controller('LandingController', function($scope, FireRef, $state) {
         projectRef.once("value", function(snapshot) {
             var a = snapshot.exists();
             if (a === true) {
-                $state.go("main", { "projectId": pId});
+                $state.go("main", { "projectKey": pId});
             } else {
                 console.log("You entered an undefined projectId");
             }

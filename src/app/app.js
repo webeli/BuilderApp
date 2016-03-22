@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'LandingController'
         })
         .state('main', {
-            url: '/main/:projectId',
+            url: '/main/:projectKey',
             templateUrl: './src/app/Main/main.html',
             controller: 'MainController'
         })
