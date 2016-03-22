@@ -7,7 +7,13 @@ app.controller('AccountController', function($scope, $firebaseArray, FireRef) {
     var myProjects = $firebaseArray(FireRef);
     $scope.myProjects = myProjects;
 
-    $scope.createProject = function(pN){
+    $scope.deleteProject = function(pId) {
+        console.log(pId);
+        var projectId = FireRef.child(pId);
+        projectId.remove();
+    }
+
+    $scope.createProject = function(pN) {
         if (!pN) { return; }
 
         $scope.projectName = "";
