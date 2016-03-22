@@ -3,11 +3,11 @@ app.controller('MainController', function($scope, FireRef, $stateParams, $state)
 
     var projectRef = FireRef.child($stateParams.projectId);
     projectRef.once("value", function(snapshot) {
-        var a = snapshot.exists();
-        if (a === false) {
+        var projectKey = snapshot.exists();
+        if (projectKey === false) {
             $state.go("landing");
         } else {
-            console.log(a);
+            console.log(projectKey);
         }
     });
 
