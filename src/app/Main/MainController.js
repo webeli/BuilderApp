@@ -1,4 +1,4 @@
-app.controller('MainController', function($scope, FireRef, $stateParams, $state) {
+app.controller('MainController', function($scope, FireRef, $stateParams, $state, $firebaseArray) {
     console.log("MainController");
 
     var projectRef = FireRef.child($stateParams.projectKey);
@@ -7,7 +7,8 @@ app.controller('MainController', function($scope, FireRef, $stateParams, $state)
         if (projectKey === false) {
             $state.go("landing");
         } else {
-            console.log(projectKey);
+            $scope.projectTitle = snapshot.val().pName;
+            $scope.$apply(); //TODO: is this efficient? find another way
         }
     });
 

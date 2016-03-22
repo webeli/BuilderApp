@@ -57,3 +57,11 @@ ul.builder-account-menu {
 /*
 MAIN
 */
+.builder-title {
+    text-align:center;
+    margin-left:45%; /* TODO: find a better way */
+    margin-top:10px;
+    //font-weight:bold;
+    text-transform:uppercase;
+    display:inline-block;
+}
