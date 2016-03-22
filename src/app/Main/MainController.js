@@ -1,12 +1,14 @@
-app.controller('MainController', function($scope, FireRef, $stateParams) {
-    $scope.pId = $stateParams.projectId;
-    console.log($stateParams.projectId);
+app.controller('MainController', function($scope, FireRef, $stateParams, $state) {
     console.log("MainController");
 
     var projectRef = FireRef.child($stateParams.projectId);
     projectRef.once("value", function(snapshot) {
         var a = snapshot.exists();
-        console.log(a);
+        if (a === false) {
+            $state.go("landing");
+        } else {
+            console.log(a);
+        }
     });
 
 });

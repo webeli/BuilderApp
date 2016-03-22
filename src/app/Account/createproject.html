@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-md-12">
-        <form>
-            <div class="form-group">
-                <h4>Create project</h4>
-                <input ng-model="projectName" type="text" class="form-control" id="projectId" placeholder="Project Name">
-                <button ng-click="createProject(projectName)" type="button" class="btn btn-default">Go</button>
-            </div>
-        </form>
+    <div class="col-md-5">
+        <h4>Create Project</h4>
+        <div class="input-group">
+            <input ng-model="projectName" type="text" class="form-control" placeholder="Enter project name">
+            <span class="input-group-btn">
+                <button ng-click="createProject(projectName)" class="btn btn-default" type="button">Create</button>
+            </span>
+        </div>
     </div>
 </div>

@@ -46,6 +46,11 @@ ul.builder-account-menu {
     background:#EAEAEA;
     cursor:pointer;
 }
+
+.builder-account-list.list-group li:hover {
+    background:#EAEAEA;
+    cursor:pointer;
+}
 /*
 MAIN
 */
