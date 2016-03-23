@@ -20,7 +20,7 @@ AngularFire 1.1.4
 
 Bootstrap 3.3.6
 
-**Reminder**
+**Reminders**
 
 git status
 
