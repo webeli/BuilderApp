@@ -1,4 +1,4 @@
-app.controller('MainController', function($scope, FireRef, $stateParams, $state, $firebaseArray) {
+app.controller('MainController', function($scope, FireRef, $stateParams, $state) {
     console.log("MainController");
 
     var projectRef = FireRef.child($stateParams.projectKey);
