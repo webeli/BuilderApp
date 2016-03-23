@@ -4,7 +4,12 @@
     <li role="presentation"><a ui-sref="landing">Home</a></li>
 </ul>
 <div class="row">
-    <div class="col-md-3">Categories</div>
+    <div class="col-md-3">
+        Categories
+        <div ng-repeat="value in values">
+            {{value.category}} - {{value.value}}
+        </div>
+    </div>
     <div class="col-md-6">Content</div>
     <div class="col-md-3">Checklist</div>
 </div>

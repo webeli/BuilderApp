@@ -1,7 +1,8 @@
-app.controller('MainController', function($scope, FireRef, $stateParams, $state) {
-    console.log("MainController");
+app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseObject) {
+    console.log("ProjectController");
 
     var projectRef = FireRef.child($stateParams.projectKey);
+
     projectRef.once("value", function(snapshot) {
         var projectKey = snapshot.exists();
         if (projectKey === false) {
@@ -11,5 +12,9 @@ app.controller('MainController', function($scope, FireRef, $stateParams, $state)
             $scope.$apply(); //TODO: is this efficient? find another way
         }
     });
+
+    var values = $firebaseObject(FireRef.child($stateParams.projectKey).child("categories"));
+    console.log(values);
+    $scope.values = values;
 
 });

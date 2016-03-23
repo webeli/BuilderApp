@@ -9,8 +9,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('project', {
             url: '/project/:projectKey',
-            templateUrl: './src/app/Main/main.html',
-            controller: 'MainController'
+            templateUrl: './src/app/Project/project.html',
+            controller: 'ProjectController'
         })
         .state('account', {
             url: '/account/',
@@ -19,13 +19,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
             .state('account.myprojects', {
                 url: 'my-projects/',
-                templateUrl: './src/app/Account/myprojects.html',
+                templateUrl: './src/app/Account/MyProject/myprojects.html',
                 controller: 'AccountController'
             })
             .state('account.createproject', {
                 url: 'create-project/',
-                templateUrl: './src/app/Account/createproject.html',
+                templateUrl: './src/app/Account/CreateProject/createproject.html',
                 controller: 'AccountController'
+            })
+            .state('account.editproject', {
+                url: 'edit-project/:projectKey',
+                templateUrl: './src/app/Account/Edit/editproject.html',
+                controller: 'AccountEditController'
             });
 
     $urlRouterProvider.otherwise('/landing/');
