@@ -1,8 +1,69 @@
-<h4>Edit Project</h4>
-<input ng-model="data.category" type="text" class="form-control" placeholder="Category">
-<input ng-model="data.value" type="text" class="form-control" placeholder="Value">
-<button ng-click="editSave(data)"class="btn btn-default">Save</button>
 
-<div ng-repeat="key in keys">
-    <p>{{key}}</p>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <h4>Edit Project</h4>
+        <input ng-model="data.category" type="text" class="form-control" placeholder="Category">
+        <input ng-model="data.value" type="text" class="form-control" placeholder="Value">
+        <button ng-click="editSave(data)"class="btn btn-default">Save</button>
+
+        <hr>
+
+        <div ng-repeat="key in categories">
+            <p>{{key.category}}</p>
+            <p>{{key.value}}</p>
+
+            <button ng-click="selectCategory(key)"class="btn btn-default">select</button>
+        </div>
+        <hr>
+
+
+
+
+        <div ng-if="selected">
+            <h1>{{ selected.category }}</h1>
+            <h4>Edit Category</h4>
+            <input ng-model="selected.category" type="text" class="form-control" placeholder="Category">
+            <input ng-model="selected.value" type="text" class="form-control" placeholder="Value">
+            <button ng-click="saveCat(selected)"class="btn btn-default">Save</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="asd">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+
+            <h1>{{ selected.category }}</h1>
+            <h4>Edit Category</h4>
+            <input ng-model="selected.category" type="text" class="form-control" placeholder="Category">
+            <input ng-model="selected.value" type="text" class="form-control" placeholder="Value">
+            <button ng-click="debug(selected)"class="btn btn-default">Save</button>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <button type="button" class="btn btn-default" ng-click="test()">Open me!</button>
 </div>

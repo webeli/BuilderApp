@@ -1,4 +1,4 @@
-app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseObject) {
+app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $uibModal) {
     console.log("AccountEditController");
     var projectKey = $stateParams.projectKey;
 
@@ -14,8 +14,28 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         //projectRef.push({test: data});
     }
 
-    var keys = $firebaseObject(FireRef.child(projectKey).child("categories"));
-    console.log(keys);
-    $scope.keys = keys;
+    //kommentar
+    $scope.saveCategory = function() {
+        //
+    }
+
+    $scope.debug = function(data) {
+        debugger;
+    }
+
+    $scope.selectCategory = function(data) {
+        $scope.selected = data;
+        //var modalInstance = $uibModal.open({templateUrl: 'myModalContent.html'});
+
+    }
+
+    $scope.test = function () {
+        var modalInstance = $uibModal.open({templateUrl: 'myModalContent.html', controller: 'AccountEditController'});
+    }
+
+    var categories = $firebaseArray(FireRef.child(projectKey).child("categories"));
+
+    $scope.categories = categories;
+
 
 });
