@@ -19,11 +19,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
             .state('account.myprojects', {
                 url: 'my-projects/',
-                templateUrl: './src/app/Account/myprojects.html'
+                templateUrl: './src/app/Account/myprojects.html',
+                controller: 'AccountController'
             })
             .state('account.createproject', {
                 url: 'create-project/',
-                templateUrl: './src/app/Account/createproject.html'
+                templateUrl: './src/app/Account/createproject.html',
+                controller: 'AccountController'
             });
 
     $urlRouterProvider.otherwise('/landing/');
