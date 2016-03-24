@@ -31,3 +31,11 @@ git commit -m "message"
 git push -u origin master
 
 git push
+
+**File Name Styles (In "app" folder)**
+
+Folders: PascalCase ex. CreateProject
+
+JS Files: PascalCase ex. AccountController.js
+
+HTML/CSS files: underscore ex. createproject.html / styles.css
