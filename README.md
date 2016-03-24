@@ -12,13 +12,17 @@ http-server
 
 Angular 1.5.2
 
+AngularFire 1.1.4
+
 Angular UI Router 0.2.18
+
+Angular UI Bootstrap 1.2.5
+
+Bootstrap 3.3.6
 
 Firebase 2.4.1
 
-AngularFire 1.1.4
-
-Bootstrap 3.3.6
+jQuery 2.2.2
 
 **Reminders**
 
