@@ -1,8 +1,5 @@
-
-
 <div class="row">
     <div class="col-md-4">
-
         <h4>Edit Project</h4>
         <input ng-model="data.category" type="text" class="form-control" placeholder="Category">
         <input ng-model="data.value" type="text" class="form-control" placeholder="Value">
@@ -16,10 +13,8 @@
 
             <button ng-click="selectCategory(key)"class="btn btn-default">select</button>
         </div>
+
         <hr>
-
-
-
 
         <div ng-if="selected">
             <h1>{{ selected.category }}</h1>
@@ -30,20 +25,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <div id="asd">
     <script type="text/ng-template" id="myModalContent.html">
@@ -64,6 +45,5 @@
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
-
     <button type="button" class="btn btn-default" ng-click="test()">Open me!</button>
 </div>
