@@ -9,9 +9,7 @@ body {
 .nav-tabs>li {
     float:right;
 }
-.row {
-    margin-right:0;
-}
+
 /*
 LANDING
 */
@@ -35,6 +33,7 @@ ACCOUNT
 ul.builder-account-menu {
     padding:0;
     border-right:1px solid #CCC;
+    border-left:1px solid #CCC;
     color:#337ab7;
 }
 .builder-account-menu li {
