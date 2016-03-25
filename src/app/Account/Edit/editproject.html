@@ -2,14 +2,14 @@
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="">
-                    <button class="btn btn-sm btn-default" ng-click="addCategory()"> + Add Category </button>
-                </div>
+                <button class="btn btn-sm btn-default" ng-click="addCategory()"> + Add Category </button>
             </div>
         </div>
 
         <p></p>
-
+        <span ng-if="!categories.length > 0">
+            <img src="../src/loader.gif">
+        </span>
         <div class="panel-group" id="accordion">
 
             <div class="panel panel-default" ng-repeat="category in categories" ng-click="getItems(category.$id)">
@@ -18,6 +18,7 @@
                         <a >
                             {{category.title}}
                         </a>
+                        <button class="btn btn-xs btn-success pull-right" ng-click="addItem(category.$id)"> + Add Item </button>
                     </h4>
                 </div>
                 <div id="c-{{$index}}" class="panel-collapse collapse">

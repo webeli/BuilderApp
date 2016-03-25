@@ -20,6 +20,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     // Starting $scope variables
     $scope.oneAtATime = true;
     $scope.categories = projectCategoryArray;
+    $scope.loddar = true;
 
     // Add category
     $scope.addCategory = function () {
@@ -39,6 +40,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         categoryItemsRef.set({title: data, key: categoryItemsKey});
         projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(true);
 
+        $scope.getItems(id);
     };
 
     // Get category items
@@ -66,7 +68,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     $scope.enterCategoryItem = function(key) {
-        
+
         console.log(key);
     };
 
