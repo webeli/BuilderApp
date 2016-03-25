@@ -59,7 +59,14 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         var itemOptionsKey = itemOptionsRef.key();
 
         // Add reference key to category and data to categoryItems node
-        itemOptionsRef.set({title: data, key: itemOptionsKey, price: 0, bool: false, desc: ''});
+        itemOptionsRef.set({
+            title: data,
+            key: itemOptionsKey,
+            price: 0,
+            default: false,
+            desc: '',
+            active: true
+        });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
     }
 
@@ -128,9 +135,15 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     $scope.saveOptionItem = function(item, menuRef) {
-
+        console.log(item.active);
         var myRef = projectItemOptionsRef.child(item.key);
-        myRef.update({title: item.title, price: item.price, bool: item.bool, desc: item.desc}, onComplete());
+        myRef.update({
+            title: item.title,
+            price: item.price,
+            default: item.default,
+            desc: item.desc,
+            active: item.active
+        }, onComplete());
 
         function onComplete() {
             console.log("complete");

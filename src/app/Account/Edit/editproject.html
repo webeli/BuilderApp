@@ -50,13 +50,12 @@
 
         <div class="panel-group" id="accordian1">
 
-            <div class="panel panel-default accordion-toggle" ng-repeat="item in itemOptions">
+            <div ng-class="{'panel-default': item.active, 'panel-warning': !item.active}" class="panel accordion-toggle" ng-repeat="item in itemOptions">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}">
                     <h4 class="panel-title">
-                        <img src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{item.title}}.png" width="32px" alt="">
-                        <a>
-                            {{item.title}}
-                        </a>
+                        <img ng-if="imgCategory && imgItem" src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{item.title}}.png" width="32px" alt="">
+                        <a>{{item.title}}</a>
+                        <span ng-if="item.default" class="label label-default">Standard</span>
                         <span class="pull-right">{{item.price}}:-</span>
                     </h4>
                 </div>
@@ -66,16 +65,24 @@
                         <form class="form-horizontal">
 
                             <div class="form-group">
+
+                                <label class="control-label">Active</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-checked="item.active" ng-model="item.active">Ja
+                                    </label>
+                                </div>
+
                                 <label class="control-label">Title</label>
                                 <input type="text" class="form-control" placeholder="Title" ng-model="item.title">
 
                                 <label class="control-label">Price</label>
                                 <input type="number" class="form-control" placeholder="Price" ng-model="item.price">
 
-                                <label class="control-label">Bool</label>
+                                <label class="control-label">Förvald?</label>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-checked="item.bool">Ja
+                                        <input type="checkbox" ng-checked="item.default" ng-model="item.default">Ja
                                     </label>
                                 </div>
 
