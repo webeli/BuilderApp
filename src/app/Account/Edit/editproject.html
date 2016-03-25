@@ -8,12 +8,11 @@
         <p></p>
 
             <uib-accordion close-others="oneAtATime">
-                <uib-accordion-group heading="{{category.title}}" ng-repeat="category in categories">
-
+                <uib-accordion-group heading="{{category.title}}" ng-repeat="category in categories" ng-click="getItems(category.$id)">
                     <button ng-click="addItem(category.$id)" class="btn btn-sm btn-default">+ Add item</button>
                     <p></p>
 
-                    <div ng-repeat="item in category.items">
+                    <div ng-repeat="item in categoryItems">
 
 
 
@@ -33,7 +32,7 @@
 
     </div>
     <div class="col-md-6">
-        2
+
     </div>
 </div>
 
