@@ -59,7 +59,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         var itemOptionsKey = itemOptionsRef.key();
 
         // Add reference key to category and data to categoryItems node
-        itemOptionsRef.set({title: data, key: itemOptionsKey, price: '1337', bool: true, desc: 'lorem ipsum'});
+        itemOptionsRef.set({title: data, key: itemOptionsKey, price: 0, bool: false, desc: ''});
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
     }
 
@@ -88,12 +88,14 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     // Get the options for an item
-    $scope.getOptions = function(key) {
+    $scope.getOptions = function(item, categoryName) {
         // Store data as object and use in scope
+        $scope.imgCategory = categoryName;
+        $scope.imgItem = item.title;
         $scope.itemOptions = {};
 
         // Get all category item keys
-        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(key).child("refs");
+        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(item.key).child("refs");
 
         // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
         categoryItemKeyRefs.on('child_added', function(snapshot) {
@@ -111,9 +113,9 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         });
     };
 
-    $scope.enterCategoryItem = function(key) {
+    $scope.enterCategoryItem = function(item, categoryName) {
 
-        var ref = projectCategoryItemsRef.child(key);
+        var ref = projectCategoryItemsRef.child(item.key);
 
         // Attach an asynchronous callback to read the data at our posts reference
         ref.on("value", function(snapshot) {
@@ -122,7 +124,17 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             console.log("The read failed: " + errorObject.code);
         });
 
-        $scope.getOptions(key);
+        $scope.getOptions(item, categoryName);
     };
+
+    $scope.saveOptionItem = function(item, menuRef) {
+
+        var myRef = projectItemOptionsRef.child(item.key);
+        myRef.update({title: item.title, price: item.price, bool: item.bool, desc: item.desc}, onComplete());
+
+        function onComplete() {
+            console.log("complete");
+        };
+    }
 
 });
