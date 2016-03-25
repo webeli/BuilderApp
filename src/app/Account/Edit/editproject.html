@@ -18,7 +18,7 @@
                 <div ng-repeat="item in categoryItems">
                     <label>{{item.title}}</label><br>
                     <button class="btn btn-xs btn-danger">Delete</button>
-                    <button ng-click="enterCategoryItem()" class="btn btn-xs btn-primary">Enter</button>
+                    <button ng-click="enterCategoryItem(item.key)" class="btn btn-xs btn-primary">Enter</button>
                     <hr ng-if="!$last">
                 </div>
             </uib-accordion-group>
