@@ -1,44 +1,31 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-default" ng-click="addCategory()"> + Add Category </button>
+                <div class="">
+                    <button class="btn btn-sm btn-default" ng-click="addCategory()"> + Add Category </button>
+                </div>
             </div>
         </div>
+
         <p></p>
 
-            <uib-accordion close-others="oneAtATime">
-                <uib-accordion-group heading="{{category.title}}" ng-repeat="category in categories" ng-click="getItems(category.$id)">
-                    <button ng-click="addItem(category.$id)" class="btn btn-sm btn-default">+ Add item</button>
-                    <p></p>
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group template-url="./src/app/Account/Edit/accordion-group.html" panel-class="panel-default" heading="{{category.title}}" ng-repeat="category in categories" ng-click="getItems(category.$id)">
+                <button ng-click="addItem(category.$id)" class="btn btn-sm btn-default">+ Add item</button>
+                <p></p>
 
-                    <div ng-repeat="item in categoryItems">
-
-
-
-                        <label>{{item.title}}</label><br>
-                        <button class="btn btn-xs btn-danger">Delete</button> <button class="btn btn-xs btn-default">Edit</button> <button class="btn btn-xs btn-primary">Save</button>
-
-                        <div ng-if="!$last">
-                            <hr>
-                        </div>
-                    </div>
-
-
-
-                </uib-accordion-group>
-            </uib-accordion>
-
-
+                <div ng-repeat="item in categoryItems">
+                    <label>{{item.title}}</label><br>
+                    <button class="btn btn-xs btn-danger">Delete</button>
+                    <button ng-click="enterCategoryItem()" class="btn btn-xs btn-primary">Enter</button>
+                    <hr ng-if="!$last">
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
     </div>
-    <div class="col-md-6">
+
+    <div class="col-md-3">
 
     </div>
 </div>
-
-
-
-
-<script type="text/ng-template" id="edit-buttons.html">
-    <button>En knapp</button>
-</script>
