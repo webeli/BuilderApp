@@ -11,8 +11,8 @@
         </span>
 
         <div class="panel-group" id="accordion">
-            <div class="panel panel-default" ng-repeat="category in categories" ng-click="getItems(category.$id)">
-                <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#c-{{$index}}">
+            <div class="panel panel-default" ng-repeat="category in categories" >
+                <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" ng-click="getItems(category.$id)" href="#c-{{$index}}">
                     <h4 class="panel-title pull-left">
                         {{category.title}}
                     </h4>
@@ -32,9 +32,62 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3" ng-if="selectedItem">
 
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-sm btn-success margin-b-10" ng-click="addOption(selectedItem.key)"> + Add Option </button>
+            </div>
+        </div>
 
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a >
+                    {{selectedItem.title}}
+                </a>
+            </h4>
+        </div>
+
+        <div class="panel-group" id="accordian1">
+
+            <div class="panel panel-default accordion-toggle" ng-repeat="itemOption in itemOptions">
+                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#oc-{{$index}}">
+                    <h4 class="panel-title">
+                        <a >
+                            {{itemOption.title}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="oc-{{$index}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="control-label">Title</label>
+                                <input type="text" class="form-control" placeholder="Title" value="{{itemOption.title}}">
+
+                                <label class="control-label">Price</label>
+                                <input type="number" class="form-control" placeholder="Price" value="{{itemOption.price}}">
+
+                                <label class="control-label">Bool</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-checked="itemOption.bool">Ja
+                                    </label>
+                                </div>
+
+                                <label class="control-label">Description</label>
+                                <textarea class="form-control" rows="3" placeholder="Info om">{{itemOption.desc}}</textarea>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>

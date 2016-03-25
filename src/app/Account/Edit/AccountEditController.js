@@ -39,7 +39,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         });
     };
 
-    // Add category item
+    // Adds a category to the project
     $scope.addItem = function (id) {
         var data = prompt("Ange något");
         var categoryItemsRef = projectCategoryItemsRef.push();
@@ -52,7 +52,18 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         $scope.getItems(id);
     };
 
-    // Get category items
+    //Adds a option to an item
+    $scope.addOption = function (id) {
+        var data = prompt("Ange något");
+        var itemOptionsRef = projectItemOptionsRef.push();
+        var itemOptionsKey = itemOptionsRef.key();
+
+        // Add reference key to category and data to categoryItems node
+        itemOptionsRef.set({title: data, key: itemOptionsKey, price: '1337', bool: true, desc: 'lorem ipsum'});
+        projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
+    }
+
+    // Gets the items in a category
     $scope.getItems = function(key) {
         // Store data as object and use in scope
         $scope.categoryItems = {};
@@ -76,9 +87,42 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         });
     };
 
+    // Get the options for an item
+    $scope.getOptions = function(key) {
+        // Store data as object and use in scope
+        $scope.itemOptions = {};
+
+        // Get all category item keys
+        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(key).child("refs");
+
+        // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
+        categoryItemKeyRefs.on('child_added', function(snapshot) {
+            var itemKey = snapshot.key();
+            projectItemOptionsRef.child(itemKey).on('value', function(snapshot) {
+                $timeout(function() {
+                    if( snapshot.val() === null ) {
+                        delete $scope.itemOptions[itemKey];
+                    }
+                    else {
+                        $scope.itemOptions[itemKey] = snapshot.val();
+                    }
+                });
+            });
+        });
+    };
+
     $scope.enterCategoryItem = function(key) {
 
-        console.log(key);
+        var ref = projectCategoryItemsRef.child(key);
+
+        // Attach an asynchronous callback to read the data at our posts reference
+        ref.on("value", function(snapshot) {
+            $scope.selectedItem = snapshot.val();
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+        $scope.getOptions(key);
     };
 
 });
