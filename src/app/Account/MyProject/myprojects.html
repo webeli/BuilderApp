@@ -2,11 +2,21 @@
 <ul class="builder-account-list list-group" ng-repeat="project in myProjects">
     <li class="list-group-item">
         <p class="builder-link" ui-sref="project({projectKey: project.$id})">{{project.pName}} - Key: {{project.$id}}</p>
-        <button ng-click="deleteProject(project.$id)" class="btn btn-danger">Delete</button>
-        <button class="btn btn-default">Copy Link</button>
-        <button class="btn btn-default">Copy Key</button>
-        <button class="btn btn-default">Share</button>
-        <button class="btn btn-primary" ui-sref="project({projectKey: project.$id})">Enter</button>
-        <button class="btn btn-default" ui-sref="account.editproject({projectKey: project.$id})">Edit</button>
+        <div class="btn-group-sm">
+            <button ng-click="deleteProject(project.$id)" class="btn btn-danger">Delete</button>
+
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Share
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Copy Link</a></li>
+                <li><a href="#">Copy Key</a></li>
+                <li><a href="#">Send Email</a></li>
+            </ul>
+
+            <button class="btn btn-info" ui-sref="account.editproject({projectKey: project.$id})">Edit</button>
+            <button class="btn btn-primary" ui-sref="project({projectKey: project.$id})">Open</button>
+        </div>
     </li>
 </ul>

@@ -1,7 +1,16 @@
-app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $uibModal, $timeout) {
+app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $timeout, $state) {
     console.log("AccountEditController");
 
     var projectKey = $stateParams.projectKey;
+    var projectRef = FireRef.child($stateParams.projectKey);
+
+    // Check if project exists, else go to my-projects
+    projectRef.once("value", function(snapshot) {
+        var projectKey = snapshot.exists();
+        if (projectKey === false) {
+            $state.go("account.myprojects");
+        }
+    });
 
     // Base ref for project
     var FireProjectRef = FireRef.child(projectKey);
