@@ -10,22 +10,30 @@
 
         <p></p>
 
-        <uib-accordion close-others="oneAtATime">
-            <uib-accordion-group template-url="./src/app/Account/Edit/accordion-group.html" panel-class="panel-default" heading="{{category.title}}" ng-repeat="category in categories" ng-click="getItems(category.$id)">
-                <button ng-click="addItem(category.$id)" class="btn btn-sm btn-default">+ Add item</button>
-                <p></p>
+        <div class="panel-group" id="accordion">
 
-                <div ng-repeat="item in categoryItems">
-                    <label>{{item.title}}</label><br>
-                    <button class="btn btn-xs btn-danger">Delete</button>
-                    <button ng-click="enterCategoryItem(item.key)" class="btn btn-xs btn-primary">Enter</button>
-                    <hr ng-if="!$last">
+            <div class="panel panel-default" ng-repeat="category in categories" ng-click="getItems(category.$id)">
+                <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#c-{{$index}}">
+                    <h4 class="panel-title">
+                        <a >
+                            {{category.title}}
+                        </a>
+                    </h4>
                 </div>
-            </uib-accordion-group>
-        </uib-accordion>
+                <div id="c-{{$index}}" class="panel-collapse collapse">
+                    <div class="panel-body" ng-repeat="item in categoryItems">
+                        <label>{{item.title}}</label><br>
+                        <button class="btn btn-xs btn-danger">Delete</button>
+                        <button ng-click="enterCategoryItem(item.key)" class="btn btn-xs btn-primary">Enter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-3">
+
+
 
     </div>
 </div>

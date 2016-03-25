@@ -66,6 +66,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     $scope.enterCategoryItem = function(key) {
+        
         console.log(key);
     };
 
