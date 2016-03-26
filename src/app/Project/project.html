@@ -3,11 +3,11 @@
     <li role="presentation"><a ui-sref="account.myprojects">Account</a></li>
     <li role="presentation"><a ui-sref="landing">Home</a></li>
 </ul>
-<div class="row">
+<div class="row margin-t-10">
     <div class="col-md-3">
 
         <div id="leftSelect" ng-repeat="category in completeArray.Categories">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
 
                 <div class="panel-heading">
                     <h3 class="panel-title">{{category.Category.title}}</h3>
@@ -34,7 +34,7 @@
 
                         <p>
                         <div class="card-footer text-muted">
-                            <button class="btn btn-primary">Välj denna</button>
+                            <button class="btn btn-default">Välj denna</button>
                             <span class="pull-right">Pris: {{option.price}}</span>
                         </div>
                         </p>
