@@ -38,6 +38,8 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
         return total;
     };
 
+    // TODO:
+    //detta är inte en array,det är ett objekt med en array i.
     $scope.completeArray = {Categories: []};
 
     FireProjectRef.child("categories").once("value", function(snapshot) {
