@@ -18,38 +18,46 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     });
 
 
+    $scope.pick = function (itemOption, cat) {
+        itemOption.chosen = true;
+        cat.selectedOption = itemOption;
+    };
 
+    $scope.getTotal = function(){
+        var total = 0;
+        for(var i = 0; i < $scope.completeArray.Categories.length; i++){
+            for(var j = 0; j < $scope.completeArray.Categories[i].Items.length; j++){
+
+                var item = $scope.completeArray.Categories[i].Items[j];
+                if (item.selectedOption)
+                {
+                    total += item.selectedOption.price;
+                }
+            }
+        }
+        return total;
+    };
 
     $scope.completeArray = {Categories: []};
 
-
     FireProjectRef.child("categories").once("value", function(snapshot) {
-        // The callback function will get called twice, once for "fred" and once for "barney"
 
         snapshot.forEach(function(childSnapshot) {
 
-            // key will be "fred" the first time and "barney" the second time
             var key = childSnapshot.key();
-            // childData will be the actual contents of the child
             var childData = childSnapshot.val();
-
-
             var tempArray = [];
 
             FireProjectRef.child("categories").child(key).child("refs").once("value", function(snapshot) {
 
                 snapshot.forEach(function(childSnapshot) {
+
                     var key = childSnapshot.key();
+                    var categoryItemRef = FireRef.child($stateParams.projectKey).child("categoryItems").child(key);
 
-                    var test = FireRef.child($stateParams.projectKey).child("categoryItems").child(key);
-
-                    test.once("value", function(snap) {
+                    categoryItemRef.once("value", function(snap) {
                         tempArray.push(snap.val());
                     });
-
-
-                    //var key = snapshot.val();
-                    //console.log(key);
 
                 });
             });
@@ -61,14 +69,15 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     });
 
     // Get the options for an item
-    $scope.getOptions = function(key, categoryName, itemName) {
+    $scope.getOptions = function(categoryName, item) {
         // Store data as object and use in scope
+        $scope.currentCat = item;
         $scope.imgCategory = categoryName;
-        $scope.imgItem = itemName;
+        $scope.imgItem = item.title;
         $scope.itemOptions = {};
 
         // Get all category item keys
-        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(key).child("refs");
+        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(item.key).child("refs");
 
         // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
         categoryItemKeyRefs.on('child_added', function(snapshot) {
@@ -96,9 +105,24 @@ app.filter('onlyActive', function () {
             if (value.active === true) {
                 result.push(value);
             }
-
         });
         return result;
-
     }
+});
+
+app.directive('checkImage', function($http) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            attrs.$observe('ngSrc', function(ngSrc) {
+
+                $http.get(ngSrc).success(function(){
+                    console.log('image exist');
+                }).error(function(){
+                    console.log('image does not exist');
+                    //element.attr('src', 'http://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg'); // set default image
+                });
+            });
+        }
+    };
 });

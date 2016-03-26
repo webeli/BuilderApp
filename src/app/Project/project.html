@@ -13,7 +13,7 @@
                     <h3 class="panel-title">{{category.Category.title}}</h3>
                 </div>
                 <ul class="list-group" ng-repeat="item in category.Items">
-                    <a href="" ng-click="getOptions(item.key, category.Category.title, item.title)" class="list-group-item">{{item.title}}</a>
+                    <a href="" ng-click="getOptions(category.Category.title, item)" class="list-group-item">{{item.title}}</a>
                 </ul>
             </div>
         </div>
@@ -24,19 +24,22 @@
 
     <div class="col-md-7">
 
+
+
         <div class="row">
             <div class="col-sm-4" ng-repeat="option in itemOptions | onlyActive">
+
                 <div class="panel panel-default">
-                    <div class="panel-thumbnail"><img src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
+                    <div class="panel-thumbnail"><img check-image ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
                     <div class="panel-body">
                         <p class="lead">{{option.title}}</p>
                         <p>{{option.desc}}</p>
 
                         <p>
-                        <div class="card-footer text-muted">
-                            <button class="btn btn-default">Välj denna</button>
-                            <span class="pull-right">Pris: {{option.price}}</span>
-                        </div>
+                            <div class="card-footer text-muted">
+                                <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-success':('btn-default')" ng-click="pick(option, currentCat)">Välj denna</button>
+                                <span class="pull-right">Pris: {{option.price}}</span>
+                            </div>
                         </p>
                     </div>
                 </div>
@@ -46,5 +49,20 @@
 
     </div>
 
-    <div class="col-md-2">Checklist</div>
+    <div class="col-md-2">
+        <h3>Sammanfattning</h3>
+        <ul class="list-group" ng-repeat="category in completeArray.Categories">
+            <li class="list-group-item" ng-repeat="item in category.Items">
+                <label>{{item.title}}: </label><span> {{item.selectedOption.title}}</span> <span class="pull-right">{{item.selectedOption.price}}</span>
+            </li>
+        </ul>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <label>Total: </label><span class="pull-right">{{getTotal()}}</span>
+            </li>
+        </ul>
+
+
+    </div>
 </div>
