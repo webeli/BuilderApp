@@ -68,7 +68,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             active: true
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
-    }
+    };
 
     // Gets the items in a category
     $scope.getItems = function(key) {

@@ -6,7 +6,6 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     // Base ref for project
     var FireProjectRef = FireRef.child(projectKey);
 
-
     FireProjectRef.once("value", function(snapshot) {
         var projectKey = snapshot.exists();
         if (projectKey === false) {
@@ -16,7 +15,6 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
             $scope.$apply(); //TODO: is this efficient? find another way
         }
     });
-
 
     $scope.pick = function (itemOption, cat) {
         itemOption.chosen = true;
@@ -95,36 +93,5 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
                 });
             });
         });
-    };
-});
-
-//Show only active ones
-app.filter('onlyActive', function () {
-    return function (items) {
-        var result = [];
-        angular.forEach(items, function (value, key) {
-
-            if (value.active === true) {
-                result.push(value);
-            }
-        });
-        return result;
-    }
-});
-
-app.directive('checkImage', function($http) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            attrs.$observe('ngSrc', function(ngSrc) {
-
-                $http.get(ngSrc).success(function(){
-                    console.log('image exist');
-                }).error(function(){
-                    console.log('image does not exist');
-                    //element.attr('src', 'http://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg'); // set default image
-                });
-            });
-        }
     };
 });
