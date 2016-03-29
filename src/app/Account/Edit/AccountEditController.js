@@ -16,15 +16,12 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     var FireProjectRef = FireRef.child(projectKey);
 
     // Firebase references
-    // ex: var valueRef = new Firebase("https://100meter.firebaseio.com/").child("value");
     var projectCategoryRef = FireProjectRef.child("categories");
     var projectCategoryItemsRef = FireProjectRef.child("categoryItems");
     var projectItemOptionsRef = FireProjectRef.child("itemOptions");
 
-    // Get as array
+    // Get as firebaseArray
     var projectCategoryArray = $firebaseArray(FireProjectRef.child("categories"));
-    var projectCategoryItemsArray = $firebaseArray(FireProjectRef.child("categoryItems"));
-    var projectItemOptionsArray = $firebaseArray(FireProjectRef.child("itemOptions"));
 
     // Starting $scope variables
     $scope.oneAtATime = true;
@@ -48,11 +45,9 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         // Add reference key to category and data to categoryItems node
         categoryItemsRef.set({title: data, key: categoryItemsKey});
         projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(true);
-
-        $scope.getItems(id);
     };
 
-    //Adds a option to an item
+    // Adds an option to an item
     $scope.addOption = function (id) {
         var data = prompt("Ange något");
         var itemOptionsRef = projectItemOptionsRef.push();
@@ -68,6 +63,18 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             active: true
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
+    };
+
+    // Enter category item
+    $scope.enterCategoryItem = function(item, categoryName) {
+        var ref = projectCategoryItemsRef.child(item.key);
+        ref.on("value", function(snapshot) {
+            $scope.selectedItem = snapshot.val();
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+        $scope.getOptions(item, categoryName);
     };
 
     // Gets the items in a category
@@ -120,22 +127,8 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         });
     };
 
-    $scope.enterCategoryItem = function(item, categoryName) {
-
-        var ref = projectCategoryItemsRef.child(item.key);
-
-        // Attach an asynchronous callback to read the data at our posts reference
-        ref.on("value", function(snapshot) {
-            $scope.selectedItem = snapshot.val();
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-
-        $scope.getOptions(item, categoryName);
-    };
-
+    // Save option item
     $scope.saveOptionItem = function(item, menuRef) {
-        console.log(item.active);
         var myRef = projectItemOptionsRef.child(item.key);
         myRef.update({
             title: item.title,
