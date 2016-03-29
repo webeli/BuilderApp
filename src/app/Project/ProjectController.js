@@ -12,7 +12,6 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
             $state.go("landing");
         } else {
             $scope.projectTitle = snapshot.val().pName;
-            $scope.$apply(); //TODO: is this efficient? find another way
         }
     });
 
@@ -37,7 +36,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     };
 
     // TODO:
-    //detta är inte en array,det är ett objekt med en array i.
+    // Need to solve this in a diffrent way (creating an issue when reloading the page).
     $scope.completeArray = {Categories: []};
 
     FireProjectRef.child("categories").once("value", function(snapshot) {
