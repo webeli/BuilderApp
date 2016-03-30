@@ -18,21 +18,27 @@
     </div>
     <div class="col-md-8">
         <div class="row">
-            <div class="col-sm-3" ng-repeat="option in itemOptions | onlyActive">
-                <div class="panel panel-default">
-                    <div class="panel-thumbnail"><img check-image ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
-                    <div class="panel-body">
-                        <p class="lead">{{option.title}}</p>
-                        <p>{{option.desc}}</p>
-                        <p>
-                            <div class="card-footer text-muted">
-                                <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-builder-active':('btn-builder')" ng-click="pick(option, currentCat)">Välj denna</button>
-                                <span class="pull-right">Pris: {{option.price}}</span>
-                            </div>
-                        </p>
+            <div ng-repeat="option in itemOptions | onlyActive">
+
+                <div class="clearfix" ng-if="$index % 4 == 0"></div>
+
+                <div class="col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-thumbnail"><img check-image ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
+                        <div class="panel-body">
+                            <p class="lead">{{option.title}}</p>
+                            <p>{{option.desc}}</p>
+                            <p>
+                                <div class="card-footer text-muted">
+                                    <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-builder-active':('btn-builder')" ng-click="pick(option, currentCat)">Välj denna</button>
+                                    <span class="pull-right">Pris: {{option.price}}</span>
+                                </div>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </div><!--/col-->
+                </div><!--/col-->
+
+            </div><!--/ng-repeat-->
         </div><!--/row-->
     </div>
     <div class="col-md-2">

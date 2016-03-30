@@ -3,6 +3,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
 
     // KEY
     var projectKey = $stateParams.projectKey;
+    console.log($stateParams.projectKey);
     // Base ref for project
     var FireProjectRef = FireRef.child(projectKey);
 
