@@ -6,6 +6,29 @@ body {
     padding:0;
     margin:0;
 }
+.btn-builder {
+    background:#26b6b4;
+    color:#FFF;
+}
+.btn-builder:hover {
+    color:#FFF;
+    background:#26b6b4;
+}
+.btn-builder-active {
+    background:#1C6C6A;
+    color:#FFF!important;
+}
+
+/*
+BOOTSTRAP OVERWRITES
+*/
+* {
+    border-radius:0px!important;
+}
+.panel-default>.panel-heading {
+    background-color:#26b6b4;
+    color:#FFF;
+}
 .nav-tabs>li {
     float:right;
 }
@@ -29,6 +52,13 @@ body {
 .ng-leave-stagger {
     transition-delay:0.05s;
 }
+/*
+PROJECT
+*/
+.builder-list {
+    margin:5px 15px;
+}
+
 /*
 LANDING
 */

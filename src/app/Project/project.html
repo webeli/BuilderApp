@@ -4,10 +4,9 @@
     <li role="presentation"><a ui-sref="landing">Home</a></li>
 </ul>
 <div class="row margin-t-10">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div id="leftSelect" ng-repeat="category in completeArray.Categories">
             <div class="panel panel-default">
-
                 <div class="panel-heading">
                     <h3 class="panel-title">{{category.Category.title}}</h3>
                 </div>
@@ -17,9 +16,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="row">
-            <div class="col-sm-4" ng-repeat="option in itemOptions | onlyActive">
+            <div class="col-sm-3" ng-repeat="option in itemOptions | onlyActive">
                 <div class="panel panel-default">
                     <div class="panel-thumbnail"><img check-image ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
                     <div class="panel-body">
@@ -27,7 +26,7 @@
                         <p>{{option.desc}}</p>
                         <p>
                             <div class="card-footer text-muted">
-                                <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-success':('btn-default')" ng-click="pick(option, currentCat)">Välj denna</button>
+                                <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-builder-active':('btn-builder')" ng-click="pick(option, currentCat)">Välj denna</button>
                                 <span class="pull-right">Pris: {{option.price}}</span>
                             </div>
                         </p>
@@ -37,16 +36,20 @@
         </div><!--/row-->
     </div>
     <div class="col-md-2">
-        <h3>Sammanfattning</h3>
-        <ul class="list-group" ng-repeat="category in completeArray.Categories">
-            <li class="list-group-item" ng-repeat="item in category.Items">
-                <label>{{item.title}}: </label><span> {{item.selectedOption.title}}</span> <span class="pull-right">{{item.selectedOption.price}}</span>
-            </li>
-        </ul>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <label>Total: </label><span class="pull-right">{{getTotal()}}</span>
-            </li>
-        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sammanfattning</h3>
+            </div>
+            <ul class="list-group" ng-repeat="category in completeArray.Categories">
+                <li class="list-unstyled builder-list" ng-repeat="item in category.Items">
+                    {{item.title}}:<span> {{item.selectedOption.title}}</span> <span class="pull-right">{{item.selectedOption.price}}</span>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Total:<span class="pull-right">{{getTotal()}}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
