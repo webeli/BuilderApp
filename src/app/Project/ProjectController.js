@@ -22,10 +22,10 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
 
     $scope.getTotal = function(){
         var total = 0;
-        for(var i = 0; i < $scope.completeArray.Categories.length; i++){
-            for(var j = 0; j < $scope.completeArray.Categories[i].Items.length; j++){
+        for(var i = 0; i < $scope.AllCategories.length; i++){
+            for(var j = 0; j < $scope.AllCategories[i].Items.length; j++){
 
-                var item = $scope.completeArray.Categories[i].Items[j];
+                var item = $scope.AllCategories[i].Items[j];
                 if (item.selectedOption)
                 {
                     total += item.selectedOption.price;
@@ -37,7 +37,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
 
     // TODO:
     // Need to solve this in a diffrent way (creating an issue when reloading the page).
-    $scope.completeArray = {Categories: []};
+    $scope.AllCategories = [];
 
     FireProjectRef.child("categories").once("value", function(snapshot) {
 
@@ -61,7 +61,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
                 });
             });
 
-            $scope.completeArray.Categories.push({Category: childData, Items: tempArray});
+            $scope.AllCategories.push({Category: childData, Items: tempArray});
 
 
         });
