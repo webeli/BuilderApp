@@ -1,20 +1,80 @@
-app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseArray, $timeout) {
+app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout) {
 
-    // KEY
+    /*
+    ** Refs
+    */
     var projectKey = $stateParams.projectKey;
-    console.log($stateParams.projectKey);
-    // Base ref for project
-    var FireProjectRef = FireRef.child(projectKey);
+    var projectRef = FireRef.child(projectKey);
 
-    FireProjectRef.once("value", function(snapshot) {
-        var projectKey = snapshot.exists();
-        if (projectKey === false) {
-            $state.go("landing");
-        } else {
-            $scope.projectTitle = snapshot.val().pName;
-        }
-    });
+    /*
+    ** Scope variables
+    */
+    $scope.allCategories = [];
+    $scope.currentCategory = null;
+    $scope.imgCategory = null;
+    $scope.imgItem = null;
+    $scope.itemOptions = null;
+    $scope.projectTitle = null;
 
+    /*
+    ** Init
+    */
+    validateProjectKey();
+    getAllCategories();
+
+    /*
+    ** Private functions
+    */
+    function validateProjectKey() {
+        projectRef.once("value", function(snapshot) {
+            var projectKey = snapshot.exists();
+            if (projectKey === false) {
+                $state.go("landing");
+            } else {
+                $scope.projectTitle = snapshot.val().pName;
+            }
+        });
+    }
+
+    function getAllCategories() {
+        var categoriesRef = projectRef.child("categories");
+        var categoriesFirebaseArray = $firebaseArray(categoriesRef);
+
+        categoriesFirebaseArray.$loaded().then(function(categories){
+            var allCats = [];
+
+            angular.forEach(categories, function(category) {
+                var categoryWithItems = getcategoryItem(category);
+                allCats.push(categoryWithItems);
+            });
+            $scope.allCategories = allCats;
+        });
+
+        return true;
+    }
+
+    function getcategoryItem(category) {
+        category['categoryItems'] = [];
+
+        angular.forEach(category.refs, function(key) {
+
+            var categoryItemsRef = projectRef.child("categoryItems");
+            var categoryItemRef = categoryItemsRef.child(key);
+
+            categoryItemRef.on('value', function(snap) {
+                $timeout(function() {
+                    category.categoryItems.push(snap.val());
+                });
+            });
+
+        }, category.categoryItems); //forEach
+
+        return category;
+    }
+
+    /*
+    ** Scope functions
+    */
     $scope.pick = function (itemOption, cat) {
         itemOption.chosen = true;
         cat.selectedOption = itemOption;
@@ -22,66 +82,46 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
 
     $scope.getTotal = function(){
         var total = 0;
-        for(var i = 0; i < $scope.allCategories.length; i++){
-            for(var j = 0; j < $scope.allCategories[i].Items.length; j++){
+        angular.forEach($scope.allCategories, function(key, i){
+            for(var j = 0; j < $scope.allCategories[i].categoryItems.length; j++){
 
-                var item = $scope.allCategories[i].Items[j];
+                var item = $scope.allCategories[i].categoryItems[j];
                 if (item.selectedOption)
                 {
                     total += item.selectedOption.price;
                 }
             }
-        }
+        });
         return total;
     };
 
-    // TODO:
-    // Need to solve this in a diffrent way (creating an issue when reloading the page).
-    $scope.allCategories = [];
+    $scope.getItemOptions = function(key) {
+        console.log(key);
+        var itemOption = projectRef.child("itemOptions").child(key);
+        console.log(itemOption);
 
-    FireProjectRef.child("categories").once("value", function(snapshot) {
-
-        snapshot.forEach(function(childSnapshot) {
-
-            var key = childSnapshot.key();
-            var childData = childSnapshot.val();
-            var tempArray = [];
-
-            FireProjectRef.child("categories").child(key).child("refs").once("value", function(snapshot) {
-
-                snapshot.forEach(function(childSnapshot) {
-
-                    var key = childSnapshot.key();
-                    var categoryItemRef = FireRef.child($stateParams.projectKey).child("categoryItems").child(key);
-
-                    categoryItemRef.once("value", function(snap) {
-                        tempArray.push(snap.val());
-                    });
-
-                });
+        itemOption.on('value', function(snap) {
+            $timeout(function() {
+                $scope.list = snap.val();
             });
-
-            $scope.allCategories.push({Category: childData, Items: tempArray});
-
-
         });
-    });
+    };
 
     // Get the options for an item
     $scope.getOptions = function(categoryName, item) {
         // Store data as object and use in scope
-        $scope.currentCat = item;
+        $scope.currentCategory = item;
         $scope.imgCategory = categoryName;
         $scope.imgItem = item.title;
         $scope.itemOptions = {};
 
         // Get all category item keys
-        var categoryItemKeyRefs = FireProjectRef.child("categoryItems").child(item.key).child("refs");
+        var categoryItemKeyRefs = projectRef.child("categoryItems").child(item.key).child("refs");
 
         // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
         categoryItemKeyRefs.on('child_added', function(snapshot) {
             var itemKey = snapshot.key();
-            FireProjectRef.child("itemOptions").child(itemKey).on('value', function(snapshot) {
+            projectRef.child("itemOptions").child(itemKey).on('value', function(snapshot) {
                 $timeout(function() {
                     if( snapshot.val() === null ) {
                         delete $scope.itemOptions[itemKey];
@@ -93,4 +133,5 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
             });
         });
     };
+
 });

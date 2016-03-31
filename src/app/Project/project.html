@@ -5,13 +5,14 @@
 </ul>
 <div class="row margin-t-10">
     <div class="col-md-2">
+
         <div id="leftSelect" ng-repeat="category in allCategories">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{category.Category.title}}</h3>
+                    <h3 class="panel-title">{{category.title}}</h3>
                 </div>
-                <ul class="list-group" ng-repeat="item in category.Items">
-                    <a href="" ng-click="getOptions(category.Category.title, item)" class="list-group-item">{{item.title}}</a>
+                <ul class="list-group" ng-repeat="item in category.categoryItems">
+                    <a href="" ng-click="getOptions(category.title, item)" class="list-group-item">{{item.title}}</a>
                 </ul>
             </div>
         </div>
@@ -24,13 +25,13 @@
 
                 <div class="col-sm-3">
                     <div class="panel panel-default">
-                        <div class="panel-thumbnail"><img check-image ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
+                        <div class="panel-thumbnail"><img ng-src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{option.title}}.png" class="img-responsive"></div>
                         <div class="panel-body">
                             <p class="lead">{{option.title}}</p>
                             <p>{{option.desc}}</p>
                             <p>
                                 <div class="card-footer text-muted">
-                                    <button class="btn" ng-class="(currentCat.selectedOption == option) ? 'btn-builder-active':('btn-builder')" ng-click="pick(option, currentCat)">Välj denna</button>
+                                    <button class="btn" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="pick(option, currentCategory)">Välj denna</button>
                                     <span class="pull-right">Pris: {{option.price}}</span>
                                 </div>
                             </p>
@@ -46,8 +47,8 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Sammanfattning</h3>
             </div>
-            <ul class="list-group" ng-repeat="category in AllCategories">
-                <li class="list-unstyled builder-list" ng-repeat="item in category.Items">
+            <ul class="list-group" ng-repeat="category in allCategories">
+                <li class="list-unstyled builder-list" ng-repeat="item in category.categoryItems">
                     {{item.title}}:<span> {{item.selectedOption.title}}</span> <span class="pull-right">{{item.selectedOption.price}}</span>
                 </li>
             </ul>

@@ -43,7 +43,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
 
         // Add reference key to category and data to categoryItems node
         categoryItemsRef.set({title: data, key: categoryItemsKey});
-        projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(true);
+        projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(categoryItemsKey);
     };
 
     // Adds an option to an item
@@ -61,7 +61,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             desc: '',
             active: true
         });
-        projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(true);
+        projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(itemOptionsKey);
     };
 
     // Enter category item
