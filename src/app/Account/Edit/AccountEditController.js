@@ -1,5 +1,4 @@
 app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $timeout, $state) {
-    console.log("AccountEditController");
 
     var projectKey = $stateParams.projectKey;
     var projectRef = FireRef.child($stateParams.projectKey);

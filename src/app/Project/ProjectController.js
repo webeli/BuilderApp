@@ -1,5 +1,4 @@
 app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseArray, $timeout) {
-    console.log("ProjectController");
 
     // KEY
     var projectKey = $stateParams.projectKey;

@@ -1,5 +1,4 @@
 app.controller('LandingController', function($scope, FireRef, $state) {
-    console.log("LandingController");
 
     $scope.goToProject = function(pId){
         if (!pId) {

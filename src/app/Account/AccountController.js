@@ -1,5 +1,4 @@
 app.controller('AccountController', function($scope, $firebaseArray, FireRef) {
-    console.log("AccountController");
 
     var myProjects = $firebaseArray(FireRef);
     $scope.myProjects = myProjects;
