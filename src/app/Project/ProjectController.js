@@ -44,7 +44,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
             var allCats = [];
 
             angular.forEach(categories, function(category) {
-                var categoryWithItems = getcategoryItem(category);
+                var categoryWithItems = getCategoryItem(category);
                 allCats.push(categoryWithItems);
             });
             $scope.allCategories = allCats;
@@ -53,7 +53,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
         return true;
     }
 
-    function getcategoryItem(category) {
+    function getCategoryItem(category) {
         category['categoryItems'] = [];
 
         angular.forEach(category.refs, function(key) {
