@@ -1,0 +1,58 @@
+* {
+    border-radius: 0!important;
+}
+
+.btn {
+    color: #fff;
+}
+
+.btn:hover {
+    color: #fff;
+}
+
+.panel-default>.panel-heading {
+    background-color: #26b6b4;
+    color: #fff;
+}
+
+
+
+
+
+
+
+.btn-builder {
+    background-color: #829FE1;
+}
+
+.btn-builder:hover {
+    background-color: #597DD0;
+}
+
+.btn-builder-active {
+    background-color: #1748B8;
+}
+
+.btn-builder-link {
+    background-color: #74DADA;
+}
+
+.btn-builder-link:hover {
+    background-color: #04A9A9;
+}
+
+
+a.list-group-item:hover {
+    background-color: #fff;
+}
+
+
+
+
+body {
+    background-color: rgb(236, 239, 241);
+}
+
+.container {
+    background-color: #fff;
+}
