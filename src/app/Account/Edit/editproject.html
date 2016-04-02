@@ -36,7 +36,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('option', selectedItem.key)"> + Add Option </button>
+                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('addoption', selectedItem.key)"> + Add Option </button>
             </div>
         </div>
 
@@ -51,9 +51,9 @@
         <div class="panel-group" id="accordian1">
 
             <div ng-class="{'panel-default': item.active, 'panel-warning': !item.active}" class="panel accordion-toggle" ng-repeat="item in itemOptions">
-                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}">
+                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}" ng-click="toggleModal('editoption', item.key)">
                     <h4 class="panel-title">
-                        <img ng-if="imgCategory && imgItem" src="http://skenderovic.se/tillval/{{imgCategory}}/{{imgItem}}/{{item.title}}.png" width="32px" alt="">
+                        <img ng-src="{{item.Images[item.PrimaryImg]}}" width="32px" alt="">
                         <a>{{item.title}}</a>
                         <span ng-if="item.default" class="label label-default">Standard</span>
                         <span class="pull-right">{{item.price}}:-</span>
@@ -144,6 +144,18 @@
                 <input ng-model="addOptionData.title" type="text" class="form-control" id="addoption" placeholder="Option" />
             </div>
             <button type="submit" class="btn btn-default" ng-click="addOption(addOptionData)">Add</button>
+        </form>
+    </modal>
+
+    <modal title="Edit Option" visible="modalEditOption">
+        <form role="form">
+            <div class="form-group">
+                <input ng-model="EditOptionData.active" ng-checked="EditOptionData.active" type="checkbox"/>
+                <input ng-model="EditOptionData.title" type="text" class="form-control" placeholder="Edit" />
+                <input ng-model="EditOptionData.sub" type="text" class="form-control" placeholder="Edit" />
+                <input ng-model="EditOptionData.sub2" type="text" class="form-control" placeholder="Edit" />
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="EditOption(EditOptionData)">Save</button>
         </form>
     </modal>
 

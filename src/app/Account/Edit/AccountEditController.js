@@ -1,4 +1,4 @@
-app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $timeout, $state) {
+app.controller('AccountEditController', function($scope, FireRef, $stateParams, $firebaseArray, $firebaseObject, $timeout, $state) {
 
     var projectKey = $stateParams.projectKey;
     var projectRef = FireRef.child($stateParams.projectKey);
@@ -26,10 +26,12 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     $scope.oneAtATime = true;
     $scope.categories = projectCategoryArray;
     $scope.loddar = true;
+    $scope.EditOptionData = {};
 
     $scope.modalAddCategory = false;
     $scope.modalAddItem = false;
     $scope.modalAddOption = false;
+    $scope.modalEditOption = false;
 
     $scope.optionImages = [];
 
@@ -42,10 +44,24 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             $scope.modalAddItem = !$scope.modalAddItem;
             $scope.addItemKey = key;
         }
-        if (modal === "option") {
+        if (modal === "addoption") {
             $scope.modalAddOption = !$scope.modalAddOption;
             $scope.addOptionKey = key;
         }
+        if (modal === "editoption") {
+            $scope.modalEditOption = !$scope.modalEditOption;
+            $scope.loadEditOption(key);
+        }
+    };
+
+    // Load EditOption
+    $scope.loadEditOption = function(key) {
+        console.log("Load Edit Option");
+        var data = $firebaseObject(projectItemOptionsRef.child(key));
+        data.$loaded().then(function(data){
+            console.log(data);
+            $scope.EditOptionData.title = data.title;
+        });
     };
 
     // Add category
@@ -58,7 +74,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
    // Adds a category to the project
-    $scope.addItem = function (data) {
+    $scope.addItem = function(data) {
         var id = $scope.addItemKey;
         var categoryItemsRef = projectCategoryItemsRef.push();
         var categoryItemsKey = categoryItemsRef.key();
