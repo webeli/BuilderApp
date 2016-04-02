@@ -89,6 +89,20 @@
                                 <label class="control-label">Description</label>
                                 <textarea class="form-control" rows="3" placeholder="Info om" ng-model="item.desc"></textarea>
 
+                                <div class="col-xs-12">
+                                    <span class="btn btn-default btn-file">
+                                    + Upload images  <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />
+                                    </span>
+
+                                    <p></p>
+                                    <div class="col-xs-3" ng-repeat="image in item.optionImages">
+                                        <button ng-click="deleteOptionImg($index, item)">Delete</button>
+                                        <button ng-click="makePrimaryImg($index, item)">Make primary</button><br>
+                                        <img class="thumb" ng-src="{{image}}" />
+                                    </div>
+                                </div>
+
+
                                 <button class="btn btn-xs btn-danger">Delete</button>
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-xs btn-danger">Cancel</button>

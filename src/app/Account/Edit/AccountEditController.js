@@ -30,6 +30,8 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     $scope.modalAddCategory = false;
     $scope.modalAddItem = false;
 
+    $scope.optionImages = [];
+
     // Toggle modal
     $scope.toggleModal = function(modal, key) {
         if (modal === "category") {
@@ -75,9 +77,37 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             price: 0,
             default: false,
             desc: '',
-            active: true
+            active: true,
+            PrimaryImg: 0,
+            Images: $scope.optionImages
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(itemOptionsKey);
+    };
+
+
+    // Uploads image
+
+    $scope.imageUpload = function(element){
+        var reader = new FileReader();
+        reader.onload = $scope.imageIsLoaded;
+        reader.readAsDataURL(element.files[0]);
+    };
+
+    //
+    $scope.imageIsLoaded = function(e){
+        $scope.$apply(function() {
+            $scope.optionImages.push(e.target.result);
+        });
+    };
+
+    $scope.deleteOptionImg = function(index, item) {
+        var myRef = projectItemOptionsRef.child(item.key);
+        myRef.remove();
+    };
+
+    $scope.makePrimaryImg = function(index, item) {
+        var myRef = projectItemOptionsRef.child(item.key);
+        myRef.update({PrimaryImg: index});
     };
 
     // Enter category item
@@ -143,14 +173,16 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     // Save option item
-    $scope.saveOptionItem = function(item, menuRef) {
+    $scope.saveOptionItem = function(item) {
         var myRef = projectItemOptionsRef.child(item.key);
         myRef.update({
             title: item.title,
             price: item.price,
             default: item.default,
             desc: item.desc,
-            active: item.active
+            active: item.active,
+            PrimaryImg: 0,
+            Images: $scope.optionImages
         }, onComplete());
 
         function onComplete() {
