@@ -29,6 +29,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
 
     $scope.modalAddCategory = false;
     $scope.modalAddItem = false;
+    $scope.modalAddOption = false;
 
     $scope.optionImages = [];
 
@@ -41,6 +42,10 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             $scope.modalAddItem = !$scope.modalAddItem;
             $scope.addItemKey = key;
         }
+        if (modal === "option") {
+            $scope.modalAddOption = !$scope.modalAddOption;
+            $scope.addOptionKey = key;
+        }
     };
 
     // Add category
@@ -48,7 +53,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         projectCategoryRef.push({
             title: data.title
         });
-        // Hide modal
+        // Close modal
         $scope.modalAddCategory = false;
     };
 
@@ -60,19 +65,19 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         // Add reference key to category and data to categoryItems node
         categoryItemsRef.set({title: data.title, key: categoryItemsKey});
         projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(categoryItemsKey);
-        // Hide modal
+        // Close modal
         $scope.modalAddItem = false;
     };
 
     // Adds an option to an item
-    $scope.addOption = function (id) {
-        var data = prompt("Ange något");
+    $scope.addOption = function (data) {
+        var id = $scope.addOptionKey;
         var itemOptionsRef = projectItemOptionsRef.push();
         var itemOptionsKey = itemOptionsRef.key();
 
         // Add reference key to category and data to categoryItems node
         itemOptionsRef.set({
-            title: data,
+            title: data.title,
             key: itemOptionsKey,
             price: 0,
             default: false,
@@ -82,18 +87,19 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             Images: $scope.optionImages
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(itemOptionsKey);
+        // Close modal
+        $scope.modalAddOption = false;
     };
 
 
     // Uploads image
-
     $scope.imageUpload = function(element){
         var reader = new FileReader();
         reader.onload = $scope.imageIsLoaded;
         reader.readAsDataURL(element.files[0]);
     };
 
-    //
+    // Image is loaded
     $scope.imageIsLoaded = function(e){
         $scope.$apply(function() {
             $scope.optionImages.push(e.target.result);

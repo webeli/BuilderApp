@@ -36,7 +36,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-success margin-b-10" ng-click="addOption(selectedItem.key)"> + Add Option </button>
+                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('option', selectedItem.key)"> + Add Option </button>
             </div>
         </div>
 
@@ -135,6 +135,15 @@
                 <input ng-model="addItemData.title" type="text" class="form-control" id="additem" placeholder="Item" />
             </div>
             <button type="submit" class="btn btn-default" ng-click="addItem(addItemData)">Add</button>
+        </form>
+    </modal>
+
+    <modal title="Add Option" visible="modalAddOption">
+        <form role="form">
+            <div class="form-group">
+                <input ng-model="addOptionData.title" type="text" class="form-control" id="addoption" placeholder="Option" />
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="addOption(addOptionData)">Add</button>
         </form>
     </modal>
 
