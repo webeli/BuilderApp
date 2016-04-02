@@ -46,17 +46,20 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         projectCategoryRef.push({
             title: data.title
         });
+        // Hide modal
+        $scope.modalAddCategory = false;
     };
 
-    // Adds a category to the project
+   // Adds a category to the project
     $scope.addItem = function (data) {
         var id = $scope.addItemKey;
         var categoryItemsRef = projectCategoryItemsRef.push();
         var categoryItemsKey = categoryItemsRef.key();
-
         // Add reference key to category and data to categoryItems node
         categoryItemsRef.set({title: data.title, key: categoryItemsKey});
         projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(categoryItemsKey);
+        // Hide modal
+        $scope.modalAddItem = false;
     };
 
     // Adds an option to an item
