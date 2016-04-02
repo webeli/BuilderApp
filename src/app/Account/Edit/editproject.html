@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-sm btn-success margin-b-10" ng-click="addCategory()"> + Add Category </button>
+                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('category')"> + Add Category </button>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                     <h4 class="panel-title pull-left">
                         {{category.title}}
                     </h4>
-                    <button class="btn btn-success btn-xs pull-right" ng-click="addItem(category.$id)">+ Add Item</button>
+                    <button class="btn btn-success btn-xs pull-right" ng-click="toggleModal('item', category.$id)">+ Add Item</button>
                     <div class="clearfix"></div>
                 </div>
                 <div id="c-{{$index}}" class="panel-collapse collapse">
@@ -105,4 +105,23 @@
         </div>
 
     </div>
+
+    <modal title="Add Category" visible="modalAddCategory">
+        <form role="form">
+            <div class="form-group">
+                <input ng-model="addCategoryData.title" type="text" class="form-control" id="addcategory" placeholder="Category" />
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="addCategory(addCategoryData)">Add</button>
+        </form>
+    </modal>
+
+    <modal title="Add Item" visible="modalAddItem">
+        <form role="form">
+            <div class="form-group">
+                <input ng-model="addItemData.title" type="text" class="form-control" id="additem" placeholder="Item" />
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="addItem(addItemData)">Add</button>
+        </form>
+    </modal>
+
 </div>
