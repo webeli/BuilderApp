@@ -1,0 +1,14 @@
+/* ANGULAR ANIMATE */
+.ng-enter {
+    transition:0.5s;
+    opacity:0;
+}
+.ng-enter-active {
+    opacity:1;
+}
+.ng-enter-stagger {
+    transition-delay:0.05s;
+}
+.ng-leave-stagger {
+    transition-delay:0.05s;
+}
