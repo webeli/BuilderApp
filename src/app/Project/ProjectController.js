@@ -13,7 +13,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     $scope.currentCategory = null;
     $scope.imgCategory = null;
     $scope.imgItem = null;
-    $scope.itemOptions = null;
+    $scope.itemOptions = [];
     $scope.projectTitle = null;
 
     /*
@@ -75,10 +75,11 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     /*
     ** Scope functions
     */
-    $scope.pick = function (itemOption, cat) {
-        itemOption.chosen = true;
-        cat.selectedOption = itemOption;
+    $scope.selectOption = function (itemOption, cat, value) {
+        itemOption.chosen = value;
+        value === true ? cat.selectedOption = itemOption : cat.selectedOption = null;
     };
+
 
     $scope.getTotal = function(){
         var total = 0;
@@ -108,12 +109,11 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     };
 
     // Get the options for an item
-    $scope.getOptions = function(categoryName, item) {
+    $scope.getOptions = function(item) {
         // Store data as object and use in scope
         $scope.currentCategory = item;
-        $scope.imgCategory = categoryName;
-        $scope.imgItem = item.title;
-        $scope.itemOptions = {};
+
+        var currentOptions = [];
 
         // Get all category item keys
         var categoryItemKeyRefs = projectRef.child("categoryItems").child(item.key).child("refs");
@@ -127,11 +127,12 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
                         delete $scope.itemOptions[itemKey];
                     }
                     else {
-                        $scope.itemOptions[itemKey] = snapshot.val();
+                        currentOptions.push(snapshot.val());
                     }
                 });
             });
         });
+        $scope.itemOptions = currentOptions;
     };
 
 });

@@ -52,7 +52,7 @@
             <div class="panel panel-default" ng-repeat="category in allCategories">
                 <div class="panel-heading">{{category.title}}</div>
                 <ul class="list-group">
-                    <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(category.title, item)">{{item.title}}</a>
+                    <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(item)">{{item.title}}</a>
                 </ul>
             </div>
         </div>
@@ -63,9 +63,8 @@
         <div class="col-md-8">
 
 
-
             <!-- one item -->
-            <div class="col-md-4" ng-repeat="option in itemOptions | onlyActive">
+            <div class="col-md-4" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length > 1">
 
                 <!--<div class="clearfix" ng-if="$index % 4 == 0"></div>-->
 
@@ -78,8 +77,10 @@
                         <p class="">{{option.desc}}</p>
                         <p></p>
                         <div class="card-footer text-muted">
+                            <!-- TODO: why does it reset? -->
+                            <!--{{currentCategory.selectedOption == option}}-->
 
-                            <button class="btn" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="pick(option, currentCategory)">Välj</button>
+                            <button class="btn" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
                             <span class="pull-right">Pris: {{option.price}}</span>
 
                         </div>
@@ -89,31 +90,32 @@
             </div>
             <!-- /one item -->
 
+
             <!-- full page item -->
-            <!--<div class="col-md-12">-->
+            <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1">
 
-            <!--<div class="col-md-4">-->
-            <!--<p></p>-->
+                <div class="col-md-4">
+                    <p></p>
+                    <div><img class="img-responsive" ng-src="{{option.image}}"></div>
+                </div>
 
-            <!--<div><img class="img-responsive" src="http://skenderovic.se/tillval/Kök/Kyl/QR2212W.png"></div>-->
-            <!--</div>-->
+            <div class="panel panel-default">
+            <div class="panel-body">
+                <p class="lead">{{option.title}}</p>
+                <p>{{option.desc}}</p>
+                <p></p>
+                <div class="card-footer text-muted">
 
-            <!--<div class="panel panel-default">-->
-            <!--<div class="panel-body">-->
-            <!--<p class="lead">QR2212W</p>-->
-            <!--<p>Ännu mer text här Ännu mer text här Ännu mer text här Ännu mer text här Ännu mer text här</p>-->
-            <!--<p>-->
-            <!--</p><div class="card-footer text-muted">-->
-            <!--<div class="btn-group" id="toggle_event_editing">-->
-            <!--<button type="button" class="btn btn-builder-active locked_active">Ja</button>-->
-            <!--<button type="button" class="btn btn-builder unlocked_inactive">Nej</button>-->
-            <!--</div>-->
-            <!--<span class="pull-right ng-binding">Pris: 0</span>-->
-            <!--</div>-->
-            <!--<p></p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
+                    <div class="btn-group" id="toggle_event_editing">
+                        <button type="button" class="btn locked_active" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Ja</button>
+                        <button type="button" class="btn btn-builder unlocked_inactive" ng-class="(currentCategory.selectedOption != option) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, false)">Nej</button>
+                    </div>
+                    <span class="pull-right ng-binding">Pris: {{option.price}}</span>
+                </div>
+                <p></p>
+            </div>
+            </div>
+            </div>
             <!-- /full page item -->
         </div>
 
