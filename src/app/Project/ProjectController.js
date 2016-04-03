@@ -15,6 +15,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     $scope.imgItem = null;
     $scope.itemOptions = [];
     $scope.projectTitle = null;
+    $scope.zoomedItem = null;
 
     /*
     ** Init
@@ -76,8 +77,11 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     ** Scope functions
     */
     $scope.selectOption = function (itemOption, cat, value) {
-        itemOption.chosen = value;
         value === true ? cat.selectedOption = itemOption : cat.selectedOption = null;
+    };
+
+    $scope.zoomItemOption = function (item) {
+        $scope.zoomedItem != item ? $scope.zoomedItem = item : $scope.zoomedItem = null;
     };
 
 
@@ -112,7 +116,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     $scope.getOptions = function(item) {
         // Store data as object and use in scope
         $scope.currentCategory = item;
-
+        $scope.zoomedItem = null;
         var currentOptions = [];
 
         // Get all category item keys
