@@ -109,7 +109,6 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         filepicker.setKey("Axj8r9t8RAKP5R3oUw8J9z");
         filepicker.pick(
             function(data){
-                console.log(data.url);
                 $scope.EditOptionData.image = data.url;
                 $scope.$apply();
             }
@@ -117,7 +116,8 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     $scope.deleteImage = function(data) {
-      console.log(data);
+        var optionImageRef = projectItemOptionsRef.child(data.$id).child("image");
+        optionImageRef.set('http://senda-arcoiris.info/images/100x100.gif');
     };
 
     // Enter category item
