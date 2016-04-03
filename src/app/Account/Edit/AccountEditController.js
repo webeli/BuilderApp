@@ -33,8 +33,6 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     $scope.modalAddOption = false;
     $scope.modalEditOption = false;
 
-    $scope.optionImages = [];
-
     // Toggle modal
     $scope.toggleModal = function(modal, key) {
         if (modal === "category") {
@@ -49,7 +47,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             $scope.addOptionKey = key;
         }
         if (modal === "editoption") {
-            $scope.modalEditOption = !$scope.modalEditOption;
+                $scope.modalEditOption = !$scope.modalEditOption;
             $scope.loadEditOption(key);
         }
     };
@@ -60,7 +58,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
         var data = $firebaseObject(projectItemOptionsRef.child(key));
         data.$loaded().then(function(data){
             console.log(data);
-            $scope.EditOptionData.title = data.title;
+            $scope.EditOptionData = data;
         });
     };
 
@@ -99,8 +97,8 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             default: false,
             desc: '',
             active: true,
-            PrimaryImg: 0,
-            Images: $scope.optionImages
+            primaryImg: 0,
+            images: ['http://senda-arcoiris.info/images/100x100.gif']
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(itemOptionsKey);
         // Close modal
@@ -118,18 +116,29 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     // Image is loaded
     $scope.imageIsLoaded = function(e){
         $scope.$apply(function() {
-            $scope.optionImages.push(e.target.result);
+            if ($scope.EditOptionData.images[0] == 'http://senda-arcoiris.info/images/100x100.gif')
+            {
+                $scope.EditOptionData.images[0] = e.target.result;
+            }
+            else
+            {
+                $scope.EditOptionData.images.push(e.target.result);
+            }
         });
     };
 
     $scope.deleteOptionImg = function(index, item) {
-        var myRef = projectItemOptionsRef.child(item.key);
-        myRef.remove();
+       /* var myRef = projectItemOptionsRef.child(item.key).child("images").child(index);
+        myRef.remove();*/
+
+        $scope.EditOptionData.images.splice(index, 1);
     };
 
     $scope.makePrimaryImg = function(index, item) {
         var myRef = projectItemOptionsRef.child(item.key);
-        myRef.update({PrimaryImg: index});
+        myRef.update({primaryImg: index});
+
+        $scope.EditOptionData.primaryImg = index;
     };
 
     // Enter category item
@@ -195,7 +204,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
     };
 
     // Save option item
-    $scope.saveOptionItem = function(item) {
+    $scope.saveEditOption = function(item) {
         var myRef = projectItemOptionsRef.child(item.key);
         myRef.update({
             title: item.title,
@@ -203,12 +212,14 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             default: item.default,
             desc: item.desc,
             active: item.active,
-            PrimaryImg: 0,
-            Images: $scope.optionImages
+            primaryImg: item.primaryImg,
+            images: item.images
         }, onComplete());
 
         function onComplete() {
             console.log("complete");
+            //close modal
+            $scope.modalEditOption = false;
         };
     }
 

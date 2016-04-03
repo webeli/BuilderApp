@@ -48,71 +48,16 @@
             </h4>
         </div>
 
-        <div class="panel-group" id="accordian1">
+        <div class="panel-group">
 
             <div ng-class="{'panel-default': item.active, 'panel-warning': !item.active}" class="panel accordion-toggle" ng-repeat="item in itemOptions">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}" ng-click="toggleModal('editoption', item.key)">
                     <h4 class="panel-title">
-                        <img ng-src="{{item.Images[item.PrimaryImg]}}" width="32px" alt="">
+                        <img ng-src="{{item.images[item.primaryImg]}}" width="32px" alt="">
                         <a>{{item.title}}</a>
                         <span ng-if="item.default" class="label label-default">Standard</span>
                         <span class="pull-right">{{item.price}}:-</span>
                     </h4>
-                </div>
-                <div id="oc-{{$index}}" class="panel-collapse collapse">
-                    <div class="panel-body">
-
-                        <form class="form-horizontal">
-
-                            <div class="form-group">
-
-                                <label class="control-label">Active</label>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-checked="item.active" ng-model="item.active">Ja
-                                    </label>
-                                </div>
-
-                                <label class="control-label">Title</label>
-                                <input type="text" class="form-control" placeholder="Title" ng-model="item.title">
-
-                                <label class="control-label">Price</label>
-                                <input type="number" class="form-control" placeholder="Price" ng-model="item.price">
-
-                                <label class="control-label">Förvald?</label>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-checked="item.default" ng-model="item.default">Ja
-                                    </label>
-                                </div>
-
-                                <label class="control-label">Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Info om" ng-model="item.desc"></textarea>
-
-                                <div class="col-xs-12">
-                                    <span class="btn btn-default btn-file">
-                                    + Upload images  <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />
-                                    </span>
-
-                                    <p></p>
-                                    <div class="col-xs-3" ng-repeat="image in item.optionImages">
-                                        <button ng-click="deleteOptionImg($index, item)">Delete</button>
-                                        <button ng-click="makePrimaryImg($index, item)">Make primary</button><br>
-                                        <img class="thumb" ng-src="{{image}}" />
-                                    </div>
-                                </div>
-
-
-                                <button class="btn btn-xs btn-danger">Delete</button>
-                                <div class="btn-group pull-right">
-                                    <button class="btn btn-xs btn-danger">Cancel</button>
-                                    <button data-toggle="collapse" href="#oc-{{$index}}" ng-click="saveOptionItem(item)" class="btn btn-xs btn-success">Save</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                    </div>
                 </div>
             </div>
 
@@ -148,15 +93,65 @@
     </modal>
 
     <modal title="Edit Option" visible="modalEditOption">
-        <form role="form">
-            <div class="form-group">
-                <input ng-model="EditOptionData.active" ng-checked="EditOptionData.active" type="checkbox"/>
-                <input ng-model="EditOptionData.title" type="text" class="form-control" placeholder="Edit" />
-                <input ng-model="EditOptionData.sub" type="text" class="form-control" placeholder="Edit" />
-                <input ng-model="EditOptionData.sub2" type="text" class="form-control" placeholder="Edit" />
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="EditOption(EditOptionData)">Save</button>
-        </form>
+            <form class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Active</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" class="" ng-model="EditOptionData.active" ng-checked="EditOptionData.active">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="EditOptionData.title">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" ng-model="EditOptionData.price">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Default</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" class="" ng-model="EditOptionData.default" ng-checked="EditOptionData.default">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea rows="3" ng-model="EditOptionData.desc"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="btn btn-default btn-file">
+                        + Upload images  <input type="file" ng-model-instant="" onchange="angular.element(this).scope().imageUpload(this)">
+                    </span>
+                    <p></p>
+                    <div class="col-sm-10">
+                        <div class="col-sm-4" ng-repeat="image in EditOptionData.images">
+
+                            <img class="img-responsive" ng-src="{{image}}" />
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-xs btn-danger" ng-show="EditOptionData.images.length > 1" ng-click="deleteOptionImg($index, EditOptionData)">Delete</button>
+                                <button class="btn btn-xs btn-primary" ng-click="makePrimaryImg($index, EditOptionData)">Set primary</button><br>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default" ng-click="saveEditOption(EditOptionData)">Save</button>
+
+            </form>
     </modal>
 
 </div>
