@@ -1,62 +1,153 @@
+<!-- header section -->
 <ul class="nav nav-tabs">
-    <span class="builder-title">{{projectTitle}}</span>
+    <span class="builder-title"></span>
     <li role="presentation"><a ui-sref="account.myprojects">Account</a></li>
     <li role="presentation"><a ui-sref="landing">Home</a></li>
 </ul>
-<div class="row margin-t-10">
-    <div class="col-md-2">
 
-        <div id="leftSelect" ng-repeat="category in allCategories">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{category.title}}</h3>
-                </div>
-                <ul class="list-group" ng-repeat="item in category.categoryItems">
-                    <a href="" ng-click="getOptions(category.title, item)" class="list-group-item">{{item.title}}</a>
-                </ul>
-            </div>
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="http://www.hsbhbg.se/~/media/Subsites/Gustavslund/Logotype%202%20Gustavslund.gif" alt="" width="202px">
+            <h1>{{projectTitle}}</h1>
+        </div>
+        <div class="col-md-7">
+            <img src="http://www.hsbhbg.se/~/media/Subsites/Gustavslund/Exterior-1-610.jpg?mw=810&w=610" width="100%" height="200px" alt="">
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="row">
-            <div ng-repeat="option in itemOptions | onlyActive">
 
-                <div class="clearfix" ng-if="$index % 4 == 0"></div>
+</div>
 
-                <div class="col-sm-3">
-                    <div class="panel panel-default">
-                        <div class="panel-thumbnail"><img ng-src="{{option.images[option.primaryImg]}}" class="img-responsive"></div>
-                        <div class="panel-body">
-                            <p class="lead">{{option.title}}</p>
-                            <p>{{option.desc}}</p>
-                            <p>
-                                <div class="card-footer text-muted">
-                                    <button class="btn" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="pick(option, currentCategory)">Välj denna</button>
-                                    <span class="pull-right">Pris: {{option.price}}</span>
-                                </div>
-                            </p>
-                        </div>
+<!-- Site -->
+<div class="row">
+
+    <!--        <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Val</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <div class="navbar-header navbar-right">
+                        <p class="navbar-text">
+                            <a href="#" class="navbar-link">Username</a>
+                        </p>
                     </div>
-                </div><!--/col-->
+                </div>
+            </nav>-->
 
-            </div><!--/ng-repeat-->
-        </div><!--/row-->
-    </div>
+
+
+
+    <!-- Left col -->
     <div class="col-md-2">
+        <div class="panel panel-default" ng-repeat="category in allCategories">
+            <div class="panel-heading">{{category.title}}</div>
+            <ul class="list-group">
+                <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(category.title, item)">{{item.title}}</a>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <!-- MAIN CONT -->
+    <div class="col-md-8">
+
+
+
+        <!-- one item -->
+        <div class="col-md-4" ng-repeat="option in itemOptions | onlyActive">
+
+            <!--<div class="clearfix" ng-if="$index % 4 == 0"></div>-->
+
+            <div class="panel panel-default">
+                <div class="panel-thumbnail">
+                    <img ng-src="{{option.images[option.primaryImg]}}" class="img-responsive">
+                </div>
+                <div class="panel-body">
+                    <p class="lead">{{option.title}}</p>
+                    <p class="">{{option.desc}}</p>
+                    <p></p>
+                    <div class="card-footer text-muted">
+
+                        <button class="btn" ng-class="(currentCategory.selectedOption == option) ? 'btn-builder-active':'btn-builder'" ng-click="pick(option, currentCategory)">Välj</button>
+                        <span class="pull-right">Pris: {{option.price}}</span>
+
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!-- /one item -->
+
+        <!-- full page item -->
+        <!--<div class="col-md-12">-->
+
+            <!--<div class="col-md-4">-->
+                <!--<p></p>-->
+
+                <!--<div><img class="img-responsive" src="http://skenderovic.se/tillval/Kök/Kyl/QR2212W.png"></div>-->
+            <!--</div>-->
+
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-body">-->
+                    <!--<p class="lead">QR2212W</p>-->
+                    <!--<p>Ännu mer text här Ännu mer text här Ännu mer text här Ännu mer text här Ännu mer text här</p>-->
+                    <!--<p>-->
+                    <!--</p><div class="card-footer text-muted">-->
+                    <!--<div class="btn-group" id="toggle_event_editing">-->
+                        <!--<button type="button" class="btn btn-builder-active locked_active">Ja</button>-->
+                        <!--<button type="button" class="btn btn-builder unlocked_inactive">Nej</button>-->
+                    <!--</div>-->
+                    <!--<span class="pull-right ng-binding">Pris: 0</span>-->
+                <!--</div>-->
+                    <!--<p></p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!-- /full page item -->
+    </div>
+
+
+    <!-- your choices -->
+    <div class="col-md-2">
+
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Sammanfattning</h3>
+                <p>Dina val</p>
             </div>
-            <ul class="list-group" ng-repeat="category in allCategories">
-                <li class="list-unstyled builder-list" ng-repeat="item in category.categoryItems">
-                    {{item.title}}:<span> {{item.selectedOption.title}}</span> <span class="pull-right">{{item.selectedOption.price}}</span>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span ng-repeat="category in allCategories">
+                        <span ng-repeat="item in category.categoryItems">
+
+                            {{item.title}}: <span class="pull-right" ng-show="item.selectedOption.price > 0">{{item.selectedOption.price + ':-'}}</span><br>
+
+                        </span>
+                    </span>
+
                 </li>
             </ul>
             <ul class="list-group">
                 <li class="list-group-item">
-                    Total:<span class="pull-right">{{getTotal()}}</span>
+                    Total:<span class="pull-right ng-binding">{{getTotal()}}:-</span>
                 </li>
             </ul>
         </div>
+
+        <button class="btn btn-builder-link pull-right">Gå vidare</button>
+
     </div>
+
+
+
 </div>

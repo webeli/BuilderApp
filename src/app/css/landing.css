@@ -2,11 +2,7 @@
     border-radius: 0!important;
 }
 
-.btn {
-    color: #fff;
-}
-
-.btn:hover {
+.btn, .btn:active, .btn:hover, .btn:visited {
     color: #fff;
 }
 
