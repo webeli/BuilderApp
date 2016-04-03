@@ -97,48 +97,27 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             default: false,
             desc: '',
             active: true,
-            primaryImg: 0,
-            images: ['http://senda-arcoiris.info/images/100x100.gif']
+            image: 'http://senda-arcoiris.info/images/100x100.gif'
         });
         projectCategoryItemsRef.child(id).child("refs").child(itemOptionsKey).set(itemOptionsKey);
         // Close modal
         $scope.modalAddOption = false;
     };
 
-
-    // Uploads image
-    $scope.imageUpload = function(element){
-        var reader = new FileReader();
-        reader.onload = $scope.imageIsLoaded;
-        reader.readAsDataURL(element.files[0]);
-    };
-
-    // Image is loaded
-    $scope.imageIsLoaded = function(e){
-        $scope.$apply(function() {
-            if ($scope.EditOptionData.images[0] == 'http://senda-arcoiris.info/images/100x100.gif')
-            {
-                $scope.EditOptionData.images[0] = e.target.result;
+    $scope.uploadImage = function() {
+        // TODO: Store API key in firebase under Authenticated admin node
+        filepicker.setKey("Axj8r9t8RAKP5R3oUw8J9z");
+        filepicker.pick(
+            function(data){
+                console.log(data.url);
+                $scope.EditOptionData.image = data.url;
+                $scope.$apply();
             }
-            else
-            {
-                $scope.EditOptionData.images.push(e.target.result);
-            }
-        });
+        );
     };
 
-    $scope.deleteOptionImg = function(index, item) {
-       /* var myRef = projectItemOptionsRef.child(item.key).child("images").child(index);
-        myRef.remove();*/
-
-        $scope.EditOptionData.images.splice(index, 1);
-    };
-
-    $scope.makePrimaryImg = function(index, item) {
-        var myRef = projectItemOptionsRef.child(item.key);
-        myRef.update({primaryImg: index});
-
-        $scope.EditOptionData.primaryImg = index;
+    $scope.deleteImage = function(data) {
+      console.log(data);
     };
 
     // Enter category item
@@ -212,8 +191,7 @@ app.controller('AccountEditController', function($scope, FireRef, $stateParams, 
             default: item.default,
             desc: item.desc,
             active: item.active,
-            primaryImg: item.primaryImg,
-            images: item.images
+            image: item.image
         }, onComplete());
 
         function onComplete() {

@@ -7,8 +7,12 @@
     opacity:1;
 }
 .ng-enter-stagger {
-    transition-delay:0.05s;
+    transition-delay:0.1s;
 }
 .ng-leave-stagger {
-    transition-delay:0.05s;
+    transition-delay:0.1s;
+}
+
+.fp__overlay, .fp__close, .fp__copy, .fp__container {
+    z-index:10001!important;
 }
