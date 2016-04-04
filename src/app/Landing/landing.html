@@ -1,17 +1,19 @@
-<ul class="nav nav-tabs">
-    <li class="pull-right" role="presentation"><a ui-sref="account.myprojects">Account</a></li>
-    <li class="pull-right" role="presentation"><a href="#">Help</a></li>
-</ul>
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <form>
-            <div class="form-group builder-landing-center">
-                <h2>Enter Project Key</h2>
-                <input ng-model="pId" type="text" class="form-control" id="projectId" placeholder="Project Key">
-                <button ng-click="goToProject(pId)" type="button" class="btn btn-default">Go</button>
-            </div>
-        </form>
+<div id="builder-landing">
+    <ul class="nav nav-tabs">
+        <li class="pull-right" role="presentation"><a ui-sref="account.myprojects">Account</a></li>
+        <li class="pull-right" role="presentation"><a href="#">Help</a></li>
+    </ul>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form>
+                <div class="form-group builder-landing-center">
+                    <h2>Enter Project Key</h2>
+                    <input ng-model="pId" type="text" class="form-control" id="projectId" placeholder="Project Key">
+                    <button ng-click="goToProject(pId)" type="button" class="btn btn-default">Go</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-    <div class="col-md-4"></div>
 </div>
