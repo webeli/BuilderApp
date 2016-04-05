@@ -1,7 +1,17 @@
-app.controller('AccountController', function($scope, $firebaseArray, FireRef) {
+app.controller('AccountController', function($scope, $firebaseArray, FireRef, FireAuth, $state) {
+
+    var checkAuth = FireAuth.$getAuth();
+    $scope.authData = checkAuth;
+    console.log(checkAuth);
 
     var myProjects = $firebaseArray(FireRef);
     $scope.myProjects = myProjects;
+
+    $scope.logout = function() {
+        console.log("Logout");
+        FireAuth.$unauth();
+        $state.go("landing");
+    };
 
     $scope.deleteProject = function(pId) {
         var projectId = FireRef.child(pId);
