@@ -4,6 +4,14 @@ app.controller('LoginController', function($scope, FireAuth, $state) {
         $state.go("account.myprojects");
     }
     else {
+        $scope.validateLoginForm = function(valid, data) {
+            console.log(valid);
+            console.log(data);
+            if (valid) {
+                $scope.loginUser(data);
+            }
+        };
+
         $scope.loginUser = function() {
             FireAuth.$authWithPassword({
                 email: $scope.user.email,
