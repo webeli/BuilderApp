@@ -10,7 +10,7 @@ app.controller('AccountController', function($scope, $firebaseArray, FireRef, Fi
     $scope.logout = function() {
         console.log("Logout");
         FireAuth.$unauth();
-        $state.go("landing");
+        $state.go("login");
     };
 
     $scope.deleteProject = function(pId) {
