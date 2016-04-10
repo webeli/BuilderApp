@@ -115,7 +115,7 @@
 
                     <div class="btn-group" id="toggle_event_editing">
                         <button type="button" class="btn locked_active" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Ja</button>
-                        <button type="button" class="btn btn-builder unlocked_inactive" ng-class="(currentCategory.selectedOption.key != option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, false)">Nej</button>
+                        <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, false)">Nej</button>
                     </div>
                     <span class="pull-right ng-binding">Pris: {{option.price}}</span>
                 </div>
