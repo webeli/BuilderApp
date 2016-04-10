@@ -1,4 +1,4 @@
-app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout) {
+app.controller('ProjectController', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, FireAuth) {
 
     /*
     ** Refs
@@ -16,12 +16,15 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     $scope.itemOptions = [];
     $scope.projectTitle = null;
     $scope.zoomedItem = null;
+    $scope.authData = projectRef.getAuth();
+    $scope.cart = {};
 
     /*
     ** Init
     */
     validateProjectKey();
     getAllCategories();
+    getUser();
 
     /*
     ** Private functions
@@ -73,11 +76,41 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
         return category;
     }
 
+    function getUser() {
+        if (!projectRef.getAuth()) {
+            projectRef.authAnonymously(function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                    $scope.authData = authData;
+                    bindCart(authData.uid);
+                }
+            });
+        } else {
+            bindCart($scope.authData.uid);
+        }
+    }
+
+    function bindCart(uid) {
+        var ref = projectRef.child("sessionCarts").child(uid).child("cart");
+        ref.on("value", function (snapshot) {
+           if (snapshot.val()) {
+               $scope.cart = snapshot.val();
+           }
+        });
+    }
+
     /*
     ** Scope functions
     */
     $scope.selectOption = function (itemOption, cat, value) {
-        value === true ? cat.selectedOption = itemOption : cat.selectedOption = null;
+        if (value) {
+            $scope.cart[cat.key] = {title: itemOption.title, price: itemOption.price, key: itemOption.key, categoryTitle: cat.title};
+        } else {
+            projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").child(cat.key).remove();
+        }
+
+        projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").set($scope.cart);
     };
 
     $scope.zoomItemOption = function (item) {
@@ -87,15 +120,8 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
 
     $scope.getTotal = function(){
         var total = 0;
-        angular.forEach($scope.allCategories, function(key, i){
-            for(var j = 0; j < $scope.allCategories[i].categoryItems.length; j++){
-
-                var item = $scope.allCategories[i].categoryItems[j];
-                if (item.selectedOption)
-                {
-                    total += item.selectedOption.price;
-                }
-            }
+        angular.forEach($scope.cart, function(item){
+            total += item.price;
         });
         return total;
     };

@@ -21,6 +21,13 @@
     <!-- Site -->
     <div class="row">
 
+<!--        <div class="col-md-12">
+            <label>Info om projektet:</label>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur earum est expedita odit optio qui quisquam repellendus, suscipit vel? Blanditiis deleniti facilis hic ipsum molestiae similique. Laborum quis, tenetur.</p>
+        </div>-->
+
+        <hr>
+
         <!--        <nav class="navbar navbar-default navbar-fixed-top">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">Val</a>
@@ -43,8 +50,6 @@
                         </div>
                     </div>
                 </nav>-->
-
-
 
         <!-- Left col -->
         <div class="col-md-2">
@@ -82,7 +87,7 @@
                         <p></p>
                         <div class="card-footer text-muted">
 
-                            <button class="btn" ng-class="(currentCategory.selectedOption.key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
+                            <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
                             <span class="pull-right">Pris: {{option.price}}</span>
 
                         </div>
@@ -131,14 +136,11 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                    <span ng-repeat="category in allCategories">
-                        <span ng-repeat="item in category.categoryItems">
+                        <span ng-repeat="(key, value) in cart">
 
-                            {{item.title}}: <span class="pull-right" ng-show="item.selectedOption.price > 0">{{item.selectedOption.price + ':-'}}</span><br>
+                            {{value.categoryTitle}}: <span class="pull-right">{{value.price + ':-'}}</span><br>
 
                         </span>
-                    </span>
-
                     </li>
                 </ul>
                 <ul class="list-group">
