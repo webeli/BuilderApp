@@ -117,7 +117,6 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
         $scope.zoomedItem != item ? $scope.zoomedItem = item : $scope.zoomedItem = null;
     };
 
-
     $scope.getTotal = function(){
         var total = 0;
         angular.forEach($scope.cart, function(item){
