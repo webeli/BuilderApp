@@ -88,7 +88,7 @@
                         <div class="card-footer text-muted">
 
                             <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
-                            <span class="pull-right">Pris: {{option.price}}</span>
+                            <span class="pull-right">Pris: {{formatPrice(option.price)}}</span>
 
                         </div>
                         <p></p>
@@ -117,7 +117,7 @@
                         <button type="button" class="btn locked_active" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Ja</button>
                         <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, false)">Nej</button>
                     </div>
-                    <span class="pull-right ng-binding">Pris: {{option.price}}</span>
+                    <span class="pull-right ng-binding">Pris: {{formatPrice(option.price)}}</span>
                 </div>
                 <p></p>
             </div>
@@ -138,14 +138,14 @@
                     <li class="list-group-item">
                         <span ng-repeat="(key, value) in cart">
 
-                            {{value.categoryTitle}}: <span class="pull-right">{{value.price + ':-'}}</span><br>
+                            {{value.categoryTitle}}: <span class="pull-right">{{formatPrice(value.price) + ':-'}}</span><br>
 
                         </span>
                     </li>
                 </ul>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        Total:<span class="pull-right ng-binding">{{getTotal()}}:-</span>
+                        Total:<span class="pull-right ng-binding">{{formatPrice(getTotal())}}:-</span>
                     </li>
                 </ul>
             </div>
