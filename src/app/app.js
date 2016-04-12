@@ -22,6 +22,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: './src/app/Project/project.html',
             controller: 'ProjectController'
         })
+        .state('summary', {
+            url: '/summary/:projectKey',
+            templateUrl: './src/app/Summary/summary.html',
+            controller: 'SummaryController'
+        })
         .state('login', {
             url: '/login/',
             templateUrl: './src/app/Login/login.html',

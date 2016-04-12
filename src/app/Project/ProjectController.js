@@ -9,6 +9,7 @@ app.controller('ProjectController', function($scope, FireRef, $stateParams, $sta
     /*
     ** Scope variables
     */
+    $scope.projectKey = projectKey;
     $scope.allCategories = [];
     $scope.currentCategory = null;
     $scope.imgCategory = null;
