@@ -30,9 +30,10 @@ app.controller('SummaryController', function($scope, $state, $stateParams, FireR
         doc.setFontSize(14);
         doc.setFontType("normal");
 
-        // I know, a pretty uggly for loop
-        for (i = 3; i < $scope.cart.length+3; i++) {
-            doc.text(20, 10*i, $scope.cart[i-3].categoryTitle + ' - '+ $scope.cart[i-3].title + ' Pris: ' + $scope.cart[i-3].price + ':-');
+        var marginTop = 20;
+        for (i = 0; i < $scope.cart.length; i++) {
+            marginTop += 10;
+            doc.text(20, marginTop, $scope.cart[i].categoryTitle + ' - '+ $scope.cart[i].title + ' Pris: ' + $scope.cart[i].price + ':-');
         }
 
         // Saving pdf
