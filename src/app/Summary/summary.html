@@ -30,10 +30,12 @@
             <ul class="list-group">
                 <li class="list-group-item">
                         <span ng-repeat="item in cart">
-                            {{item.categoryTitle}}: <span class="pull-right">{{item.price + ':-'}}</span><br>
+                            {{item.categoryTitle}}: {{item.title}}<span class="pull-right">{{item.price + ':-'}}</span><br>
                         </span>
                 </li>
             </ul>
+
+            <button class="btn btn-primary" ng-click="downloadPDF()">Download PDF</button>
 
         </div>
 

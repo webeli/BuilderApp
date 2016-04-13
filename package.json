@@ -10,6 +10,7 @@
     "angularfire": "^1.1.4",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.2",
+    "jspdf": "^1.2.61",
     "less": "^2.6.1"
   },
   "scripts": {
