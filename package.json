@@ -4,7 +4,7 @@
   "description": "app for builders",
   "main": "webpack.config.js",
   "dependencies": {
-    "angular": "^1.5.2",
+    "angular": "^1.5.3",
     "angular-animate": "^1.5.2",
     "angular-ui-router": "^0.2.18",
     "angularfire": "^1.1.4",
@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/earthquaker/builderapp#readme",
   "devDependencies": {
-    "angular": "^1.5.3",
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
     "css-loader": "^0.23.1",
