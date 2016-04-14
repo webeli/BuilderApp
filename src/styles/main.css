@@ -1,0 +1,8 @@
+body {
+    background-color: rgb(236, 239, 241);
+}
+.container {
+    background-color: #fff;
+    min-height: 101vh;
+    box-shadow: 0 30px 100px -30px #000;
+}

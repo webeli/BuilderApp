@@ -1,0 +1,25 @@
+/*
+LANDING
+*/
+.builder-landing-center {
+    text-align:center;
+}
+.builder-landing-center h2 {
+    margin-top:50px;
+    margin-bottom:20px;
+}
+.builder-landing-center .form-control {
+    width:30%;
+    display:inline-block;
+}
+.builder-landing-center .btn {
+    vertical-align:initial;
+}
+.builder-title {
+    text-align:center;
+    margin-left:45%; /* TODO: find a better way */
+    margin-top:10px;
+//font-weight:bold;
+    text-transform:uppercase;
+    display:inline-block;
+}

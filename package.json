@@ -35,10 +35,12 @@
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
     "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
     "imports-loader": "^0.6.5",
     "less-loader": "^2.2.3",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
   }
