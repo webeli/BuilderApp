@@ -5,6 +5,7 @@ var $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
 var bootstrap = require('bootstrap');
+
 var angular = require('angular');
 var uirouter = require('angular-ui-router');
 var Firebase = require('firebase');
@@ -43,4 +44,4 @@ require('./Summary/SummaryController')(app);
 /*
  ** Styles
  */
-
+require("!css!less!./Account/account.less");

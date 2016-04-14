@@ -13,27 +13,13 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader"
-            },
-            {
-                test: /\.html$/,
-                exclude: /node_modules/,
-                loader: "raw-loader"
-            },
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader"
-            },
-            {
-                test: /\.less$/,
-                loader: "style!css!less"
-            }
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+            { test: /\.html$/, exclude: /node_modules/, loader: "raw-loader" },
+            { test: /\.less$/, loader: "style!css!less" },
+            { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.es6', '.css', '.less']
+        extensions: ['', '.js', '.es6', '.css']
     }
 }
