@@ -1,60 +1,62 @@
+module.exports = function(app) {
 // Check image
-app.directive('checkImage', function($http) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            attrs.$observe('ngSrc', function(ngSrc) {
+    app.directive('checkImage', function ($http) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                attrs.$observe('ngSrc', function (ngSrc) {
 
-                $http.get(ngSrc).success(function(){
-                    console.log('image exist');
-                }).error(function(){
-                    console.log('image does not exist');
-                    //element.attr('src', 'http://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg'); // set default image
+                    $http.get(ngSrc).success(function () {
+                        console.log('image exist');
+                    }).error(function () {
+                        console.log('image does not exist');
+                        //element.attr('src', 'http://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg'); // set default image
+                    });
                 });
-            });
-        }
-    };
-});
+            }
+        };
+    });
 
 // Modal
-app.directive('modal', function () {
-    return {
-        template: '<div class="modal fade">' +
-        '<div class="modal-dialog">' +
-        '<div class="modal-content">' +
-        '<div class="modal-header">' +
-        '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
-        '<h4 class="modal-title">{{ title }}</h4>' +
-        '</div>' +
-        '<div class="modal-body" ng-transclude></div>' +
-        '</div>' +
-        '</div>' +
-        '</div>',
-        restrict: 'E',
-        transclude: true,
-        replace:true,
-        scope:true,
-        link: function postLink(scope, element, attrs) {
-            scope.title = attrs.title;
+    app.directive('modal', function () {
+        return {
+            template: '<div class="modal fade">' +
+            '<div class="modal-dialog">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h4 class="modal-title">{{ title }}</h4>' +
+            '</div>' +
+            '<div class="modal-body" ng-transclude></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>',
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            scope: true,
+            link: function postLink(scope, element, attrs) {
+                scope.title = attrs.title;
 
-            scope.$watch(attrs.visible, function(value){
-                if(value == true)
-                    $(element).modal('show');
-                else
-                    $(element).modal('hide');
-            });
-
-            $(element).on('shown.bs.modal', function(){
-                scope.$apply(function(){
-                    scope.$parent[attrs.visible] = true;
+                scope.$watch(attrs.visible, function (value) {
+                    if (value == true)
+                        $(element).modal('show');
+                    else
+                        $(element).modal('hide');
                 });
-            });
 
-            $(element).on('hidden.bs.modal', function(){
-                scope.$apply(function(){
-                    scope.$parent[attrs.visible] = false;
+                $(element).on('shown.bs.modal', function () {
+                    scope.$apply(function () {
+                        scope.$parent[attrs.visible] = true;
+                    });
                 });
-            });
-        }
-    };
-});
+
+                $(element).on('hidden.bs.modal', function () {
+                    scope.$apply(function () {
+                        scope.$parent[attrs.visible] = false;
+                    });
+                });
+            }
+        };
+    });
+}

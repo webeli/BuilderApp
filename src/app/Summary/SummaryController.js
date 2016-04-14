@@ -1,43 +1,45 @@
-app.controller('SummaryController', function($scope, $state, $stateParams, FireRef, $firebaseArray) {
+module.exports = function(app) {
+    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray) {
 
-    var projectKey = $stateParams.projectKey;
-    var projectRef = FireRef.child(projectKey);
+        var projectKey = $stateParams.projectKey;
+        var projectRef = FireRef.child(projectKey);
 
-    // Init
-    projectRef.onAuth(authDataCallback);
+        // Init
+        projectRef.onAuth(authDataCallback);
 
-    function authDataCallback(authData) {
-        if (authData) {
-            var cartRef = projectRef.child("sessionCarts").child(authData.uid).child("cart");
-            $scope.cart = $firebaseArray(cartRef);
-        }
-    }
-
-    $scope.downloadPDF = function() {
-        if ($scope.cart.length === 0) {
-            return;
+        function authDataCallback(authData) {
+            if (authData) {
+                var cartRef = projectRef.child("sessionCarts").child(authData.uid).child("cart");
+                $scope.cart = $firebaseArray(cartRef);
+            }
         }
 
-        // Generate new jsPDF document
-        var doc = new jsPDF();
+        $scope.downloadPDF = function () {
+            if ($scope.cart.length === 0) {
+                return;
+            }
 
-        // Title
-        doc.setFontSize(20);
-        doc.setFontType("bold");
-        doc.text(20, 20, 'Sammanfattning');
+            // Generate new jsPDF document
+            var doc = new jsPDF();
 
-        // Generating all elements
-        doc.setFontSize(14);
-        doc.setFontType("normal");
+            // Title
+            doc.setFontSize(20);
+            doc.setFontType("bold");
+            doc.text(20, 20, 'Sammanfattning');
 
-        var marginTop = 20;
-        for (i = 0; i < $scope.cart.length; i++) {
-            marginTop += 10;
-            doc.text(20, marginTop, $scope.cart[i].categoryTitle + ' - '+ $scope.cart[i].title + ' Pris: ' + $scope.cart[i].price + ':-');
-        }
+            // Generating all elements
+            doc.setFontSize(14);
+            doc.setFontType("normal");
 
-        // Saving pdf
-        doc.save('Sammanfattning.pdf');
-    };
+            var marginTop = 20;
+            for (i = 0; i < $scope.cart.length; i++) {
+                marginTop += 10;
+                doc.text(20, marginTop, $scope.cart[i].categoryTitle + ' - ' + $scope.cart[i].title + ' Pris: ' + $scope.cart[i].price + ':-');
+            }
 
-});
+            // Saving pdf
+            doc.save('Sammanfattning.pdf');
+        };
+
+    });
+}

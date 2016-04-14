@@ -1,64 +1,46 @@
-var app = angular.module('builderApp', ['ui.router', 'firebase', 'ngAnimate']);
+/*
+ ** Dependencies
+ */
+var $ = require('jquery');
+window.jQuery = $;
+window.$ = $;
+var bootstrap = require('bootstrap');
+var angular = require('angular');
+var uirouter = require('angular-ui-router');
+var Firebase = require('firebase');
+var angularfire = require('angularfire');
+var angularanimate = require('angular-animate');
 
-app.run(["$rootScope", "$state", function($rootScope, $location) {
-    $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
-        // We can catch the error thrown when the $requireAuth promise is rejected
-        // and redirect the user back to the login page
-        if (error === "AUTH_REQUIRED") {
-            $state.go("login");
-        }
-    });
-}]);
+/*
+ ** App
+ */
+var app = angular.module('app', ['ui.router', 'firebase', 'ngAnimate']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-        .state('landing', {
-            url: '/landing/',
-            templateUrl: './src/app/Landing/landing.html',
-            controller: 'LandingController'
-        })
-        .state('project', {
-            url: '/project/:projectKey',
-            templateUrl: './src/app/Project/project.html',
-            controller: 'ProjectController'
-        })
-        .state('summary', {
-            url: '/summary/:projectKey',
-            templateUrl: './src/app/Summary/summary.html',
-            controller: 'SummaryController'
-        })
-        .state('login', {
-            url: '/login/',
-            templateUrl: './src/app/Login/login.html',
-            controller: 'LoginController'
-        })
-        .state('account', {
-            url: '/account/',
-            templateUrl: './src/app/Account/account.html',
-            controller: 'AccountController',
-            resolve: {
-                "currentAuth": ["FireAuth", function(FireAuth) {
-                    // $requireAuth returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return FireAuth.$requireAuth();
-                }]
-            }
-        })
-            .state('account.myprojects', {
-                url: 'my-projects/',
-                templateUrl: './src/app/Account/MyProject/myprojects.html',
-                controller: 'AccountController'
-            })
-            .state('account.createproject', {
-                url: 'create-project/',
-                templateUrl: './src/app/Account/CreateProject/createproject.html',
-                controller: 'AccountController'
-            })
-            .state('account.editproject', {
-                url: 'edit-project/:projectKey',
-                templateUrl: './src/app/Account/Edit/editproject.html',
-                controller: 'AccountEditController'
-            });
+/*
+ ** Run & Config
+ */
+require('./app.run')(app);
+require('./app.config')(app);
 
-    $urlRouterProvider.otherwise('/landing/');
-});
+/*
+ ** Services
+ */
+require('../services/FirebaseService')(app);
+require('../services/AppFilters')(app);
+require('../services/AppDirectives')(app);
+require('../services/AppServices')(app);
+
+/*
+ ** Controllers
+ */
+require('./Landing/LandingController')(app);
+require('./Project/ProjectController')(app);
+require('./Account/AccountController')(app);
+require('./Account/Edit/AccountEditController')(app);
+require('./Login/LoginController')(app);
+require('./Summary/SummaryController')(app);
+
+/*
+ ** Styles
+ */
+require('./Landing/landing.less');
