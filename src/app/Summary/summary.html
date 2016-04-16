@@ -20,6 +20,8 @@
     </div>
     </a>
 
+    {{customer}}
+
     <!-- Site -->
     <div class="row">
 
@@ -28,6 +30,7 @@
             <h2>1. Ange uppgifter</h2>
 
             <form class="form-horizontal" role="form" ng-if="customer">
+
                 <div class="form-group" ng-class="{'has-error': (!customer.appartmentnumber && validateCustomer), 'has-success': customer.appartmentnumber}">
                     <label for="appNr" class="col-xs-5 control-label">Lägenhetsnummer:</label>
                     <div class="col-xs-3">

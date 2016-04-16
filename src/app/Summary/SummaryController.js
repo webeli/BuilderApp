@@ -6,7 +6,6 @@ module.exports = function(app) {
 
         $scope.htmlHelper = htmlHelper;
         $scope.validateCustomer = false;
-        $scope.customer = {appartment: ''};
 
         projectRef.child("pName").once("value", function(snapshot) {
            if (snapshot.val())
@@ -22,7 +21,14 @@ module.exports = function(app) {
 
                 $scope.authData = authData;
                 $scope.cart = $firebaseArray(cartRef.child("cart"));
-                $scope.customer = $firebaseObject(cartRef.child("customerInfo"));
+
+                var customerInfo = $firebaseObject(cartRef.child("customerInfo"));
+                customerInfo.$loaded(
+                    function(data) {
+                        $scope.customer = data;
+                        $scope.customer['date'] = new Date().toLocaleDateString();
+                    }
+                );
 
                 var obj = $firebaseObject(cartRef.child("total"));
                 obj.$bindTo($scope, "totalPrice");
@@ -43,6 +49,10 @@ module.exports = function(app) {
         };
 
         function createPdf(projectname, customer, cart, total) {
+
+            if (!projectname || !customer || !cart || !total) {
+                debugger;
+            }
 
             var doc = new jsPDF();
 
