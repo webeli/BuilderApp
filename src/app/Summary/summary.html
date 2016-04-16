@@ -28,19 +28,19 @@
             <h2>1. Ange uppgifter</h2>
 
             <form class="form-horizontal" role="form" ng-if="customer">
-                <div class="form-group" ng-class="{'has-error': (customer.appartmentnumber <= 0 && validateCustomer), 'has-success': customer.appartmentnumber > 0}">
+                <div class="form-group" ng-class="{'has-error': (!customer.appartmentnumber && validateCustomer), 'has-success': customer.appartmentnumber}">
                     <label for="appNr" class="col-xs-5 control-label">Lägenhetsnummer:</label>
                     <div class="col-xs-3">
                         <input type="text" class="form-control" id="appNr" placeholder="#" ng-model="customer.appartmentnumber" ng-change="customer.$save()" />
                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error': (customer.customerOne.length <= 0 && validateCustomer), 'has-success': customer.customerOne.length > 0}">
+                <div class="form-group" ng-class="{'has-error': (!customer.customerOne && validateCustomer), 'has-success': customer.customerOne}">
                     <label for="name1" class="col-xs-3 control-label">Boende1</label>
                     <div class="col-xs-8">
                         <input type="text" class="form-control" id="name1" placeholder="Förnamn Efternamn" ng-model="customer.customerOne" ng-change="customer.$save()" />
                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-success': customer.customerTwo.length > 0}">
+                <div class="form-group" ng-class="{'has-success': customer.customerTwo}">
                     <label for="name2" class="col-xs-3 control-label">Boende2</label>
                     <div class="col-xs-8">
                         <input type="text" class="form-control" id="name2" placeholder="Förnamn Efternamn" ng-model="customer.customerTwo" ng-change="customer.$save()" />

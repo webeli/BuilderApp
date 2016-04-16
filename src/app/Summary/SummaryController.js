@@ -6,6 +6,7 @@ module.exports = function(app) {
 
         $scope.htmlHelper = htmlHelper;
         $scope.validateCustomer = false;
+        $scope.customer = {appartment: ''};
 
         projectRef.child("pName").once("value", function(snapshot) {
            if (snapshot.val())
