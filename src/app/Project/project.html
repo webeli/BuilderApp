@@ -73,9 +73,7 @@
             </div>
 
             <!-- one item -->
-            <div ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length > 1 && zoomedItem==null" class="col-md-4">
-
-                <!--<div class="clearfix" ng-if="$index % 4 == 0"></div>-->
+            <div ng-repeat="option in itemOptions | onlyActive | orderBy: 'price'" ng-if="itemOptions.length > 1 && zoomedItem==null" class="col-md-4">
 
                 <div class="panel panel-default">
                     <div class="panel-thumbnail">
@@ -87,7 +85,7 @@
                         <p></p>
                         <div class="card-footer text-muted">
 
-                            <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
+                            <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">{{ (cart[currentCategory.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
                             <span class="pull-right">{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
 
                         </div>
