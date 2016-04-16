@@ -1,8 +1,10 @@
 module.exports = function(app) {
-    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray) {
+    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray, htmlHelper) {
 
         var projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child(projectKey);
+
+        $scope.htmlHelper = htmlHelper;
 
         // Init
         projectRef.onAuth(authDataCallback);
@@ -12,7 +14,7 @@ module.exports = function(app) {
                 var cartRef = projectRef.child("sessionCarts").child(authData.uid).child("cart");
                 $scope.cart = $firebaseArray(cartRef);
             }
-        }
+        };
 
         $scope.downloadPDF = function () {
             if ($scope.cart.length === 0) {
@@ -37,7 +39,7 @@ module.exports = function(app) {
             var margin = (fontSize/12 * 5);
 
             var customerInfo = {
-                leftCol: 40,
+                leftCol: 30,
                 rightCol: 120,
                 rowStart: 40,
                 rowMargin: margin,
@@ -54,8 +56,8 @@ module.exports = function(app) {
             };
 
             var cartInfo = {
-                leftCol: 40,
-                middleCol: 90,
+                leftCol: 30,
+                middleCol: 80,
                 rightCol: 140,
                 rowStart: 65,
                 rowMargin: margin,
@@ -71,7 +73,13 @@ module.exports = function(app) {
                         case 'right':
                             return this.rightCol;
                         case 'priceRight':
-                            return this.rightCol - (pricelength * (fontsize*2/10)) + (10 * fontsize*2/10);
+
+                            var spaceValue = htmlHelper.countSpaces(pricelength);    // Value increases forach 3
+                            var spaceSize = (spaceValue * (fontsize*2/10)/2);  // Moves to right
+                            var priceFontSize = (10 * fontsize*2/10);            // Moves to right
+                            var priceSize = (pricelength * (fontsize*2/10));   // Moves to left
+
+                            return this.rightCol - priceSize + priceFontSize + spaceSize;
                     }
                     return 0;
                 }
@@ -109,11 +117,12 @@ module.exports = function(app) {
 
             // Each Cart
             cart.forEach(function(item, index){
-                var priceLength = item.price.toString().length + 1;
+                var formatedPrice = htmlHelper.formatPrice(item.price);
+                var priceLength = formatedPrice.toString().length;
 
                 doc.text(cartInfo.col('left'), cartInfo.row(1 + index), item.categoryTitle);
                 doc.text(cartInfo.col('middle'), cartInfo.row(1 + index), item.title);
-                doc.text(cartInfo.col('priceRight', priceLength, fontSize), cartInfo.row(1 + index), item.price + ' kr');
+                doc.text(cartInfo.col('priceRight', priceLength, fontSize), cartInfo.row(1 + index), htmlHelper.formatPrice(item.price) + ' kr');
             });
             
 

@@ -30,7 +30,7 @@
             <ul class="list-group">
                 <li class="list-group-item">
                         <span ng-repeat="item in cart">
-                            {{item.categoryTitle}}: {{item.title}}<span class="pull-right">{{item.price + ':-'}}</span><br>
+                            {{item.categoryTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + ':-'}}</span><br>
                         </span>
                 </li>
             </ul>

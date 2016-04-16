@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout) {
+    app.controller('ProjectController', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper) {
 
         /*
          ** Refs
@@ -10,6 +10,7 @@ module.exports = function(app) {
         /*
          ** Scope variables
          */
+        $scope.htmlHelper = htmlHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
         $scope.currentCategory = null;
@@ -130,19 +131,6 @@ module.exports = function(app) {
                 total += item.price;
             });
             return total;
-        };
-
-        $scope.formatPrice = function (price) {
-            var nStr = price.toString();
-            nStr += '';
-            x = nStr.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1)) {
-                x1 = x1.replace(rgx, '$1' + ' ' + '$2');
-            }
-            return x1 + x2;
         };
 
         $scope.getItemOptions = function (key) {
