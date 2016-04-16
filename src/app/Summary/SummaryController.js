@@ -1,37 +1,47 @@
 module.exports = function(app) {
-    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray, htmlHelper) {
+    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper) {
 
-        var projectKey = $stateParams.projectKey;
-        var projectRef = FireRef.child(projectKey);
+        $scope.projectKey = $stateParams.projectKey;
+        var projectRef = FireRef.child($scope.projectKey);
 
         $scope.htmlHelper = htmlHelper;
+        $scope.validateCustomer = false;
+
+        projectRef.child("pName").once("value", function(snapshot) {
+           if (snapshot.val())
+               $scope.projectTitle = snapshot.val();
+        });
 
         // Init
         projectRef.onAuth(authDataCallback);
 
         function authDataCallback(authData) {
             if (authData) {
-                var cartRef = projectRef.child("sessionCarts").child(authData.uid).child("cart");
-                $scope.cart = $firebaseArray(cartRef);
+                var cartRef = projectRef.child("sessionCarts").child(authData.uid);
+
+                $scope.authData = authData;
+                $scope.cart = $firebaseArray(cartRef.child("cart"));
+                $scope.customer = $firebaseObject(cartRef.child("customerInfo"));
+
+                var obj = $firebaseObject(cartRef.child("total"));
+                obj.$bindTo($scope, "totalPrice");
             }
-        };
+        }
 
         $scope.downloadPDF = function () {
-            if ($scope.cart.length === 0) {
+
+            if ($scope.cart.length === 0 || !$scope.customer.appartmentnumber || !$scope.customer.customerOne) {
+                $scope.validateCustomer = true;
                 return;
             }
 
-            var myProject = {name: "Testprojekt"};
-            var myCustomer = {Appartmentnumber: "1204", Date: "2016-04-14", customers: [{Firstname: "Kalle", Lastname: "Svensson"}, {Firstname: "Eva", Lastname: "Svensson"}]};
-            var total = "1337";
-
-            var doc = createPdf(myProject, myCustomer, $scope.cart, total);
+            var doc = createPdf($scope.projectTitle, $scope.customer, $scope.cart, $scope.totalPrice.$value);
 
             // Saving pdf
             doc.save('Sammanfattning.pdf');
         };
 
-        function createPdf(project, customer, cart, total) {
+        function createPdf(projectname, customer, cart, total) {
 
             var doc = new jsPDF();
 
@@ -73,12 +83,10 @@ module.exports = function(app) {
                         case 'right':
                             return this.rightCol;
                         case 'priceRight':
-
-                            var spaceValue = htmlHelper.countSpaces(pricelength);    // Value increases forach 3
+                            var spaceValue = htmlHelper.countSpaces(pricelength);    // Value increases foreach 3
                             var spaceSize = (spaceValue * (fontsize*2/10)/2);  // Moves to right
                             var priceFontSize = (10 * fontsize*2/10);            // Moves to right
                             var priceSize = (pricelength * (fontsize*2/10));   // Moves to left
-
                             return this.rightCol - priceSize + priceFontSize + spaceSize;
                     }
                     return 0;
@@ -87,23 +95,23 @@ module.exports = function(app) {
 
             // Heading
             doc.setFontSize(26);
-            doc.text(40, 20, 'PROJEKTNAMN');
+            doc.text(40, 20, projectname.toUpperCase());
 
             // Customer info
             doc.setFontSize(fontSize);
 
             doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer:');
-            doc.text(customerInfo.col('right'), customerInfo.row(0), customer.Appartmentnumber);
+            doc.text(customerInfo.col('right'), customerInfo.row(0), customer.appartmentnumber);
 
             doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum:');
-            doc.text(customerInfo.col('right'), customerInfo.row(1), customer.Date);
+            doc.text(customerInfo.col('right'), customerInfo.row(1), customer.date);
 
             doc.text(customerInfo.col('left'), customerInfo.row(2), 'Namn:');
+            doc.text(customerInfo.col('right'), customerInfo.row(2), customer.customerOne);
+            if (customer.customerTwo) {
+                doc.text(customerInfo.col('right'), customerInfo.row(3), customer.customerTwo);
+            }
 
-            // Each customer
-            customer.customers.forEach(function(person, index){
-                doc.text(customerInfo.col('right'), customerInfo.row(2 + index), person.Firstname + ' ' + person.Lastname);
-            });
 
             // Cart
 
@@ -122,12 +130,16 @@ module.exports = function(app) {
 
                 doc.text(cartInfo.col('left'), cartInfo.row(1 + index), item.categoryTitle);
                 doc.text(cartInfo.col('middle'), cartInfo.row(1 + index), item.title);
-                doc.text(cartInfo.col('priceRight', priceLength, fontSize), cartInfo.row(1 + index), htmlHelper.formatPrice(item.price) + ' kr');
+                doc.text(cartInfo.col('priceRight', priceLength, fontSize), cartInfo.row(1 + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
             });
             
 
             // Total
-            doc.text(cartInfo.col('priceRight',total.toString().length + 1 , fontSize), cartInfo.row(1 + cart.length+1), total + ' kr');
+            var formatedTotal = htmlHelper.formatPrice(total);
+            var totalLength = formatedTotal.toString().length;
+
+
+            doc.text(cartInfo.col('priceRight', totalLength, fontSize), cartInfo.row(1 + cart.length+1), htmlHelper.formatPrice(total) + htmlHelper.priceSuffix());
 
             doc.setFontType("bold");
             doc.text(cartInfo.col('middle'), cartInfo.row(1 + cart.length+1), 'Summa tillval');

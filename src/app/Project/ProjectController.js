@@ -101,6 +101,12 @@ module.exports = function(app) {
                     $scope.cart = snapshot.val();
                 }
             });
+            var totalRef = projectRef.child("sessionCarts").child(uid).child("total");
+            totalRef.on("value", function (snapshot) {
+                if (snapshot.val()) {
+                    $scope.totalPrice = snapshot.val();
+                }
+            });
         }
 
         /*
@@ -119,6 +125,8 @@ module.exports = function(app) {
             }
 
             projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").set($scope.cart);
+
+            projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
         };
 
         $scope.zoomItemOption = function (item) {

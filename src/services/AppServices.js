@@ -22,15 +22,19 @@ module.exports = function(app) {
                 value = 0;
             }
             var rest = priceLength - 3;
-            if (rest > 0  && rest < 3) {
+            if (rest > 0  && rest <= 3) {
                 value++;
                 return value;
             }
             if (rest > 3) {
-                return calculateSpacing(priceLength - 3, value+1);
+                //Recursive: remove one from the rest
+                return this.countSpaces(priceLength - 3-1, value+1);
             }
             return value;
         };
+        this.priceSuffix = function () {
+            return ' kr';
+        }
     });
 
 // READ UP ON

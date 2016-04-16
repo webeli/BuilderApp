@@ -88,7 +88,7 @@
                         <div class="card-footer text-muted">
 
                             <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Välj</button>
-                            <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}}</span>
+                            <span class="pull-right">{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
 
                         </div>
                         <p></p>
@@ -117,7 +117,7 @@
                         <button type="button" class="btn locked_active" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">Ja</button>
                         <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, false)">Nej</button>
                     </div>
-                    <span class="pull-right ng-binding">Pris: {{htmlHelper.formatPrice(option.price)}}</span>
+                    <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
                 </div>
                 <p></p>
             </div>
@@ -138,14 +138,14 @@
                     <li class="list-group-item">
                         <span ng-repeat="(key, value) in cart">
 
-                            {{value.categoryTitle}}: <span class="pull-right">{{htmlHelper.formatPrice(value.price) + ':-'}}</span><br>
+                            <span class="small">{{value.categoryTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(value.price)}} {{htmlHelper.priceSuffix()}}</span><br>
 
                         </span>
                     </li>
                 </ul>
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        Total:<span class="pull-right ng-binding">{{htmlHelper.formatPrice(getTotal())}}:-</span>
+                    <li class="list-group-item" ng-if="totalPrice">
+                        Total:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
                     </li>
                 </ul>
             </div>
