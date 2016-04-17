@@ -72,28 +72,67 @@
                 <img ng-src="{{zoomedItem.image}}" class="img-responsive" ng-click="zoomItemOption(zoomedItem)">
             </div>
 
-            <!-- one item -->
-            <div ng-repeat="option in itemOptions | onlyActive | orderBy: 'price'" ng-if="itemOptions.length > 1 && zoomedItem==null" class="col-md-4">
+            <!-- New Template -->
+            <div class="row">
 
-                <div class="panel panel-default">
-                    <div class="panel-thumbnail">
-                        <img ng-src="{{option.image}}" class="img-responsive" ng-click="zoomItemOption(option)">
-                    </div>
-                    <div class="panel-body">
-                        <p class="lead">{{option.title}}</p>
-                        <p class="">{{option.desc}}</p>
-                        <p></p>
-                        <div class="card-footer text-muted">
 
-                            <button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">{{ (cart[currentCategory.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
-                            <span class="pull-right">{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                <!-- item -->
+                <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1 && zoomedItem==null">
+
+<!--                    <div class="clearfixxx" ng-show="itemOptions[$index-1].attribute != option.attribute" style="width: 100%;float: left;">
+                        <label>Attribut: {{option.attribute}}</label>
+                    </div>-->
+
+                    <div class="col-md-4 option-item">
+
+                        <div class="option-inner">
+
+                            <div class="imgholder">
+                                <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)">
+                            </div>
+
+                            <h4>{{option.title}}</h4>
+
+                            <p>{{option.desc}}</p>
+
+                            <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
+                            <p></p>
+
+                            <button class="btn btn-block btn-xs" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">{{ (cart[currentCategory.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
                         </div>
-                        <p></p>
                     </div>
                 </div>
-            </div>
+                <!-- /item -->
+
+            </div><!-- /row -->
+
+
+
+            <!-- OLD TEMPLATE -->
+            <!-- one item -->
+            <!--<div ng-repeat="option in itemOptions | onlyActive | orderBy: 'price'" ng-if="itemOptions.length > 1 && zoomedItem==null" class="col-md-4">-->
+
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-thumbnail">-->
+                        <!--<img ng-src="{{option.image}}" class="img-responsive" ng-click="zoomItemOption(option)">-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<p class="lead">{{option.title}}</p>-->
+                        <!--<p class="">{{option.desc}}</p>-->
+                        <!--<p></p>-->
+                        <!--<div class="card-footer text-muted">-->
+
+                            <!--<button class="btn" ng-class="(cart[currentCategory.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategory, true)">{{ (cart[currentCategory.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>-->
+                            <!--<span class="pull-right">{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>-->
+
+                        <!--</div>-->
+                        <!--<p></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <!-- /one item -->
+            <!-- /OLD TEMPLATE -->
 
 
             <!-- Full page item -->

@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper) {
+    app.controller('ProjectController', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter) {
 
         /*
          ** Refs
@@ -178,7 +178,11 @@ module.exports = function(app) {
                 });
             });
             $scope.itemOptions = currentOptions;
+
+
         };
+
+        // Add watch for itemOptions? shieeet
 
     });
 }

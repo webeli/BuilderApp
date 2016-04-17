@@ -96,6 +96,7 @@ module.exports = function(app) {
                 key: itemOptionsKey,
                 price: 0,
                 default: false,
+                attribute: '',
                 desc: '',
                 active: true,
                 image: 'http://senda-arcoiris.info/images/100x100.gif'
@@ -189,6 +190,7 @@ module.exports = function(app) {
             myRef.update({
                 title: item.title,
                 price: item.price,
+                attribute: item.attribute,
                 default: item.default,
                 desc: item.desc,
                 active: item.active,
