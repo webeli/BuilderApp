@@ -53,7 +53,7 @@
             <div ng-class="{'panel-default': item.active, 'panel-warning': !item.active}" class="panel accordion-toggle" ng-repeat="item in itemOptions">
                 <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}" ng-click="toggleModal('editoption', item.key)">
                     <h4 class="panel-title">
-                        <img ng-src="{{item.image}}" width="32px" alt="">
+                        <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:32,fit:clip/{{item.image}}" alt="">
                         <a>{{item.title}}</a>
                         <span ng-if="item.default" class="label label-default">Standard</span>
                         <span class="pull-right">{{item.price}}:-</span>
@@ -141,7 +141,7 @@
                     <p></p>
                     <div class="col-sm-10">
                         <div class="col-sm-4">
-                            <img class="img-responsive" ng-src="{{EditOptionData.image}}" />
+                            <img class="img-responsive" ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:120,fit:clip/{{EditOptionData.image}}" />
                             <div class="btn-group pull-right">
                                 <button class="btn btn-xs btn-danger" ng-click="deleteImage(EditOptionData)">Delete</button>
                             </div>
