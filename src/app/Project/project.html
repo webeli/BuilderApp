@@ -66,10 +66,11 @@
         <!-- MAIN CONT -->
         <div class="col-md-8">
 
+            <!-- TODO Make a decent zoom-function. This one is jumpy -->
             <!-- Zoomed part -->
             <div ng-show="zoomedItem" class="col-md-12">
                 <!--<h1>{{zoomedItem.title}}</h1>-->
-                <img ng-src="{{zoomedItem.image}}" class="img-responsive" ng-click="zoomItemOption(zoomedItem)">
+                <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:1024,fit:clip/{{zoomedItem.image}}" class="img-responsive" ng-click="zoomItemOption(zoomedItem, false)">
             </div>
 
             <!-- New Template -->
@@ -88,7 +89,7 @@
                         <div class="option-inner">
 
                             <div class="imgholder">
-                                <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:200,height:200,fit:clip/{{option.image}}" ng-click="zoomItemOption(option)">
+                                <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:200,height:200,fit:clip/{{option.image}}" ng-click="zoomItemOption(option, true)">
                             </div>
 
                             <h4>{{option.title}}</h4>

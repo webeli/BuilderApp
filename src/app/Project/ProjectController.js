@@ -16,7 +16,6 @@ module.exports = function(app) {
         $scope.currentCategory = null;
         $scope.imgCategory = null;
         $scope.imgItem = null;
-        $scope.itemOptions = [];
         $scope.projectTitle = null;
         $scope.zoomedItem = null;
         $scope.authData = projectRef.getAuth();
@@ -129,8 +128,12 @@ module.exports = function(app) {
             projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
         };
 
-        $scope.zoomItemOption = function (item) {
-            $scope.zoomedItem != item ? $scope.zoomedItem = item : $scope.zoomedItem = null;
+        $scope.zoomItemOption = function (item, zoom) {
+            if (zoom) {
+                $scope.zoomedItem = item;
+            } else {
+                $scope.zoomedItem = null;
+            }
         };
 
         $scope.getTotal = function () {
@@ -155,34 +158,54 @@ module.exports = function(app) {
 
         // Get the options for an item
         $scope.getOptions = function (item) {
+
+            // TODO
+            // Maybe store each load in the view so that we don't have to repeat this process.
+
+            // For now: empty it so that the site doesn't feel laggy when switching categories
+            
+            $scope.itemOptions = [];
+            
             // Store data as object and use in scope
             $scope.currentCategory = item;
             $scope.zoomedItem = null;
-            var currentOptions = [];
 
-            // Get all category item keys
+            var counter = 0;
+            var result = [];
+
+            // Get node "refs" on category
             var categoryItemKeyRefs = projectRef.child("categoryItems").child(item.key).child("refs");
 
             // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
             categoryItemKeyRefs.on('child_added', function (snapshot) {
+
                 var itemKey = snapshot.key();
-                projectRef.child("itemOptions").child(itemKey).on('value', function (snapshot) {
+                counter++;
+
+                projectRef.child("itemOptions").child(itemKey).once('value', function (snapshot) {
                     $timeout(function () {
                         if (snapshot.val() === null) {
                             delete $scope.itemOptions[itemKey];
                         }
                         else {
-                            currentOptions.push(snapshot.val());
+                            result.push(snapshot.val());
+                            if (counter == result.length) {
+                                getOptionsCallback(result);
+                            }
                         }
                     });
+
                 });
             });
-            $scope.itemOptions = currentOptions;
 
+            function getOptionsCallback (result) {
+                // Sort it:
+                var orderBy = $filter('orderBy');
+                // Sorting on price now, add 'attribute', 'price' later
+                $scope.itemOptions = orderBy(result, ['price']);
 
+            }
         };
-
-        // Add watch for itemOptions? shieeet
 
     });
 }
