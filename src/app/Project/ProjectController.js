@@ -10,6 +10,7 @@ module.exports = function(app) {
         /*
          ** Scope variables
          */
+        $scope.displayLightbox = false;
         $scope.htmlHelper = htmlHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
@@ -129,11 +130,8 @@ module.exports = function(app) {
         };
 
         $scope.zoomItemOption = function (item, zoom) {
-            if (zoom) {
-                $scope.zoomedItem = item;
-            } else {
-                $scope.zoomedItem = null;
-            }
+            $scope.displayLightbox = !$scope.displayLightbox;
+            $scope.lightboxData = item;
         };
 
         $scope.getTotal = function () {

@@ -44,4 +44,5 @@ require("./src/styles/animations.css");
 require("./src/styles/landing.css");
 require("./src/styles/project.less");
 require("./src/styles/account.less");
+require("./src/styles/lightbox.less");
 

@@ -196,3 +196,13 @@
 
     </div>
 </div>
+
+<div id="lightbox-overlay" ng-show="displayLightbox" ng-click="displayLightbox = !displayLightbox"></div>
+<div id="lightbox" ng-show="displayLightbox">
+    <div class="lightbox-close" ng-click="displayLightbox = !displayLightbox">x</div>
+    <div class="lightbox-header">{{lightboxData.title}}</div>
+    <div class="lightbox-content">
+        <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:1024,fit:clip/{{lightboxData.image}}">
+    </div>
+    <div class="lightbox-footer">Footer</div>
+</div>
