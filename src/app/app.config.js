@@ -1,10 +1,10 @@
 module.exports = function(app) {
     app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $stateProvider
-            .state('landing', {
-                url: '/landing/',
-                template: require('./Landing/landing.html'),
-                controller: 'LandingController'
+            .state('home', {
+                url: '/home/',
+                template: require('./Home/home.html'),
+                controller: 'HomeController'
             })
             .state('project', {
                 url: '/project/:projectKey',
@@ -49,6 +49,6 @@ module.exports = function(app) {
                 controller: 'AccountEditController'
             });
 
-        $urlRouterProvider.otherwise('/landing/');
+        $urlRouterProvider.otherwise('/home/');
     }]);
 }

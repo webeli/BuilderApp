@@ -36,7 +36,7 @@ module.exports = function(app) {
             projectRef.once("value", function (snapshot) {
                 var projectKey = snapshot.exists();
                 if (projectKey === false) {
-                    $state.go("landing");
+                    $state.go("home");
                 } else {
                     $scope.projectTitle = snapshot.val().pName;
                 }

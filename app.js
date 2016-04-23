@@ -29,7 +29,7 @@ require('./src/services/AppServices')(app);
 /*
  ** Controllers
  */
-require('./src/app/Landing/LandingController')(app);
+require('./src/app/Home/HomeController')(app);
 require('./src/app/Project/ProjectController')(app);
 require('./src/app/Account/AccountController')(app);
 require('./src/app/Account/Edit/AccountEditController')(app);
@@ -41,7 +41,7 @@ require('./src/app/Summary/SummaryController')(app);
  */
 require("./src/styles/main.css");
 require("./src/styles/animations.css");
-require("./src/styles/landing.css");
+require("./src/styles/home.css");
 require("./src/styles/project.less");
 require("./src/styles/account.less");
 require("./src/styles/lightbox.less");
