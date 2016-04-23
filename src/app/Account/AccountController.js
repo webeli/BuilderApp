@@ -19,16 +19,36 @@ module.exports = function(app) {
             projectId.remove();
         };
 
-        $scope.createProject = function (pN) {
-            if (!pN) {
+        $scope.createProject = function (project) {
+
+            if (!project) {
                 return;
             }
-            FireRef.push({pName: pN}, onComplete);
+
+            var deadline = formatDate(project.deadline);
+
+            FireRef.push({
+                pName: project.projectName,
+                deadline: deadline
+            }, onComplete);
         };
 
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
         function onComplete() {
-            $scope.projectCreated = "Created project: " + $scope.projectName;
-            $scope.projectName = "";
+            $scope.projectCreated = "Created project: " + $scope.project.projectName;
+            //$scope.project.projectName = "";
+            //$scope.project.deadline = "";
             $scope.$apply();
         }
     }]);

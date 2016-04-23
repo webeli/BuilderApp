@@ -200,7 +200,6 @@ module.exports = function(app) {
             });
 
             function getOptionsCallback (result) {
-                console.log("here");
                 // Sort it:
                 var orderBy = $filter('orderBy');
                 // Sorting on price now, add 'attribute', 'price' later
