@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('SummaryController', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper) {
+    app.controller('SummaryController', ['$scope', '$state', '$stateParams', 'FireRef', '$firebaseArray', '$firebaseObject', 'htmlHelper', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper) {
 
         $scope.projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child($scope.projectKey);
@@ -158,5 +158,5 @@ module.exports = function(app) {
             return doc;
         }
 
-    });
+    }]);
 }

@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('AccountEditController', function ($scope, FireRef, $stateParams, $firebaseArray, $firebaseObject, $timeout, $state) {
+    app.controller('AccountEditController', ['$scope', 'FireRef', '$stateParams', '$firebaseArray', '$firebaseObject', '$timeout', '$state', function($scope, FireRef, $stateParams, $firebaseArray, $firebaseObject, $timeout, $state) {
 
         var projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child($stateParams.projectKey);
@@ -204,5 +204,5 @@ module.exports = function(app) {
             };
         }
 
-    });
+    }]);
 }

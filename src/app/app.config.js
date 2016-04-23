@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.config(function($stateProvider, $urlRouterProvider) {
+    app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('landing', {
                 url: '/landing/',
@@ -50,5 +50,5 @@ module.exports = function(app) {
             });
 
         $urlRouterProvider.otherwise('/landing/');
-    });
+    }]);
 }

@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter) {
+    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter) {
 
         /*
          ** Refs
@@ -205,5 +205,5 @@ module.exports = function(app) {
             }
         };
 
-    });
+    }]);
 }

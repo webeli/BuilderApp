@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('LoginController', function ($scope, FireAuth, $state) {
+    app.controller('LoginController', ['$scope', 'FireAuth', '$state', function ($scope, FireAuth, $state) {
         var checkAuth = FireAuth.$getAuth();
         if (checkAuth) {
             $state.go("account.myprojects");
@@ -24,5 +24,5 @@ module.exports = function(app) {
                 });
             }
         }
-    });
+    }]);
 }

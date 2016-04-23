@@ -1,6 +1,6 @@
 module.exports = function(app) {
 // Check image
-    app.directive('checkImage', function ($http) {
+    app.directive('checkImage', ['$http', function($http) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -15,9 +15,8 @@ module.exports = function(app) {
                 });
             }
         };
-    });
+    }]);
 
-// Modal
     app.directive('modal', function () {
         return {
             template: '<div class="modal fade">' +

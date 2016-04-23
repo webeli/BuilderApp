@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('LandingController', function ($scope, FireRef, $state) {
+    app.controller('LandingController', ['$scope', 'FireRef', '$state', function($scope, FireRef, $state) {
 
         $scope.goToProject = function (pId) {
             if (!pId) {
@@ -18,5 +18,5 @@ module.exports = function(app) {
 
         }
 
-    });
+    }]);
 }

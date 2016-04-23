@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('AccountController', function ($scope, $firebaseArray, FireRef, FireAuth, $state) {
+    app.controller('AccountController', ['$scope', '$firebaseArray', 'FireRef', 'FireAuth', '$state', function($scope, $firebaseArray, FireRef, FireAuth, $state) {
 
         var checkAuth = FireAuth.$getAuth();
         $scope.authData = checkAuth;
@@ -31,5 +31,5 @@ module.exports = function(app) {
             $scope.projectName = "";
             $scope.$apply();
         }
-    });
+    }]);
 }
