@@ -12,7 +12,8 @@
     "firebase": "^2.4.2",
     "jquery": "^2.2.2",
     "jspdf": "^1.2.61",
-    "less": "^2.6.1"
+    "less": "^2.6.1",
+    "moment": "^2.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
