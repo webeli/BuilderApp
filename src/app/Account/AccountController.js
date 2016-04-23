@@ -33,6 +33,12 @@ module.exports = function(app) {
             }, onComplete);
         };
 
+        $scope.deadlineCountdown = function(date) {
+            var releaseDate = moment("2012-09-25");
+            console.log(releaseDate);
+            console.log(date);
+        };
+
         function formatDate(date) {
             var d = new Date(date),
                 month = '' + (d.getMonth() + 1),
