@@ -184,19 +184,23 @@ module.exports = function(app) {
                     $timeout(function () {
                         if (snapshot.val() === null) {
                             delete $scope.itemOptions[itemKey];
+                            counter--;
                         }
                         else {
                             result.push(snapshot.val());
-                            if (counter == result.length) {
-                                getOptionsCallback(result);
-                            }
                         }
+
+                        if (counter === result.length) {
+                            getOptionsCallback(result);
+                        }
+
                     });
 
                 });
             });
 
             function getOptionsCallback (result) {
+                console.log("here");
                 // Sort it:
                 var orderBy = $filter('orderBy');
                 // Sorting on price now, add 'attribute', 'price' later
