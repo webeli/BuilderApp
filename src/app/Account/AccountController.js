@@ -20,12 +20,11 @@ module.exports = function(app) {
         };
 
         $scope.createProject = function (project) {
-
             if (!project) {
                 return;
             }
 
-            var deadline = new Date(project.deadline);
+            var deadline = String(project.deadline);
 
             FireRef.push({
                 pName: project.projectName,
