@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter) {
+    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment) {
 
         /*
          ** Refs
@@ -21,6 +21,7 @@ module.exports = function(app) {
         $scope.zoomedItem = null;
         $scope.authData = projectRef.getAuth();
         $scope.cart = {};
+        $scope.date = new moment();
 
         /*
          ** Init
