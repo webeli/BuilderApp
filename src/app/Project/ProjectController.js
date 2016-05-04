@@ -28,7 +28,6 @@ module.exports = function(app) {
         $scope.zoomedItem = null;
         $scope.authData = projectRef.getAuth();
         $scope.cart = {};
-        $scope.dateToday = Date.now();
 
         /*
          ** Init
