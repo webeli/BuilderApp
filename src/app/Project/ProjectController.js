@@ -7,6 +7,13 @@ module.exports = function(app) {
         var projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child(projectKey);
 
+        // Get days until deadline
+        projectRef.child("deadline").on('value', function(data) {
+            var getDeadline = moment(new Date(data.val()));
+            var getToday = moment(Date.now());
+            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " days until deadline";
+        });
+
         /*
          ** Scope variables
          */
@@ -21,7 +28,7 @@ module.exports = function(app) {
         $scope.zoomedItem = null;
         $scope.authData = projectRef.getAuth();
         $scope.cart = {};
-        $scope.date = new moment();
+        $scope.dateToday = Date.now();
 
         /*
          ** Init
