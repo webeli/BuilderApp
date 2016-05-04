@@ -25,31 +25,13 @@ module.exports = function(app) {
                 return;
             }
 
-            var deadline = formatDate(project.deadline);
+            var deadline = new Date(project.deadline);
 
             FireRef.push({
                 pName: project.projectName,
                 deadline: deadline
             }, onComplete);
         };
-
-        $scope.deadlineCountdown = function(date) {
-            var releaseDate = moment("2012-09-25");
-            console.log(releaseDate);
-            console.log(date);
-        };
-
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
 
         function onComplete() {
             $scope.projectCreated = "Created project: " + $scope.project.projectName;
