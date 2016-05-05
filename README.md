@@ -31,5 +31,8 @@ jsPDF
 MomentJS
 webpack
 less
-Loaders: babel-loader, raw-loader, css-loader, style-loader
+babel-loader
+raw-loader
+css-loader
+style-loader
 ```
