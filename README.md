@@ -21,8 +21,8 @@ firebase deploy
 AngularJS
 Angular UI Router
 AngularFire
-Angular Animate
-Angular Moment
+AngularAnimate
+AngularMoment
 Bootstrap
 Firebase
 Filestack
