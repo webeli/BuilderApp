@@ -29,4 +29,7 @@ Filestack
 jQuery
 jsPDF
 MomentJS
+webpack
+less
+Loaders: babel-loader, raw-loader, css-loader, style-loader
 ```
