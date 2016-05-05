@@ -34,7 +34,7 @@ module.exports = function(app) {
         };
         this.priceSuffix = function () {
             return ' kr';
-        }
+        };
     });
 
 // READ UP ON

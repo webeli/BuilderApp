@@ -190,7 +190,7 @@ module.exports = function(app) {
             myRef.update({
                 title: item.title,
                 price: item.price,
-                attribute: item.attribute,
+                attribute: item.attribute || '',
                 default: item.default,
                 desc: item.desc,
                 active: item.active,
