@@ -209,8 +209,11 @@ module.exports = function(app) {
             function getOptionsCallback (result) {
                 // Sort it:
                 var orderBy = $filter('orderBy');
-                // Sorting on price now, add 'attribute', 'price' later
-                $scope.itemOptions = orderBy(result, ['price']);
+
+                $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
+
+                console.log($scope.itemOptions);
+
 
             }
         };

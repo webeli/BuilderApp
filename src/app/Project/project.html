@@ -85,6 +85,11 @@
                         <label>Attribut: {{option.attribute}}</label>
                     </div>-->
 
+                    <div class="" style="width: 100%; float: left;" ng-show="itemOptions[$index-1].default != option.default">
+                        <h3 ng-show="option.default">Standard</h3>
+                        <h3 ng-show="!option.default">Tillval</h3>
+                    </div>
+
                     <div class="col-md-4 option-item">
 
                         <div class="option-inner">
@@ -148,7 +153,7 @@
             <div class="panel panel-default">
             <div class="panel-body">
                 <p class="lead">{{option.title}}</p>
-                <p>{{option.desc}}</p>
+                <p class="option-description">{{option.desc}}</p>
                 <p></p>
                 <div class="card-footer text-muted">
 
