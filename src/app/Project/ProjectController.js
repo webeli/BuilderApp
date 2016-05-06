@@ -11,7 +11,7 @@ module.exports = function(app) {
         projectRef.child("deadline").on('value', function(data) {
             var getDeadline = moment(new Date(data.val()));
             var getToday = moment(Date.now());
-            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " days until deadline";
+            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
         });
 
         /*
