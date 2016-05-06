@@ -30,6 +30,7 @@ jQuery
 jsPDF
 MomentJS
 webpack
+webpack-dev-server
 less
 babel-loader
 raw-loader
