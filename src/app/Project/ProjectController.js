@@ -21,7 +21,7 @@ module.exports = function(app) {
         $scope.htmlHelper = htmlHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
-        $scope.currentCategory = null;
+        $scope.currentCategoryItem = null;
         $scope.imgCategory = null;
         $scope.imgItem = null;
         $scope.projectTitle = null;
@@ -125,7 +125,8 @@ module.exports = function(app) {
                     title: itemOption.title,
                     price: itemOption.price,
                     key: itemOption.key,
-                    categoryTitle: cat.title
+                    categoryItemTitle: cat.title,
+                    categoryTitle: $scope.currentCategoryTitle
                 };
             } else {
                 projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").child(cat.key).remove();
@@ -150,9 +151,7 @@ module.exports = function(app) {
         };
 
         $scope.getItemOptions = function (key) {
-            console.log(key);
             var itemOption = projectRef.child("itemOptions").child(key);
-            console.log(itemOption);
 
             itemOption.on('value', function (snap) {
                 $timeout(function () {
@@ -162,9 +161,8 @@ module.exports = function(app) {
         };
 
         // Get the options for an item
-        $scope.getOptions = function (item) {
-
-            // TODO
+        $scope.getOptions = function (item, categoryTitle) {
+            // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
 
             // For now: empty it so that the site doesn't feel laggy when switching categories
@@ -172,7 +170,8 @@ module.exports = function(app) {
             $scope.itemOptions = [];
             
             // Store data as object and use in scope
-            $scope.currentCategory = item;
+            $scope.currentCategoryItem = item;
+            $scope.currentCategoryTitle = categoryTitle;
             $scope.zoomedItem = null;
 
             var counter = 0;
@@ -205,16 +204,10 @@ module.exports = function(app) {
 
                 });
             });
-
+            // Sort it:
             function getOptionsCallback (result) {
-                // Sort it:
                 var orderBy = $filter('orderBy');
-
                 $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
-
-                console.log($scope.itemOptions);
-
-
             }
         };
 

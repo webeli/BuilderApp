@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('SummaryController', ['$scope', '$state', '$stateParams', 'FireRef', '$firebaseArray', '$firebaseObject', 'htmlHelper', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper) {
+    app.controller('SummaryController', ['$scope', '$state', '$stateParams', 'FireRef', '$firebaseArray', '$firebaseObject', 'htmlHelper', '$filter', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper, $filter) {
 
         $scope.projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child($scope.projectKey);
@@ -20,7 +20,13 @@ module.exports = function(app) {
                 var cartRef = projectRef.child("sessionCarts").child(authData.uid);
 
                 $scope.authData = authData;
-                $scope.cart = $firebaseArray(cartRef.child("cart"));
+
+                var unsortedCart = $firebaseArray(cartRef.child("cart"));
+                unsortedCart.$loaded()
+                    .then(function(data) {
+                        var orderBy = $filter('orderBy');
+                        $scope.cart = orderBy(data, ['-categoryTitle']);
+                    });
 
                 var customerInfo = $firebaseObject(cartRef.child("customerInfo"));
                 customerInfo.$loaded(
@@ -134,14 +140,32 @@ module.exports = function(app) {
             // LeftCol - category.titles
             doc.setFontType("normal");
 
+
+            var offset = 2;
+            doc.setFontSize(fontSize-2);
+
             // Each Cart
             cart.forEach(function(item, index){
                 var formatedPrice = htmlHelper.formatPrice(item.price);
                 var priceLength = formatedPrice.toString().length;
 
-                doc.text(cartInfo.col('left'), cartInfo.row(1 + index), item.categoryTitle);
-                doc.text(cartInfo.col('middle'), cartInfo.row(1 + index), item.title);
-                doc.text(cartInfo.col('priceRight', priceLength, fontSize), cartInfo.row(1 + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
+                if (index == 0) {
+                    doc.setFontType("bold");
+                    doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryTitle);
+                    offset++;
+                    doc.setFontType("normal");
+
+                } else if (cart[index-1].categoryTitle != cart[index].categoryTitle) {
+                    doc.setFontType("bold");
+                    offset ++;
+                    doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryTitle);
+                    offset ++;
+                    doc.setFontType("normal");
+                }
+
+                doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryItemTitle);
+                doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
+                doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
             });
             
 
@@ -150,10 +174,10 @@ module.exports = function(app) {
             var totalLength = formatedTotal.toString().length;
 
 
-            doc.text(cartInfo.col('priceRight', totalLength, fontSize), cartInfo.row(1 + cart.length+1), htmlHelper.formatPrice(total) + htmlHelper.priceSuffix());
+            doc.text(cartInfo.col('priceRight', totalLength, fontSize), cartInfo.row(offset + cart.length+1), htmlHelper.formatPrice(total) + htmlHelper.priceSuffix());
 
             doc.setFontType("bold");
-            doc.text(cartInfo.col('middle'), cartInfo.row(1 + cart.length+1), 'Summa tillval');
+            doc.text(cartInfo.col('middle'), cartInfo.row(offset + cart.length+1), 'Summa tillval');
 
             return doc;
         }
