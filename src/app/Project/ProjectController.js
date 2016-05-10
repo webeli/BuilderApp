@@ -137,9 +137,13 @@ module.exports = function(app) {
             projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
         };
 
-        $scope.zoomItemOption = function (item, zoom) {
+        $scope.zoomItemOption = function (item) {
+            $scope.lightboxImage = "./assets/loader.gif";
             $scope.displayLightbox = !$scope.displayLightbox;
-            $scope.lightboxData = item;
+            $timeout(function() {
+                $scope.lightboxData = item;
+                $scope.lightboxImage = "https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:1024,fit:max/" + $scope.lightboxData.image;
+            }, 10);
         };
 
         $scope.getTotal = function () {
