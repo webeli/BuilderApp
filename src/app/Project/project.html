@@ -1,142 +1,144 @@
-<!-- header section -->
-<div id="builder-project">
-    <ul class="nav nav-tabs">
-        <span class="builder-title"></span>
-        <li class="pull-right" role="presentation"><a ui-sref="login">Account</a></li>
-        <li class="pull-right" role="presentation"><a ui-sref="home">Home</a></li>
-    </ul>
+<div class="container">
+    <!-- header section -->
+    <div id="builder-project">
+        <ul class="nav nav-tabs">
+            <span class="builder-title"></span>
+            <li class="pull-right" role="presentation"><a ui-sref="login">Account</a></li>
+            <li class="pull-right" role="presentation"><a ui-sref="home">Home</a></li>
+        </ul>
 
-    <div class="page-header">
-        <div class="row">
-            <div class="col-md-5">
-                <img src="/assets/header-pic2.gif" alt="logo" width="202px">
-                <h1>{{projectTitle}}</h1>
-                <h4>{{daysUntilDeadline}}</h4>
-            </div>
-            <div class="col-md-7">
-                <img src="/assets/header-pic1.jpg" width="100%" height="200px" alt="header">
-            </div>
-        </div>
-    </div>
-
-    <!-- Site -->
-    <div class="row">
-
-        <!-- Left col -->
-        <div class="col-md-2">
-            <div class="panel panel-default" ng-repeat="category in allCategories">
-                <div class="panel-heading">{{category.title}}</div>
-                <ul class="list-group">
-                    <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(item, category.title)">{{item.title}}</a>
-                </ul>
-            </div>
-        </div>
-
-
-        <!-- MAIN CONT -->
-        <div class="col-md-8">
-
-            <!-- ** New Template ** -->
+        <div class="page-header">
             <div class="row">
+                <div class="col-md-5">
+                    <img src="/assets/header-pic2.gif" alt="logo" width="202px">
+                    <h1>{{projectTitle}}</h1>
+                    <h4>{{daysUntilDeadline}}</h4>
+                </div>
+                <div class="col-md-7">
+                    <img src="/assets/header-pic1.jpg" width="100%" height="200px" alt="header">
+                </div>
+            </div>
+        </div>
 
-                <!-- item -->
-                <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1 && zoomedItem==null">
+        <!-- Site -->
+        <div class="row">
 
-                    <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
-                        <h3 ng-show="option.default">Standard</h3>
-                        <h3 ng-show="!option.default">Tillval</h3>
-                    </div>
+            <!-- Left col -->
+            <div class="col-md-2">
+                <div class="panel panel-default" ng-repeat="category in allCategories">
+                    <div class="panel-heading">{{category.title}}</div>
+                    <ul class="list-group">
+                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(item, category.title)">{{item.title}}</a>
+                    </ul>
+                </div>
+            </div>
 
-                    <div class="col-md-4 option-item">
 
-                        <div class="option-inner">
+            <!-- MAIN CONT -->
+            <div class="col-md-8">
 
-                            <div class="imgholder">
-                                <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:200,height:200,fit:clip/{{option.image}}" ng-click="zoomItemOption(option, true)">
+                <!-- ** New Template ** -->
+                <div class="row">
+
+                    <!-- item -->
+                    <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1 && zoomedItem==null">
+
+                        <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
+                            <h3 ng-show="option.default">Standard</h3>
+                            <h3 ng-show="!option.default">Tillval</h3>
+                        </div>
+
+                        <div class="col-md-4 option-item">
+
+                            <div class="option-inner">
+
+                                <div class="imgholder">
+                                    <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:200,height:200,fit:clip/{{option.image}}" ng-click="zoomItemOption(option, true)">
+                                </div>
+
+                                <h4>{{option.title}}</h4>
+
+                                <p class="option-description">{{option.desc}}</p>
+
+                                <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
+                                <p></p>
+
+                                <button class="btn btn-block btn-xs" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">{{ (cart[currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
+
                             </div>
-
-                            <h4>{{option.title}}</h4>
-
-                            <p class="option-description">{{option.desc}}</p>
-
-                            <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
-                            <p></p>
-
-                            <button class="btn btn-block btn-xs" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">{{ (cart[currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
-
                         </div>
                     </div>
-                </div>
-                <!-- /item -->
+                    <!-- /item -->
 
-            </div><!-- /row -->
+                </div><!-- /row -->
 
-            <!-- ** Full page item ** -->
-            <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1 && zoomedItem==null">
+                <!-- ** Full page item ** -->
+                <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1 && zoomedItem==null">
 
-                <div class="col-md-4">
-                    <p></p>
-                    <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
-                </div>
-
-            <div class="panel panel-default">
-            <div class="panel-body">
-                <p class="lead">{{option.title}}</p>
-                <p class="option-description">{{option.desc}}</p>
-                <p></p>
-                <div class="card-footer text-muted">
-
-                    <div class="btn-group" id="toggle_event_editing">
-                        <button type="button" class="btn locked_active" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">Ja</button>
-                        <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, false)">Nej</button>
+                    <div class="col-md-4">
+                        <p></p>
+                        <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
                     </div>
-                    <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+
+                <div class="panel panel-default">
+                <div class="panel-body">
+                    <p class="lead">{{option.title}}</p>
+                    <p class="option-description">{{option.desc}}</p>
+                    <p></p>
+                    <div class="card-footer text-muted">
+
+                        <div class="btn-group" id="toggle_event_editing">
+                            <button type="button" class="btn locked_active" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">Ja</button>
+                            <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, false)">Nej</button>
+                        </div>
+                        <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                    </div>
+                    <p></p>
                 </div>
-                <p></p>
-            </div>
-            </div>
-            </div>
-            <!-- /full page item -->
-        </div>
-
-
-        <!-- your choices -->
-        <div class="col-md-2">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Dina val
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span ng-repeat="(key, value) in cart">
-
-                            <span class="small">{{value.categoryItemTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(value.price)}} {{htmlHelper.priceSuffix()}}</span><br>
-
-                        </span>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-if="totalPrice">
-                        Total:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
-                    </li>
-                </ul>
+                </div>
+                <!-- /full page item -->
             </div>
 
-            <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button>
+
+            <!-- your choices -->
+            <div class="col-md-2">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Dina val
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span ng-repeat="(key, value) in cart">
+
+                                <span class="small">{{value.categoryItemTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(value.price)}} {{htmlHelper.priceSuffix()}}</span><br>
+
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-if="totalPrice">
+                            Total:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button>
+
+            </div>
+
+
 
         </div>
-
-
-
     </div>
-</div>
 
-<div id="lightbox-overlay" ng-show="displayLightbox" ng-click="displayLightbox = !displayLightbox"></div>
-<div id="lightbox" ng-show="displayLightbox">
-    <div class="lightbox-close" ng-click="displayLightbox = !displayLightbox">x</div>
-    <div class="lightbox-header">{{lightboxData.title}}</div>
-    <div class="lightbox-content">
-        <img class="lightbox-img" ng-src="{{lightboxImage}}">
+    <div id="lightbox-overlay" ng-show="displayLightbox" ng-click="displayLightbox = !displayLightbox"></div>
+    <div id="lightbox" ng-show="displayLightbox">
+        <div class="lightbox-close" ng-click="displayLightbox = !displayLightbox">x</div>
+        <div class="lightbox-header">{{lightboxData.title}}</div>
+        <div class="lightbox-content">
+            <img class="lightbox-img" ng-src="{{lightboxImage}}">
+        </div>
     </div>
 </div>

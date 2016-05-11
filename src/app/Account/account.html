@@ -1,19 +1,21 @@
-<div id="builder-account">
-    <ul class="nav nav-tabs">
-        <li class="pull-right" role="presentation"><a ui-sref="home">Home</a></li>
-        <li class="pull-right" role="presentation" ng-show="authData" ng-click="logout()">
-            <a>Logout: {{ authData.password.email }}</a>
-        </li>
-    </ul>
-    <div class="row">
-        <div class="col-md-2">
-            <ul class="builder-account-menu">
-                <li ui-sref="account.myprojects">My Projects</li>
-                <li ui-sref="account.createproject">Create Project</li>
-            </ul>
-        </div>
-        <div class="col-md-10">
-            <div ui-view></div>
+<div class="container">
+    <div id="builder-account">
+        <ul class="nav nav-tabs">
+            <li class="pull-right" role="presentation"><a ui-sref="home">Home</a></li>
+            <li class="pull-right" role="presentation" ng-show="authData" ng-click="logout()">
+                <a>Logout: {{ authData.password.email }}</a>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="builder-account-menu">
+                    <li ui-sref="account.myprojects">My Projects</li>
+                    <li ui-sref="account.createproject">Create Project</li>
+                </ul>
+            </div>
+            <div class="col-md-10">
+                <div ui-view></div>
+            </div>
         </div>
     </div>
 </div>
