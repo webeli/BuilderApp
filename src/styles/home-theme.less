@@ -1,0 +1,54 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+.home-wrapper {
+  /*
+   * BOOTSTRAP OVERWRITES
+   */
+  .nav.navbar.navbar-default {
+    background:#FFF;
+    color:#000;
+  }
+  .navbar-default .navbar-nav>li>a {
+    color:#000;
+  }
+
+  .navbar {
+    margin-bottom:0;
+  }
+  .well {
+    box-shadow: 0 30px 100px -30px #000;
+  }
+
+  /*
+   * CUSTOM CLASSES
+   */
+  .content-top {
+    min-height:400px;
+    padding-top:30px;
+    position:relative;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .content-top:before {
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image:url("//c1.staticflickr.com/4/3058/2370112432_c8b011f33f_b.jpg");
+    width: 100%;
+    height: 100%;
+    //opacity : 0.2;
+    z-index: -1;
+  }
+  .content-top h1,
+  .content-top h2 {
+    color:#FFF;
+  }
+  .content-bottom {
+    padding-top:20px;
+  }
+}

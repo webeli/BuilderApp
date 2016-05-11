@@ -40,10 +40,9 @@ require('./src/app/Summary/SummaryController')(app);
 /*
  ** Styles
  */
+require("./src/styles/home-theme.less");
 require("./src/styles/main.css");
 require("./src/styles/animations.css");
-require("./src/styles/home.css");
 require("./src/styles/project.less");
 require("./src/styles/account.less");
 require("./src/styles/lightbox.less");
-
