@@ -124,7 +124,8 @@
                     </ul>
                 </div>
 
-                <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button>
+                <!-- <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button> -->
+                <button class="btn btn-builder-link pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
 
             </div>
 
@@ -141,4 +142,18 @@
             <img class="lightbox-img" ng-src="{{lightboxImage}}">
         </div>
     </div>
+
+    <modal title="Sammanfattning" visible="modalSummary">
+
+                  <span ng-repeat="item in cart">
+                      {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
+                  </span>
+          <!-- <li class="list-group-item" ng-if="totalPrice"> -->
+                  <!-- <span> -->
+                      <!-- <label>Total</label><span class="pull-right">{{ htmlHelper.formatPrice(totalPrice.$value) + htmlHelper.priceSuffix()}}</span> -->
+                  <!-- </span> -->
+          <!-- </li> -->
+    </modal>
+
+
 </div>

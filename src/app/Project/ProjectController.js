@@ -170,9 +170,9 @@ module.exports = function(app) {
             // Maybe store each load in the view so that we don't have to repeat this process.
 
             // For now: empty it so that the site doesn't feel laggy when switching categories
-            
+
             $scope.itemOptions = [];
-            
+
             // Store data as object and use in scope
             $scope.currentCategoryItem = item;
             $scope.currentCategoryTitle = categoryTitle;
@@ -212,6 +212,13 @@ module.exports = function(app) {
             function getOptionsCallback (result) {
                 var orderBy = $filter('orderBy');
                 $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
+            }
+        };
+
+        // Toggle modal
+        $scope.toggleModal = function (modal) {
+            if (modal === "summary") {
+                $scope.modalSummary = !$scope.modalSummary;
             }
         };
 
