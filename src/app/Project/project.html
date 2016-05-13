@@ -145,9 +145,15 @@
 
     <modal title="Sammanfattning" visible="modalSummary">
 
-                  <span ng-repeat="item in cart">
+                  <span ng-repeat="item in cartArray">
+                      <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
+                          <label>{{item.categoryTitle}}</label>
+                      </div>
                       {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
                   </span>
+
+                  <button class="btn btn-builder-link pull-right" ng-click="confirm()" ui-sref="summary({projectKey: projectKey})">Slutför</button>
+
           <!-- <li class="list-group-item" ng-if="totalPrice"> -->
                   <!-- <span> -->
                       <!-- <label>Total</label><span class="pull-right">{{ htmlHelper.formatPrice(totalPrice.$value) + htmlHelper.priceSuffix()}}</span> -->

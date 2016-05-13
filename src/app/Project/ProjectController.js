@@ -28,6 +28,7 @@ module.exports = function(app) {
         $scope.zoomedItem = null;
         $scope.authData = projectRef.getAuth();
         $scope.cart = {};
+        $scope.cartIndex = [];
 
         /*
          ** Init
@@ -114,6 +115,9 @@ module.exports = function(app) {
                     $scope.totalPrice = snapshot.val();
                 }
             });
+            var cartRef = projectRef.child("sessionCarts").child($scope.authData.uid).child("cart");
+            var cartArray = $firebaseArray(cartRef);
+            $scope.cartArray = cartArray;
         }
 
         /*
@@ -128,13 +132,14 @@ module.exports = function(app) {
                     categoryItemTitle: cat.title,
                     categoryTitle: $scope.currentCategoryTitle
                 };
+
             } else {
                 projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").child(cat.key).remove();
             }
 
-            projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").set($scope.cart);
-
-            projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
+            var cartRef = projectRef.child("sessionCarts").child($scope.authData.uid).child("cart");
+            cartRef.set($scope.cart);
+            // projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
         };
 
         $scope.zoomItemOption = function (item) {
