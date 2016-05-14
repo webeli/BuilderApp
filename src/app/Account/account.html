@@ -5,6 +5,14 @@
         </button> <a class="navbar-brand" href="#">TIVAL ACCOUNT</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a href="#" ui-sref="account.myprojects">My Projects</a>
+            </li>
+            <li>
+                <a href="#" ui-sref="account.createproject">Create Project</a>
+            </li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="#" ng-show="authData" ng-click="logout()">Logout: {{ authData.password.email }}</a>
@@ -18,13 +26,7 @@
 <div class="container">
     <div id="builder-account">
         <div class="row">
-            <div class="col-md-2">
-                <ul class="builder-account-menu">
-                    <li ui-sref="account.myprojects">My Projects</li>
-                    <li ui-sref="account.createproject">Create Project</li>
-                </ul>
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div ui-view></div>
             </div>
         </div>
