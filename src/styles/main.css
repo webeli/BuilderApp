@@ -4,5 +4,11 @@ body {
 .container {
     background-color: #fff;
     min-height: 101vh;
-    box-shadow: 0 30px 100px -30px #000;
+    box-shadow: 0 0 5px 0px #EEE;
+}
+.navbar {
+    margin-bottom:0;
+}
+.navbar-default {
+    background-color:#FFF;
 }
