@@ -28,11 +28,53 @@ module.exports = function(app) {
         $scope.categories = projectCategoryArray;
         $scope.loddar = true;
         $scope.EditOptionData = {};
+        $scope.allCategories = [];
 
         $scope.modalAddCategory = false;
         $scope.modalAddItem = false;
         $scope.modalAddOption = false;
         $scope.modalEditOption = false;
+
+        /*
+         ** Init
+         */
+        getAllCategories();
+
+        function getAllCategories() {
+            var categoriesRef = projectRef.child("categories");
+            var categoriesFirebaseArray = $firebaseArray(categoriesRef);
+
+            categoriesFirebaseArray.$loaded().then(function (categories) {
+                var allCats = [];
+
+                angular.forEach(categories, function (category) {
+                    var categoryWithItems = getCategoryItem(category);
+                    allCats.push(categoryWithItems);
+                });
+                $scope.allCategories = allCats;
+            });
+
+            return true;
+        }
+
+        function getCategoryItem(category) {
+            category['categoryItems'] = [];
+
+            angular.forEach(category.refs, function (key) {
+
+                var categoryItemsRef = projectRef.child("categoryItems");
+                var categoryItemRef = categoryItemsRef.child(key);
+
+                categoryItemRef.on('value', function (snap) {
+                    $timeout(function () {
+                        category.categoryItems.push(snap.val());
+                    });
+                });
+
+            }, category.categoryItems); //forEach
+
+            return category;
+        }
 
         // Toggle modal
         $scope.toggleModal = function (modal, key) {
@@ -82,6 +124,7 @@ module.exports = function(app) {
             projectCategoryRef.child(id).child("refs").child(categoryItemsKey).set(categoryItemsKey);
             // Close modal
             $scope.modalAddItem = false;
+            getAllCategories();
         };
 
         // Adds an option to an item
@@ -124,6 +167,7 @@ module.exports = function(app) {
 
         // Enter category item
         $scope.enterCategoryItem = function (item, categoryName) {
+            console.log("enterCategoryItem");
             var ref = projectCategoryItemsRef.child(item.key);
             ref.on("value", function (snapshot) {
                 $scope.selectedItem = snapshot.val();
@@ -135,7 +179,9 @@ module.exports = function(app) {
         };
 
         // Gets the items in a category
+        /*
         $scope.getItems = function (key) {
+            console.log("getItems");
             // Store data as object and use in scope
             $scope.categoryItems = {};
 
@@ -156,10 +202,11 @@ module.exports = function(app) {
                     });
                 });
             });
-        };
+        };*/
 
         // Get the options for an item
         $scope.getOptions = function (item, categoryName) {
+            console.log("getOptions");
             // Store data as object and use in scope
             $scope.imgCategory = categoryName;
             $scope.imgItem = item.title;

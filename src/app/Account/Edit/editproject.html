@@ -1,68 +1,37 @@
 <div class="row">
+    <!-- Left col -->
     <div class="col-md-3">
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('category')"> + Add Category </button>
-            </div>
+        <br />
+        <div class="form-group">
+            <button class="btn btn-info" ng-click="toggleModal('category')"> + New Category </button>
         </div>
-
-        <span ng-if="!categories.length > 0">
-            <img src="../src/loader.gif">
-        </span>
-
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default" ng-repeat="category in categories" >
-                <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" ng-click="getItems(category.$id)" href="#c-{{$index}}">
-                    <h4 class="panel-title pull-left">
-                        {{category.title}}
-                    </h4>
-                    <button class="btn btn-success btn-xs pull-right" ng-click="toggleModal('item', category.$id)">+ Add Item</button>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="c-{{$index}}" class="panel-collapse collapse">
-                    <div class="panel-body" ng-repeat="item in categoryItems">
-                        <h5 class="pull-left">{{item.title}}</h5><br>
-                        <div class="btn-group pull-right">
-                            <button class="btn btn-xs btn-danger">Delete</button>
-                            <button ng-click="enterCategoryItem(item, category.title)" class="btn btn-xs btn-primary">Open</button>
-                        </div>
-                    </div>
-                </div>
+        <div ng-repeat="category in allCategories">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{category.title}}</div>
+                <ul class="list-group">
+                    <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="enterCategoryItem(item, category.title)">{{item.title}}</a>
+                    <a href class="list-group-item list-group-item-info" ng-click="toggleModal('item', category.$id)">+ New Item</a>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div class="col-md-3" ng-if="selectedItem">
-
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-sm btn-success margin-b-10" ng-click="toggleModal('addoption', selectedItem.key)"> + Add Option </button>
-            </div>
+    <div class="col-md-4" ng-if="selectedItem">
+        <br />
+        <div class="form-group">
+            <button class="btn btn-info" ng-click="toggleModal('addoption', selectedItem.key)"> + New Option </button>
         </div>
-
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a >
-                    {{selectedItem.title}}
+        <div class="panel panel-default">
+            <div class="panel-heading">{{selectedItem.title}}</div>
+            <ul class="list-group">
+                <a href class="list-group-item" ng-repeat="item in itemOptions" ng-click="toggleModal('editoption', item.key)">
+                    <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:32,fit:clip/{{item.image}}" alt="">
+                    {{item.title}}
+                    <span ng-if="item.default" class="label label-default">Standard</span>
+                    <span class="pull-right">{{item.price}}:-</span>
                 </a>
-            </h4>
+            </ul>
         </div>
-
-        <div class="panel-group">
-
-            <div ng-class="{'panel-default': item.active, 'panel-warning': !item.active}" class="panel accordion-toggle" ng-repeat="item in itemOptions">
-                <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#oc-{{$index}}" ng-click="toggleModal('editoption', item.key)">
-                    <h4 class="panel-title">
-                        <img ng-src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:32,fit:clip/{{item.image}}" alt="">
-                        <a>{{item.title}}</a>
-                        <span ng-if="item.default" class="label label-default">Standard</span>
-                        <span class="pull-right">{{item.price}}:-</span>
-                    </h4>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 
     <modal title="Add Category" visible="modalAddCategory">
