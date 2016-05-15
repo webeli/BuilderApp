@@ -139,7 +139,7 @@ module.exports = function(app) {
 
             var cartRef = projectRef.child("sessionCarts").child($scope.authData.uid).child("cart");
             cartRef.set($scope.cart);
-            // projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
+            projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
         };
 
         $scope.zoomItemOption = function (item) {

@@ -18,24 +18,23 @@
 <div class="container">
     <!-- header section -->
     <div id="builder-project">
-        <a href="#/project/{{projectKey}}">
+
         <div class="page-header">
             <div class="row">
-                <div class="col-md-5">
-                    <img src="/assets/header-pic2.gif" alt="" width="202px">
-                    <h1>{{projectTitle}}</h1>
+                <div class="col-md-4">
+                    <img src="/assets/tival-logo-rgb.png" alt="logo" width="202px">
+                    <h2>{{projectTitle}}</h2>
                 </div>
-                <div class="col-md-7">
-                    <img src="/assets/header-pic1.jpg" width="100%" height="200px" alt="">
+                <div class="col-md-8">
+                    <img src="/assets/homepicture.jpg" width="100%" height="200px" alt="header">
                 </div>
             </div>
         </div>
-        </a>
 
         <!-- Site -->
         <div class="row">
 
-            <div class="col-md-5 col-md-offset-1 well">
+            <div class="col-md-5 col-md-offset-1 well well-white">
 
                 <a href="#/project/{{projectKey}}"><button class="btn btn-default">Tillbaka</button></a>
 
@@ -94,7 +93,7 @@
 
             </div>-->
 
-            <div class="col-md-5 well" ng-show="customer.confirmed">
+            <div class="col-md-5 well well-white" ng-show="customer.confirmed">
                 <h3>Ladda ner PDF</h3>
                 <button class="btn btn-primary" ng-click="downloadPDF()">Download PDF</button>
             </div>

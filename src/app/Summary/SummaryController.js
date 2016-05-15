@@ -32,7 +32,6 @@ module.exports = function(app) {
                 customerInfo.$loaded(
                     function(data) {
                         $scope.customer = data;
-                        console.log(data);
                         $scope.customer['date'] = new Date().toLocaleDateString();
                     }
                 );

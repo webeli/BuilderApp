@@ -20,13 +20,13 @@
     <div id="builder-project">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-5">
-                    <img src="/assets/tival-logo-rgn.png" alt="logo" width="202px">
-                    <h1>{{projectTitle}}</h1>
+                <div class="col-md-4">
+                    <img src="/assets/tival-logo-rgb.png" alt="logo" width="202px">
+                    <h2>{{projectTitle}}</h2>
                     <h4>{{daysUntilDeadline}}</h4>
                 </div>
-                <div class="col-md-7">
-                    <img src="/assets/header-pic1.jpg" width="100%" height="200px" alt="header">
+                <div class="col-md-8">
+                    <img src="/assets/homepicture.jpg" width="100%" height="200px" alt="header">
                 </div>
             </div>
         </div>
@@ -55,8 +55,10 @@
                     <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1 && zoomedItem==null">
 
                         <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
-                            <h3 ng-show="option.default">Standard</h3>
-                            <h3 ng-show="!option.default">Tillval</h3>
+                            <div class="col-md-12">
+                                <h4 ng-show="option.default">Standard</h4>
+                                <h4 ng-show="!option.default">Tillval</h4>
+                            </div>
                         </div>
 
                         <div class="col-md-4 option-item">
