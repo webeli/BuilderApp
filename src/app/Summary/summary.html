@@ -34,7 +34,7 @@
         <!-- Site -->
         <div class="row">
 
-            <div class="col-md-5 col-md-offset-1 well well-white">
+            <div class="col-md-6 well well-white">
 
                 <a href="#/project/{{projectKey}}"><button class="btn btn-default">Tillbaka</button></a>
 
@@ -93,12 +93,19 @@
 
             </div>-->
 
-            <div class="col-md-5 well well-white" ng-show="customer.confirmed">
-                <h3>Ladda ner PDF</h3>
-                <button class="btn btn-primary" ng-click="downloadPDF()">Download PDF</button>
+            <div class="col-md-6 well well-white" ng-show="customer.confirmed">
+                <div class="well well-white">
+                    <h3>Ladda ner PDF</h3>
+                    <button class="btn btn-default" ng-click="downloadPDF()">Ladda ner</button>
+                </div>
+                <div class="well well-white">
+                    <h3>Skicka till e-post</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="e-post" ng-model="sendAsMail" />
+                    </div>
+                    <button class="btn btn-default">Skicka</button>
+                </div>
             </div>
-
-
         </div>
 
     </div>
