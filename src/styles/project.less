@@ -3,7 +3,8 @@
   * {
     border-radius: 0!important;
   }
-  .btn, .btn:active, .btn:hover, .btn:visited {
+
+  .btn:not(.btn-default) {
     color: #fff;
   }
   .panel-default>.panel-heading {
@@ -19,12 +20,6 @@
   }
   .btn-builder-active {
     background-color: #1748B8;
-  }
-  .btn-builder-link {
-    background-color: #74DADA;
-  }
-  .btn-builder-link:hover {
-    background-color: #04A9A9;
   }
   a.list-group-item:hover {
     background-color: #fff;
@@ -82,4 +77,19 @@
     cursor: pointer;
   }
 
+}
+
+.btn-builder-link {
+  background-color: #74DADA;
+  color: #fff;
+}
+.btn-builder-link:hover {
+  background-color: #04A9A9;
+  color: #fff;
+}
+
+.modal.project-summary-modal {
+  label {
+    margin: 10px 0px 0px 0px;
+  }
 }

@@ -32,6 +32,7 @@ module.exports = function(app) {
                 customerInfo.$loaded(
                     function(data) {
                         $scope.customer = data;
+                        console.log(data);
                         $scope.customer['date'] = new Date().toLocaleDateString();
                     }
                 );
@@ -43,15 +44,19 @@ module.exports = function(app) {
 
         $scope.downloadPDF = function () {
 
-            if ($scope.cart.length === 0 || !$scope.customer.appartmentnumber || !$scope.customer.customerOne) {
-                $scope.validateCustomer = true;
-                return;
-            }
 
             var doc = createPdf($scope.projectTitle, $scope.customer, $scope.cart, $scope.totalPrice.$value);
 
             // Saving pdf
             doc.save('Sammanfattning.pdf');
+        };
+
+        $scope.saveAndConfirm = function () {
+            var result = confirm("Är du säker?");
+            if (result) {
+                $scope.customer.confirmed = true;
+                $scope.customer.$save();
+            }
         };
 
         function createPdf(projectname, customer, cart, total) {
@@ -149,6 +154,7 @@ module.exports = function(app) {
                 var formatedPrice = htmlHelper.formatPrice(item.price);
                 var priceLength = formatedPrice.toString().length;
 
+                // Prints out category titles
                 if (index == 0) {
                     doc.setFontType("bold");
                     doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryTitle);
@@ -163,6 +169,7 @@ module.exports = function(app) {
                     doc.setFontType("normal");
                 }
 
+                // Each item
                 doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryItemTitle);
                 doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
                 doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());

@@ -227,5 +227,11 @@ module.exports = function(app) {
             }
         };
 
+        $scope.confirm = function() {
+            $scope.modalSummary = false;
+            $(".modal-backdrop").remove();
+            $state.go("summary", { "projectKey": $scope.projectKey });
+        };
+
     }]);
 }

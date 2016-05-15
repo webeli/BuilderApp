@@ -21,7 +21,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-5">
-                    <img src="/assets/header-pic2.gif" alt="logo" width="202px">
+                    <img src="/assets/tival-logo-rgn.png" alt="logo" width="202px">
                     <h1>{{projectTitle}}</h1>
                     <h4>{{daysUntilDeadline}}</h4>
                 </div>
@@ -74,7 +74,7 @@
                                 <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
                                 <p></p>
 
-                                <button class="btn btn-block btn-xs" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">{{ (cart[currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
+                                <button class="btn btn-block btn-xs" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true)">{{ (cart[currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
                             </div>
                         </div>
@@ -99,8 +99,8 @@
                     <div class="card-footer text-muted">
 
                         <div class="btn-group" id="toggle_event_editing">
-                            <button type="button" class="btn locked_active" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, true)">Ja</button>
-                            <button type="button" class="btn btn-builder unlocked_inactive" ng-class="!(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-builder'" ng-click="selectOption(option, currentCategoryItem, false)">Nej</button>
+                            <button type="button" class="btn" ng-class="(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true)">Ja</button>
+                            <button type="button" class="btn" ng-class="!(cart[currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, false)">Nej</button>
                         </div>
                         <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
                     </div>
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button> -->
-                <button class="btn btn-builder-link pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
+                <button class="btn btn-default pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
 
             </div>
 
@@ -154,22 +154,28 @@
         </div>
     </div>
 
-    <modal title="Sammanfattning" visible="modalSummary">
+    <modal class="project-summary-modal" title="Sammanfattning" visible="modalSummary">
 
-                  <span ng-repeat="item in cartArray">
-                      <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
-                          <label>{{item.categoryTitle}}</label>
-                      </div>
-                      {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
-                  </span>
+        <span ng-repeat="item in cartArray">
+          <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
+              <label class="summary-label">{{item.categoryTitle}}</label>
+          </div>
+          {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
+        </span>
 
-                  <button class="btn btn-builder-link pull-right" ng-click="confirm()" ui-sref="summary({projectKey: projectKey})">Slutför</button>
+        <span ng-if="totalPrice">
+            <hr>
+            Total:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+        </span>
 
-          <!-- <li class="list-group-item" ng-if="totalPrice"> -->
-                  <!-- <span> -->
-                      <!-- <label>Total</label><span class="pull-right">{{ htmlHelper.formatPrice(totalPrice.$value) + htmlHelper.priceSuffix()}}</span> -->
-                  <!-- </span> -->
-          <!-- </li> -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p></p>
+                <button class="btn btn-default m-t-10" ng-click="confirm()">Bekräfta</button>
+            </div>
+        </div>
+
     </modal>
 
 

@@ -35,37 +35,45 @@
         <!-- Site -->
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-5 col-md-offset-1 well">
 
-                <h2>1. Ange uppgifter</h2>
+                <a href="#/project/{{projectKey}}"><button class="btn btn-default">Tillbaka</button></a>
 
-                <form class="form-horizontal" role="form" ng-if="customer">
 
-                    <div class="form-group" ng-class="{'has-error': (!customer.appartmentnumber && validateCustomer), 'has-success': customer.appartmentnumber}">
-                        <label for="appNr" class="col-xs-5 control-label">Lägenhetsnummer:</label>
-                        <div class="col-xs-3">
-                            <input type="text" class="form-control" id="appNr" placeholder="#" ng-model="customer.appartmentnumber" ng-change="customer.$save()" />
+                <form class="form-horizontal" role="form" ng-if="customer" name="customerForm" ng-disabled="customer.confirmed">
+                <h3>Ange uppgifter</h3>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="appNr" class="">Lägenhetsnummer *</label>
+                            <input type="text" class="form-control" id="appNr" placeholder="#" ng-model="customer.appartmentnumber" ng-disabled="customer.confirmed" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="name1" class="">Köpare 1 *</label>
+                            <input type="text" class="form-control" id="name1" placeholder="Förnamn Efternamn" ng-model="customer.customerOne" ng-disabled="customer.confirmed" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="name2" class="">Köpare 2</label>
+                            <input type="text" class="form-control" id="name2" placeholder="Förnamn Efternamn" ng-model="customer.customerTwo" ng-disabled="customer.confirmed" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="">Epost *</label>
+                            <input type="email" class="form-control" id="email" placeholder="exempel@exempel.se" ng-model="customer.email" ng-disabled="customer.confirmed" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="">Telefon *</label>
+                            <input type="text" class="form-control" id="phone" placeholder="+46700000000" ng-model="customer.phone" ng-disabled="customer.confirmed" required />
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': (!customer.customerOne && validateCustomer), 'has-success': customer.customerOne}">
-                        <label for="name1" class="col-xs-3 control-label">Boende1</label>
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" id="name1" placeholder="Förnamn Efternamn" ng-model="customer.customerOne" ng-change="customer.$save()" />
-                        </div>
-                    </div>
-                    <div class="form-group" ng-class="{'has-success': customer.customerTwo}">
-                        <label for="name2" class="col-xs-3 control-label">Boende2</label>
-                        <div class="col-xs-8">
-                            <input type="text" class="form-control" id="name2" placeholder="Förnamn Efternamn" ng-model="customer.customerTwo" ng-change="customer.$save()" />
-                        </div>
-                    </div>
+                    <button class="btn btn-default" ng-click="saveAndConfirm()" ng-disabled="!customerForm.$valid || customer.confirmed">Slutför</button>
+
                 </form>
 
-                <a href="#/project/{{projectKey}}"><button class="btn btn-primary">Tillbaka</button></a>
+
+
 
             </div>
 
-            <div class="col-md-5">
+            <!--<div class="col-md-5">
 
                 <h2>2. Sammanfattning</h2>
 
@@ -84,12 +92,10 @@
 
 
 
-            </div>
+            </div>-->
 
-            <div class="col-md-3">
-                <h2>3. Ladda ner PDF</h2>
-                <p></p>
-                <p></p>
+            <div class="col-md-5 well" ng-show="customer.confirmed">
+                <h3>Ladda ner PDF</h3>
                 <button class="btn btn-primary" ng-click="downloadPDF()">Download PDF</button>
             </div>
 
