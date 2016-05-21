@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('SummaryController', ['$scope', '$state', '$stateParams', 'FireRef', '$firebaseArray', '$firebaseObject', 'htmlHelper', '$filter', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper, $filter) {
+    app.controller('SummaryController', ['$scope', '$state', '$stateParams', 'FireRef', '$firebaseArray', '$firebaseObject', 'htmlHelper', '$filter', '$http', function ($scope, $state, $stateParams, FireRef, $firebaseArray, $firebaseObject, htmlHelper, $filter, $http) {
 
         $scope.projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child($scope.projectKey);
@@ -40,6 +40,29 @@ module.exports = function(app) {
                 obj.$bindTo($scope, "totalPrice");
             }
         }
+
+        $scope.sendEmail = function() {
+            console.log("Send...");
+            var customerData = $scope.customer;
+            var url = 'https://builderappmail.herokuapp.com/';
+
+            $http({
+                method: 'POST',
+                url: 'https://builderappmail.herokuapp.com/',
+                data: customerData
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log("success:", response);
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("failure:", response);
+            });
+
+            //$http.post('http://builderappmail.herokuapp.com/', data).then(successCallback, errorCallback);
+
+        };
 
         $scope.downloadPDF = function () {
 
