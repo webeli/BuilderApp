@@ -117,10 +117,20 @@
             <!-- your choices -->
             <div class="col-md-2">
 
-                <div class="panel panel-default">
+
+                <div class="panel panel-default" ng-click="showCart = true" ng-show="!showCart">
                     <div class="panel-heading">
-                        Dina val
+                        << Mina val
                     </div>
+                </div>
+
+                <!-- dina val som ska synas -->
+                <div class="panel panel-default" ng-click="showCart = false" ng-show="showCart">
+
+                    <div class="panel-heading">
+                        Mina val >>
+                    </div>
+
                     <ul class="list-group">
                         <li class="list-group-item">
                             <span ng-repeat="(key, value) in cart">
@@ -136,6 +146,8 @@
                         </li>
                     </ul>
                 </div>
+                <!-- /dina val som ska synas -->
+
 
                 <!-- <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button> -->
                 <button class="btn btn-default pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
@@ -156,7 +168,7 @@
         </div>
     </div>
 
-    <modal class="project-summary-modal" title="Bekräfta sammanställning" visible="modalSummary">
+    <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
 
         <span ng-repeat="item in cartArray">
           <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
@@ -167,7 +179,7 @@
 
         <span ng-if="totalPrice">
             <hr>
-            Total:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+            Totalt:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
         </span>
 
 

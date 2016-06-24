@@ -18,6 +18,7 @@ module.exports = function(app) {
          ** Scope variables
          */
         $scope.displayLightbox = false;
+        $scope.showCart = false;
         $scope.htmlHelper = htmlHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
