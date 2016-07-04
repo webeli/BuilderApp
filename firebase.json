@@ -1,10 +1,14 @@
 {
-  "firebase": "100meter",
-  "public": "./build",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**",
-    "**/.idea/**"
-  ]
+  "hosting": {
+    "public": "./build",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  }
 }
