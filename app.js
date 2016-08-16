@@ -16,7 +16,6 @@ var app = angular.module('app', ['ui.router', 'firebase', 'ngAnimate', 'angularM
 /*
  ** Run & Config
  */
-require('./src/app/app.run.js')(app);
 require('./src/app/app.config.js')(app);
 
 /*
@@ -32,9 +31,6 @@ require('./src/services/AppServices')(app);
  */
 require('./src/app/Home/HomeController')(app);
 require('./src/app/Project/ProjectController')(app);
-require('./src/app/Account/AccountController')(app);
-require('./src/app/Account/Edit/AccountEditController')(app);
-require('./src/app/Login/LoginController')(app);
 require('./src/app/Summary/SummaryController')(app);
 
 /*
