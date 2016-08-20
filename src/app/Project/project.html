@@ -32,7 +32,66 @@
         </div>
 
         <!-- Site -->
-        <div class="row">
+
+        <!-- Summary -->
+        <div class="row" ng-if="customer.confirmed">
+            <div class="col-md-12">
+                <h2>Tack för din beställning!</h2>
+                <br>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
+
+                <hr>
+            </div>
+
+            <div class="col-md-12">
+                <h4>Dina uppgifter</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Namn</th>
+                        <th>Bostadsnummer</th>
+                        <th>Email</th>
+                        <th>Telefonnummer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h4>Dina tillval</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Objekt</th>
+                        <th>Ditt val</th>
+                        <th>Pris</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="item in cartArray">
+                        <td>{{item.categoryTitle}}</td>
+                        <td>{{item.categoryItemTitle}}</td>
+                        <td>{{item.title}}</td>
+                        <td>{{htmlHelper.formatPrice(item.price) + ' ' + htmlHelper.priceSuffix()}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- /Summary -->
+
+        <div class="row" ng-if="!customer.confirmed">
 
             <!-- Left col -->
             <div class="col-md-2">
@@ -115,20 +174,13 @@
 
 
             <!-- your choices -->
-            <div class="col-md-2">
+            <div class="col-md-2" ng-if="customer">
 
 
-                <div class="panel panel-default" ng-click="showCart = true" ng-show="!showCart">
-                    <div class="panel-heading">
-                        << Mina val
-                    </div>
-                </div>
-
-                <!-- dina val som ska synas -->
-                <div class="panel panel-default" ng-click="showCart = false" ng-show="showCart">
+                <div class="panel panel-default">
 
                     <div class="panel-heading">
-                        Mina val >>
+                        Mina val
                     </div>
 
                     <ul class="list-group">
@@ -170,6 +222,65 @@
 
     <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
 
+
+        <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed">
+
+            <div class="row">
+
+                <div class="col-xs-12 col-md-6">
+                    <label>Namn <span>*</span>
+                        <input type="text" class="form-control" placeholder="" ng-model="customer.customerOne" ng-change="customer.$save()">
+                    </label>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <label>Bostadsnr <span>*</span>
+                        <input type="text" class="form-control" placeholder="" ng-model="customer.appartmentnumber" ng-change="customer.$save()">
+                    </label>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <label>Epost <span>*</span>
+                        <input type="text" class="form-control" placeholder="" ng-model="customer.email" ng-change="customer.$save()">
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <label>Telefon <span>*</span>
+                        <input type="text" class="form-control" placeholder="" ng-model="customer.phone" ng-change="customer.$save()">
+                    </label>
+                </div>
+
+            </div>
+
+            <hr>
+            <!--
+
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="appNr" class="">Lägenhetsnummer *</label>
+                    <input type="text" class="form-control" id="appNr" placeholder="#" ng-model="customer.appartmentnumber" ng-disabled="customer.confirmed" required />
+                </div>
+                <div class="form-group">
+                    <label for="name1" class="">Köpare 1 *</label>
+                    <input type="text" class="form-control" id="name1" placeholder="Förnamn Efternamn" ng-model="customer.customerOne" ng-disabled="customer.confirmed" required />
+                </div>
+                <div class="form-group">
+                    <label for="name2" class="">Köpare 2</label>
+                    <input type="text" class="form-control" id="name2" placeholder="Förnamn Efternamn" ng-model="customer.customerTwo" ng-disabled="customer.confirmed" />
+                </div>
+                <div class="form-group">
+                    <label for="email" class="">Epost *</label>
+                    <input type="email" class="form-control" id="email" placeholder="exempel@exempel.se" ng-model="customer.email" ng-disabled="customer.confirmed" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="">Telefon *</label>
+                    <input type="text" class="form-control" id="phone" placeholder="+46700000000" ng-model="customer.phone" ng-disabled="customer.confirmed" required />
+                </div>
+            </div>-->
+            <!--<button class="btn btn-default" ng-click="saveAndConfirm()" ng-disabled="!customerForm.$valid || customer.confirmed">Slutför</button>-->
+
+        </form>
+
         <span ng-repeat="item in cartArray">
           <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
               <label class="summary-label">{{item.categoryTitle}}</label>
@@ -184,9 +295,14 @@
 
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 text-right" ng-show="!customerConfirmInfo">
                 <p></p>
-                <button class="btn btn-default m-t-10" ng-click="confirm()">Bekräfta</button>
+                <button class="btn btn-default m-t-10" ng-click="customerConfirmInfo = true">Bekräfta</button>
+            </div>
+            <div class="col-xs-12 text-right" ng-show="customerConfirmInfo">
+                <label stlye="margin-right: 3px" class="m-t-10">Detta är slutgiltigt, är ni säkra?</label>
+                <button stlye="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
+                <button class="btn btn-default m-t-10" ng-click="customerConfirmInfo = false">Nej</button>
             </div>
         </div>
 

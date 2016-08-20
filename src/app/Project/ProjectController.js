@@ -18,7 +18,6 @@ module.exports = function(app) {
          ** Scope variables
          */
         $scope.displayLightbox = false;
-        $scope.showCart = false;
         $scope.htmlHelper = htmlHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
@@ -30,6 +29,7 @@ module.exports = function(app) {
         $scope.authData = projectRef.getAuth();
         $scope.cart = {};
         $scope.cartIndex = [];
+        $scope.customerConfirmInfo = false;
 
         /*
          ** Init
@@ -89,37 +89,50 @@ module.exports = function(app) {
         }
 
         function getUser() {
-            if (!projectRef.getAuth()) {
-                projectRef.authAnonymously(function (error, authData) {
-                    if (error) {
-                        console.log("Login Failed!", error);
-                    } else {
-                        $scope.authData = authData;
-                        bindCart(authData.uid);
-                    }
-                });
-            } else {
-                bindCart($scope.authData.uid);
+            $scope.myKey = localStorage.getItem("userKey");
+            if (!$scope.myKey) {
+                $scope.myKey = createNewCart();
             }
+            bindCart($scope.myKey);
         }
 
-        function bindCart(uid) {
-            var ref = projectRef.child("sessionCarts").child(uid).child("cart");
+        function createNewCart() {
+            var ref = projectRef.child("sessionCarts").push();
+            var key = ref.key();
+            localStorage.setItem("userKey", key);
+
+            return key;
+        }
+
+        function bindCart(key) {
+            var ref = projectRef.child("sessionCarts").child(key).child("cart");
             ref.on("value", function (snapshot) {
                 if (snapshot.val()) {
                     $scope.cart = snapshot.val();
                 }
             });
-            var totalRef = projectRef.child("sessionCarts").child(uid).child("total");
+            var totalRef = projectRef.child("sessionCarts").child(key).child("total");
             totalRef.on("value", function (snapshot) {
                 if (snapshot.val()) {
                     $scope.totalPrice = snapshot.val();
                 }
             });
-            var cartRef = projectRef.child("sessionCarts").child($scope.authData.uid).child("cart");
+
+            var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
             var cartArray = $firebaseArray(cartRef);
             $scope.cartArray = cartArray;
-        }
+
+            var customerInfoRef = projectRef.child("sessionCarts").child($scope.myKey);
+
+            var customerInfo = $firebaseObject(customerInfoRef.child("customerInfo"));
+            customerInfo.$loaded(
+                function(data) {
+                    $scope.customer = data;
+                    $scope.customer['date'] = new Date().toLocaleDateString();
+                }
+            );
+        };
+
 
         /*
          ** Scope functions
@@ -135,12 +148,13 @@ module.exports = function(app) {
                 };
 
             } else {
-                projectRef.child("sessionCarts").child($scope.authData.uid).child("cart").child(cat.key).remove();
+                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child(cat.key).remove();
             }
 
-            var cartRef = projectRef.child("sessionCarts").child($scope.authData.uid).child("cart");
+            var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
             cartRef.set($scope.cart);
-            projectRef.child("sessionCarts").child($scope.authData.uid).child("total").set($scope.getTotal());
+
+            projectRef.child("sessionCarts").child($scope.myKey).child("total").set($scope.getTotal());
         };
 
         $scope.zoomItemOption = function (item) {
@@ -209,7 +223,7 @@ module.exports = function(app) {
                         if (counter === result.length) {
                             getOptionsCallback(result);
                         }
-p
+
                     });
 
                 });
@@ -228,10 +242,16 @@ p
             }
         };
 
-        $scope.confirm = function() {
-            $scope.modalSummary = false;
+        $scope.saveAndConfirm = function() {
+
+            $scope.customerConfirmInfo = false;
+/*
             $(".modal-backdrop").remove();
-            $state.go("summary", { "projectKey": $scope.projectKey });
+            $state.go("summary", { "projectKey": $scope.projectKey });*/
+
+            $scope.customer.confirmed = true;
+            $scope.customer.$save();
+            $scope.modalSummary = false;
         };
 
     }]);
