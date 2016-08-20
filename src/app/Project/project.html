@@ -34,13 +34,15 @@
         <!-- Site -->
 
         <!-- Summary -->
-        <div class="row" ng-if="customer.confirmed">
+        <div class="row summarypage" ng-if="customer.confirmed">
             <div class="col-md-12">
                 <h2>Tack för din beställning!</h2>
                 <br>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda autem deleniti deserunt eius eos error eum eveniet, fuga perferendis provident qui quia quis sunt tempore tenetur ullam velit, voluptatum. Tenetur.</p>
+                <p>Din beställning kommer att gå iväg till din email. Vänligen kolla er skräppost. Ni kan välja att skriva ut eller spara sammanfattningen som pdf, nedan</p>
+                <p>Har ni någon mer information kan ni kontakta kundtjänst på <a href="mailto:info@tival.se">info@tival.se</a> eller <b>042 - 000 000</b></p>
+
+                <button class="btn btn-default" ng-click="printPage()">Skriv ut</button>
+                <button class="btn btn-default" ng-click="downloadPDF()">Ladda ner PDF</button>
 
                 <hr>
             </div>
@@ -48,24 +50,30 @@
             <div class="col-md-12">
                 <h4>Dina uppgifter</h4>
                 <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Namn</th>
-                        <th>Bostadsnummer</th>
-                        <th>Email</th>
-                        <th>Telefonnummer</th>
-                    </tr>
-                    </thead>
+
                     <tbody>
                     <tr>
-                        <td>John</td>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
+                        <td><label>Namn: </label> {{customer.customerOne}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Bostadsnummer: </label> {{customer.appartmentnumber}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Telefon: </label> {{customer.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Email: </label> {{customer.email}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Datum: </label> {{customer.date}}</td>
                     </tr>
                     </tbody>
                 </table>
+
+                <br>
+
                 <h4>Dina tillval</h4>
+
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -73,6 +81,7 @@
                         <th>Objekt</th>
                         <th>Ditt val</th>
                         <th>Pris</th>
+                        <th>Total</th>
                     </tr>
                     </thead>
 
@@ -82,6 +91,15 @@
                         <td>{{item.categoryItemTitle}}</td>
                         <td>{{item.title}}</td>
                         <td>{{htmlHelper.formatPrice(item.price) + ' ' + htmlHelper.priceSuffix()}}</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{htmlHelper.formatPrice(totalPrice + ' ' + htmlHelper.priceSuffix() )}}</td>
                     </tr>
 
                     </tbody>

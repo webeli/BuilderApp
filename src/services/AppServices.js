@@ -37,7 +37,7 @@ module.exports = function(app) {
         };
     });
 
-    app.service('pdfHelper', function () {
+    app.service('pdfHelper', function (htmlHelper) {
        this.createPdf = function(projectname, customer, cart, total) {
 
             if (!projectname || !customer || !cart || !total) {
@@ -128,7 +128,10 @@ module.exports = function(app) {
             var offset = 2;
             doc.setFontSize(fontSize-2);
 
+            // Object.keys(obj)
             // Each Cart
+
+           // TODO: cart is now an object, not an array
             cart.forEach(function(item, index){
                 var formatedPrice = htmlHelper.formatPrice(item.price);
                 var priceLength = formatedPrice.toString().length;
@@ -153,7 +156,6 @@ module.exports = function(app) {
                 doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
                 doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
             });
-
 
             // Total
             var formatedTotal = htmlHelper.formatPrice(total);

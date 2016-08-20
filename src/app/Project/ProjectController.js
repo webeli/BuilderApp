@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment) {
+    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', 'pdfHelper', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment, pdfHelper) {
 
         /*
          ** Refs
@@ -19,6 +19,7 @@ module.exports = function(app) {
          */
         $scope.displayLightbox = false;
         $scope.htmlHelper = htmlHelper;
+        $scope.pdfHelper = pdfHelper;
         $scope.projectKey = projectKey;
         $scope.allCategories = [];
         $scope.currentCategoryItem = null;
@@ -245,13 +246,20 @@ module.exports = function(app) {
         $scope.saveAndConfirm = function() {
 
             $scope.customerConfirmInfo = false;
-/*
-            $(".modal-backdrop").remove();
-            $state.go("summary", { "projectKey": $scope.projectKey });*/
-
             $scope.customer.confirmed = true;
             $scope.customer.$save();
             $scope.modalSummary = false;
+        };
+
+        $scope.printPage = function () {
+            window.print();
+        };
+
+        $scope.downloadPDF = function () {
+
+            var doc = $scope.pdfHelper.createPdf($scope.projectTitle, $scope.customer, $scope.cart, $scope.totalPrice);
+            // Saving pdf
+            doc.save('Sammanfattning.pdf');
         };
 
     }]);
