@@ -37,7 +37,7 @@ module.exports = function(app) {
         };
     });
 
-    app.service('pdfHelper', function (htmlHelper) {
+    app.service('pdfHelper', ['htmlHelper', function(htmlHelper) {
        this.createPdf = function(projectname, customer, cart, total) {
 
             if (!projectname || !customer || !cart || !total) {
@@ -169,7 +169,7 @@ module.exports = function(app) {
 
             return doc;
         }
-    });
+    }]);
 
 // READ UP ON
 //http://stackoverflow.com/questions/21776237/angularjs-pass-variables-in-service
