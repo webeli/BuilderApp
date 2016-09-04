@@ -1,7 +1,19 @@
 module.exports = function(app) {
     app.controller('HomeController', ['$scope', 'FireRef', '$state', function($scope, FireRef, $state) {
 
-        $scope.goToProject = function (pId) {
+        $scope.demoBtn = "Få mer information";
+        $scope.inputDisabled = false;
+
+        $scope.requestDemo = function(data) {
+            if (data) {
+                var demoRef = FireRef.child("demoRequest");
+                demoRef.push(data);
+                $scope.demoBtn = "Tack, vi hör av oss inom kort!"
+                $scope.inputDisabled = true;
+            }
+        };
+
+        /*$scope.goToProject = function (pId) {
             if (!pId) {
                 return;
             }
@@ -15,8 +27,7 @@ module.exports = function(app) {
                     console.log("You entered an undefined projectId");
                 }
             });
-
-        }
+        }*/
 
     }]);
 }
