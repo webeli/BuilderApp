@@ -17,20 +17,25 @@ module.exports = function(app) {
         /*
          ** Scope variables
          */
-        $scope.displayLightbox = false;
+
+        // Helpers
         $scope.htmlHelper = htmlHelper;
         $scope.pdfHelper = pdfHelper;
-        $scope.projectKey = projectKey;
-        $scope.allCategories = [];
-        $scope.currentCategoryItem = null;
-        $scope.imgCategory = null;
-        $scope.imgItem = null;
-        $scope.projectTitle = null;
-        $scope.zoomedItem = null;
-        //$scope.authData = projectRef.getAuth();
+
+        // Objects
         $scope.cart = {};
+
+        // Arrays
+        $scope.allCategories = [];
         $scope.cartIndex = [];
+
+        // Bool
+        $scope.displayLightbox = false;
         $scope.customerConfirmInfo = false;
+
+        // Vars
+        $scope.currentCategoryItem = null;
+        $scope.projectTitle = null;
 
         /*
          ** Init
@@ -197,7 +202,6 @@ module.exports = function(app) {
             // Store data as object and use in scope
             $scope.currentCategoryItem = item;
             $scope.currentCategoryTitle = categoryTitle;
-            $scope.zoomedItem = null;
 
             var counter = 0;
             var result = [];

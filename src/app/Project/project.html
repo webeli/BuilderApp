@@ -6,12 +6,12 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <!--<li>
                 <a href="https://tival-admin.firebaseapp.com">Account</a>
             </li>
             <li>
                 <a href="#" ui-sref="home">Home</a>
-            </li>
+            </li>-->
         </ul>
     </div>
 </nav>
@@ -129,7 +129,7 @@
                 <div class="row">
 
                     <!-- item -->
-                    <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1 && zoomedItem==null">
+                    <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1">
 
                         <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
                             <div class="col-md-12">
@@ -163,7 +163,7 @@
                 </div><!-- /row -->
 
                 <!-- ** Full page item ** -->
-                <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1 && zoomedItem==null">
+                <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1">
 
                     <div class="col-md-4">
                         <p></p>
@@ -218,8 +218,6 @@
                 </div>
                 <!-- /dina val som ska synas -->
 
-
-                <!-- <button class="btn btn-builder-link pull-right" ui-sref="summary({projectKey: projectKey})">Gå vidare</button> -->
                 <button class="btn btn-default pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
 
             </div>
