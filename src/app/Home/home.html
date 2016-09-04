@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <input ng-model="data.company" type="text" class="form-control" placeholder="Företagsnamn *" ng-disabled="inputDisabled" required>
                                 </div>
-                                <button type="submit" class="btn btn-info btn-lg" ng-disabled="inputDisabled">{{demoBtn}}</button>
+                                <button type="submit" class="btn btn-lg" ng-class="!inputDisabled ? 'btn-info' : 'btn-success'" ng-disabled="inputDisabled">{{demoBtn}}</button>
                             </form>
                         </div>
                     </div>
