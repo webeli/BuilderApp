@@ -27,7 +27,7 @@ module.exports = function(app) {
         $scope.imgItem = null;
         $scope.projectTitle = null;
         $scope.zoomedItem = null;
-        $scope.authData = projectRef.getAuth();
+        //$scope.authData = projectRef.getAuth();
         $scope.cart = {};
         $scope.cartIndex = [];
         $scope.customerConfirmInfo = false;
@@ -99,7 +99,7 @@ module.exports = function(app) {
 
         function createNewCart() {
             var ref = projectRef.child("sessionCarts").push();
-            var key = ref.key();
+            var key = ref.key;
             localStorage.setItem("userKey", key);
 
             return key;
@@ -208,7 +208,7 @@ module.exports = function(app) {
             // Iterate through all keys from "categoryKeyRefs" and get data from "projectCategoryItemsRef"
             categoryItemKeyRefs.on('child_added', function (snapshot) {
 
-                var itemKey = snapshot.key();
+                var itemKey = snapshot.key;
                 counter++;
 
                 projectRef.child("itemOptions").child(itemKey).once('value', function (snapshot) {
