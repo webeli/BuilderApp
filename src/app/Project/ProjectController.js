@@ -159,7 +159,7 @@ module.exports = function(app) {
                 $scope.cart[$scope.currentCategory.$id][categoryItem.key] = currentItem;
 
             } else {
-                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child(cat.key).remove();
+                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
             }
 
             var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
