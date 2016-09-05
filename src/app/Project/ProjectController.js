@@ -139,19 +139,24 @@ module.exports = function(app) {
             );
         };
 
-
         /*
          ** Scope functions
          */
-        $scope.selectOption = function (itemOption, cat, value) {
+        $scope.selectOption = function (itemOption, categoryItem, value) {
             if (value) {
-                $scope.cart[cat.key] = {
+                var currentItem = {
                     title: itemOption.title,
                     price: itemOption.price,
                     key: itemOption.key,
-                    categoryItemTitle: cat.title,
-                    categoryTitle: $scope.currentCategoryTitle
+                    categoryItemTitle: categoryItem.title
+                    //categoryTitle: $scope.currentCategory.title /dont need right now i think
                 };
+
+                if ($scope.cart[$scope.currentCategory.$id] === undefined) {
+                    $scope.cart[$scope.currentCategory.$id] = {categoryTitle: $scope.currentCategory.title};
+                }
+
+                $scope.cart[$scope.currentCategory.$id][categoryItem.key] = currentItem;
 
             } else {
                 projectRef.child("sessionCarts").child($scope.myKey).child("cart").child(cat.key).remove();
@@ -174,8 +179,12 @@ module.exports = function(app) {
 
         $scope.getTotal = function () {
             var total = 0;
-            angular.forEach($scope.cart, function (item) {
-                total += item.price;
+            angular.forEach($scope.cart, function (categoryItems) {
+                for (var item in categoryItems) {
+                    if (item != 'categoryTitle') {
+                        total += categoryItems[item].price;
+                    }
+                }
             });
             return total;
         };
@@ -191,7 +200,7 @@ module.exports = function(app) {
         };
 
         // Get the options for an item
-        $scope.getOptions = function (item, categoryTitle) {
+        $scope.getItemOptions = function (item, category) {
             // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
 
@@ -201,7 +210,7 @@ module.exports = function(app) {
 
             // Store data as object and use in scope
             $scope.currentCategoryItem = item;
-            $scope.currentCategoryTitle = categoryTitle;
+            $scope.currentCategory = category;
 
             var counter = 0;
             var result = [];
@@ -226,7 +235,7 @@ module.exports = function(app) {
                         }
 
                         if (counter === result.length) {
-                            getOptionsCallback(result);
+                            getItemOptionsCallback(result);
                         }
 
                     });
@@ -234,7 +243,7 @@ module.exports = function(app) {
                 });
             });
             // Sort it:
-            function getOptionsCallback (result) {
+            function getItemOptionsCallback (result) {
                 var orderBy = $filter('orderBy');
                 $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
             }

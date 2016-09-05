@@ -85,24 +85,31 @@
                     </tr>
                     </thead>
 
-                    <tbody>
-                    <tr ng-repeat="item in cartArray">
-                        <td>{{item.categoryTitle}}</td>
-                        <td>{{item.categoryItemTitle}}</td>
-                        <td>{{item.title}}</td>
-                        <td>{{htmlHelper.formatPrice(item.price) + ' ' + htmlHelper.priceSuffix()}}</td>
-                        <td></td>
-                    </tr>
-
+                    <tbody ng-repeat="categoryItems in cartArray">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{htmlHelper.formatPrice(totalPrice + ' ' + htmlHelper.priceSuffix() )}}</td>
+                        <th>{{categoryItems.categoryTitle}}</th>
                     </tr>
+                        <tr ng-repeat="item in categoryItems" ng-if="categoryItems.categoryTitle != item">
 
+                            <td></td>
+                            <td>{{item.categoryItemTitle}}</td>
+                            <td>{{item.title}}</td>
+                            <td>{{htmlHelper.formatPrice(item.price) + ' ' + htmlHelper.priceSuffix()}}</td>
+                            <td></td>
+
+                        </tr>
                     </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{{htmlHelper.formatPrice(totalPrice + ' ' + htmlHelper.priceSuffix() )}}</td>
+                        </tr>
+                    </tbody>
+
                 </table>
             </div>
         </div>
@@ -116,7 +123,7 @@
                 <div class="panel panel-default" ng-repeat="category in allCategories">
                     <div class="panel-heading">{{category.title}}</div>
                     <ul class="list-group">
-                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getOptions(item, category.title)">{{item.title}}</a>
+                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">{{item.title}}</a>
                     </ul>
                 </div>
             </div>
@@ -190,10 +197,8 @@
                 <!-- /full page item -->
             </div>
 
-
             <!-- your choices -->
             <div class="col-md-2" ng-if="customer">
-
 
                 <div class="panel panel-default">
 
@@ -203,10 +208,12 @@
 
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <span ng-repeat="(key, value) in cart">
-
-                                <span class="small">{{value.categoryItemTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(value.price)}} {{htmlHelper.priceSuffix()}}</span><br>
-
+                            <span ng-repeat="categoryItems in cart">
+                                <span ng-repeat="item in categoryItems">
+                                    <div ng-if="item != categoryItems.categoryTitle">
+                                        <span class="small">{{item.categoryItemTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(item.price)}} {{htmlHelper.priceSuffix()}}</span><br>
+                                    </div>
+                                </span>
                             </span>
                         </li>
                     </ul>
@@ -222,8 +229,6 @@
 
             </div>
 
-
-
         </div>
     </div>
 
@@ -237,10 +242,7 @@
     </div>
 
     <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
-
-
         <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed">
-
             <div class="row">
 
                 <div class="col-xs-12 col-md-6">
@@ -267,48 +269,23 @@
                 </div>
 
             </div>
-
             <hr>
-            <!--
-
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <label for="appNr" class="">Lägenhetsnummer *</label>
-                    <input type="text" class="form-control" id="appNr" placeholder="#" ng-model="customer.appartmentnumber" ng-disabled="customer.confirmed" required />
-                </div>
-                <div class="form-group">
-                    <label for="name1" class="">Köpare 1 *</label>
-                    <input type="text" class="form-control" id="name1" placeholder="Förnamn Efternamn" ng-model="customer.customerOne" ng-disabled="customer.confirmed" required />
-                </div>
-                <div class="form-group">
-                    <label for="name2" class="">Köpare 2</label>
-                    <input type="text" class="form-control" id="name2" placeholder="Förnamn Efternamn" ng-model="customer.customerTwo" ng-disabled="customer.confirmed" />
-                </div>
-                <div class="form-group">
-                    <label for="email" class="">Epost *</label>
-                    <input type="email" class="form-control" id="email" placeholder="exempel@exempel.se" ng-model="customer.email" ng-disabled="customer.confirmed" required />
-                </div>
-                <div class="form-group">
-                    <label for="phone" class="">Telefon *</label>
-                    <input type="text" class="form-control" id="phone" placeholder="+46700000000" ng-model="customer.phone" ng-disabled="customer.confirmed" required />
-                </div>
-            </div>-->
-            <!--<button class="btn btn-default" ng-click="saveAndConfirm()" ng-disabled="!customerForm.$valid || customer.confirmed">Slutför</button>-->
-
         </form>
 
-        <span ng-repeat="item in cartArray">
-          <div class="new-line" ng-show="cartArray[$index].categoryTitle != cartArray[$index-1].categoryTitle">
-              <label class="summary-label">{{item.categoryTitle}}</label>
-          </div>
-          {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
+        <span ng-repeat="categoryItems in cartArray">
+            <label>{{categoryItems.categoryTitle}}</label>
+            <span ng-repeat="item in categoryItems">
+
+                <div ng-if="categoryItems.categoryTitle != item">
+                    {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
+                </div>
+            </span>
         </span>
 
+        <hr>
         <span ng-if="totalPrice">
-            <hr>
-            Totalt:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+            <label>Totalt:</label><span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
         </span>
-
 
         <div class="row">
             <div class="col-xs-12 text-right" ng-show="!customerConfirmInfo">
@@ -321,8 +298,6 @@
                 <button class="btn btn-default m-t-10" ng-click="customerConfirmInfo = false">Nej</button>
             </div>
         </div>
-
     </modal>
-
 
 </div>
