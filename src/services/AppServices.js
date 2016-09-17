@@ -50,7 +50,7 @@ module.exports = function(app) {
             var margin = (fontSize/12 * 5);
 
             var customerInfo = {
-                leftCol: 30,
+                leftCol: 20,
                 rightCol: 120,
                 rowStart: 40,
                 rowMargin: margin,
@@ -67,9 +67,9 @@ module.exports = function(app) {
             };
 
             var cartInfo = {
-                leftCol: 30,
+                leftCol: 20,
                 middleCol: 80,
-                rightCol: 140,
+                rightCol: 160,
                 rowStart: 65,
                 rowMargin: margin,
                 row: function(nr) {
@@ -96,7 +96,7 @@ module.exports = function(app) {
 
             // Heading
             doc.setFontSize(26);
-            doc.text(40, 20, projectname.toUpperCase());
+            doc.text(20, 20, 'Orderbekräftelse');
 
             // Customer info
             doc.setFontSize(fontSize);
@@ -119,53 +119,86 @@ module.exports = function(app) {
             // Row1 - Labels
             doc.setFontType("bold");
             doc.text(cartInfo.col('left'), cartInfo.row(0), 'Tillval');
-            doc.text(cartInfo.col('right'), cartInfo.row(0), 'Pris inkl moms');
+            doc.text(cartInfo.col('right') + 10, cartInfo.row(0), 'Belopp');
 
             // LeftCol - category.titles
             doc.setFontType("normal");
 
 
-            var offset = 2;
             doc.setFontSize(fontSize-2);
 
             // Object.keys(obj)
             // Each Cart
 
            // TODO: cart is now an object, not an array
-            cart.forEach(function(item, index){
-                var formatedPrice = htmlHelper.formatPrice(item.price);
-                var priceLength = formatedPrice.toString().length;
 
-                // Prints out category titles
-                if (index == 0) {
-                    doc.setFontType("bold");
-                    doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryTitle);
-                    offset++;
-                    doc.setFontType("normal");
+           var offset = 1;
 
-                } else if (cart[index-1].categoryTitle != cart[index].categoryTitle) {
-                    doc.setFontType("bold");
-                    offset ++;
-                    doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryTitle);
-                    offset ++;
-                    doc.setFontType("normal");
+           //x y längd y
+           doc.line(cartInfo.col('left'), cartInfo.row(offset-1) + 2, 190, cartInfo.row(offset-1) + 2); // horizontal line
+
+           for (var category in cart) {
+                // Title: cart[category].categoryTitle
+               offset++;
+               doc.setFontType("bold");
+               doc.text(cartInfo.col('left'), cartInfo.row(offset), cart[category].categoryTitle);
+               doc.setFontType("normal");
+               offset++;
+
+
+               for  (var categoryItem in cart[category]) {
+
+
+                    if (categoryItem != 'categoryTitle') {
+                        var item = cart[category][categoryItem];
+
+                        var formatedPrice = htmlHelper.formatPrice(item.price);
+                        var priceLength = formatedPrice.toString().length;
+
+                        doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryItemTitle);
+                        doc.text(cartInfo.col('middle'), cartInfo.row(offset), item.title);
+                        doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
+
+                        offset++;
+                    }
                 }
+           }
 
-                // Each item
-                doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryItemTitle);
-                doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
-                doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
-            });
+           // cart.forEach(function(item, index){
+           //      var formatedPrice = htmlHelper.formatPrice(item.price);
+           //      var priceLength = formatedPrice.toString().length;
+           //
+           //      // Prints out category titles
+           //      if (index == 0) {
+           //          doc.setFontType("bold");
+           //          doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryTitle);
+           //          offset++;
+           //          doc.setFontType("normal");
+           //
+           //      } else if (cart[index-1].categoryTitle != cart[index].categoryTitle) {
+           //          doc.setFontType("bold");
+           //          offset ++;
+           //          doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryTitle);
+           //          offset ++;
+           //          doc.setFontType("normal");
+           //      }
+           //
+           //      // Each item
+           //      doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryItemTitle);
+           //      doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
+           //      doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
+           //  });
 
             // Total
             var formatedTotal = htmlHelper.formatPrice(total);
             var totalLength = formatedTotal.toString().length;
 
-
-            doc.text(cartInfo.col('priceRight', totalLength, fontSize), cartInfo.row(offset + cart.length+1), htmlHelper.formatPrice(total) + htmlHelper.priceSuffix());
-
+            doc.text(cartInfo.col('priceRight', totalLength, fontSize), cartInfo.row(offset + 1), htmlHelper.formatPrice(total) + htmlHelper.priceSuffix());
             doc.setFontType("bold");
-            doc.text(cartInfo.col('middle'), cartInfo.row(offset + cart.length+1), 'Summa tillval');
+            doc.text(cartInfo.col('middle') + 40, cartInfo.row(offset + 1), 'Totalt inkl. moms:');
+
+           //x y längd y
+           doc.line(cartInfo.col('left'), cartInfo.row(offset), 190, cartInfo.row(offset)); // horizontal line
 
             return doc;
         }

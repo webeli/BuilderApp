@@ -261,7 +261,6 @@ module.exports = function(app) {
             $scope.customerConfirmInfo = false;
             $scope.customer.confirmed = true;
             $scope.customer.$save();
-            $scope.modalSummary = false;
         };
 
         $scope.printPage = function () {
