@@ -39,7 +39,6 @@ require('./src/services/AppServices')(app);
  */
 require('./src/app/Home/HomeController')(app);
 require('./src/app/Project/ProjectController')(app);
-require('./src/app/Summary/SummaryController')(app);
 
 /*
  ** Styles
