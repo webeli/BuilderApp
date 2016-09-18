@@ -40,7 +40,10 @@
                 <div class="panel panel-default" ng-repeat="category in allCategories">
                     <div class="panel-heading">{{category.title}}</div>
                     <ul class="list-group">
-                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">{{item.title}}</a>
+                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">
+                            {{item.title}}
+                            <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="cart[category.$id][item.key]"></span>
+                        </a>
                     </ul>
                 </div>
             </div>

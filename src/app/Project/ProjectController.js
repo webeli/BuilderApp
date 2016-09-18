@@ -27,7 +27,6 @@ module.exports = function(app) {
 
         // Arrays
         $scope.allCategories = [];
-        $scope.cartIndex = [];
 
         // Bool
         $scope.displayLightbox = false;
