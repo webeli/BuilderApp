@@ -1,24 +1,5 @@
 <nav class="navbar navbar-default" role="navigation">
 
-
-
-
-
-    <!--<div class="navbar-header">-->
-        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
-            <!--<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>-->
-        <!--</button> <a class="navbar-brand" href="#">TIVAL</a>-->
-    <!--</div>-->
-    <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-        <!--<ul class="nav navbar-nav navbar-right">-->
-            <!--&lt;!&ndash;<li>-->
-                <!--<a href="https://tival-admin.firebaseapp.com">Account</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#" ui-sref="home">Home</a>-->
-            <!--</li>&ndash;&gt;-->
-        <!--</ul>-->
-    <!--</div>-->
 </nav>
 <div class="container">
     <!-- header section -->
@@ -54,7 +35,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">{{ currentCategoryItem.title }}</a>
+                        <a class="navbar-brand" href="#">{{ currentCategoryItem.title != null ?  currentCategoryItem.title : 'Välj' }}</a>
                     </div>
 
                         <div class="collapse navbar-collapse">
@@ -184,7 +165,7 @@
                 </div>
                 <!-- /dina val som ska synas -->
 
-                <button class="btn btn-default pull-right" ng-click="toggleModal('summary')">Gå vidare</button>
+                <button class="btn btn-default pull-right" ng-click="toggleModal('summary')" style="margin: 15px;">Gå vidare</button>
 
             </div>
 
