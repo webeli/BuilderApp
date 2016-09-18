@@ -23,7 +23,7 @@ module.exports = function(app) {
         $scope.pdfHelper = pdfHelper;
 
         // Objects
-        $scope.cart = {};
+        $scope.cart = null;
 
         // Arrays
         $scope.allCategories = [];
@@ -137,6 +137,9 @@ module.exports = function(app) {
          ** Scope functions
          */
         $scope.selectOption = function (itemOption, categoryItem, value) {
+            // Make it an object
+            if ($scope.cart == null) { $scope.cart = {}; }
+
             if (value) {
                 var currentItem = {
                     title: itemOption.title,
