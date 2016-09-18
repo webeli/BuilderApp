@@ -31,6 +31,7 @@ module.exports = function(app) {
         // Bool
         $scope.displayLightbox = false;
         $scope.customerConfirmInfo = false;
+        $scope.arrowDown = false;
 
         // Vars
         $scope.currentCategoryItem = null;
