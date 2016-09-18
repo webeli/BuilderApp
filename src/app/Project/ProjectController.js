@@ -31,7 +31,6 @@ module.exports = function(app) {
         // Bool
         $scope.displayLightbox = false;
         $scope.customerConfirmInfo = false;
-        $scope.arrowDown = false;
 
         // Vars
         $scope.currentCategoryItem = null;
@@ -187,18 +186,9 @@ module.exports = function(app) {
             return total;
         };
 
-        $scope.getItemOptions = function (key) {
-            var itemOption = projectRef.child("itemOptions").child(key);
-
-            itemOption.on('value', function (snap) {
-                $timeout(function () {
-                    $scope.list = snap.val();
-                });
-            });
-        };
-
         // Get the options for an item
         $scope.getItemOptions = function (item, category) {
+
             // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
 
@@ -244,6 +234,8 @@ module.exports = function(app) {
             function getItemOptionsCallback (result) {
                 var orderBy = $filter('orderBy');
                 $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
+
+                // TODO: scroll into view? async problem
             }
         };
 
