@@ -259,7 +259,7 @@ module.exports = function(app) {
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
-                data: $scope.myKey
+                data: {key:$scope.myKey}
             }).then(function successCallback(response) {
                 $scope.customerConfirmInfo = false;
                 $scope.customer.confirmed = true;
