@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', 'pdfHelper', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment, pdfHelper) {
+    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', 'pdfHelper', '$http', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment, pdfHelper, $http) {
 
         /*
          ** Refs
@@ -136,7 +136,10 @@ module.exports = function(app) {
                     $scope.customer['date'] = new Date().toLocaleDateString();
                 }
             );
-        };
+        }
+        function postCart(id) {
+
+        }
 
         /*
          ** Scope functions
@@ -257,13 +260,17 @@ module.exports = function(app) {
 
         $scope.saveAndConfirm = function() {
 
-            $scope.customerConfirmInfo = false;
-            $scope.customer.confirmed = true;
-            $scope.customer.$save();
-        };
-
-        $scope.printPage = function () {
-            window.print();
+            $http({
+                method: 'POST',
+                url: 'https://builderappmail.herokuapp.com/',
+                data: $scope.myKey
+            }).then(function successCallback(response) {
+                $scope.customerConfirmInfo = false;
+                $scope.customer.confirmed = true;
+                $scope.customer.$save();
+            }, function errorCallback(response) {
+                console.log("failure:", response);
+            });
         };
 
         $scope.downloadPDF = function () {
@@ -274,4 +281,4 @@ module.exports = function(app) {
         };
 
     }]);
-}
+};
