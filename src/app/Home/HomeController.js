@@ -4,6 +4,10 @@ module.exports = function(app) {
         $scope.demoBtn = "Få mer information";
         $scope.inputDisabled = false;
 
+        $scope.cartvid = false;
+        $scope.flowvid = false;
+        $scope.finalvid = false;
+
         $scope.requestDemo = function(data) {
             if (data) {
                 var demoRef = FireRef.child("demoRequest");
