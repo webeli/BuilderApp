@@ -123,22 +123,14 @@ module.exports = function(app) {
                 }
             });
 
-            var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
-            var cartArray = $firebaseArray(cartRef);
-            $scope.cartArray = cartArray;
-
             var customerInfoRef = projectRef.child("sessionCarts").child($scope.myKey);
 
             var customerInfo = $firebaseObject(customerInfoRef.child("customerInfo"));
             customerInfo.$loaded(
                 function(data) {
                     $scope.customer = data;
-                    $scope.customer['date'] = new Date().toLocaleDateString();
                 }
             );
-        }
-        function postCart(id) {
-
         }
 
         /*
@@ -260,6 +252,10 @@ module.exports = function(app) {
 
         $scope.saveAndConfirm = function() {
 
+            $scope.customer.project = projectKey;
+            $scope.customer.date = new Date().toLocaleDateString();
+            $scope.customer.$save();
+
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
@@ -267,7 +263,6 @@ module.exports = function(app) {
             }).then(function successCallback(response) {
                 $scope.customerConfirmInfo = false;
                 $scope.customer.confirmed = true;
-                $scope.customer.$save();
             }, function errorCallback(response) {
                 console.log("failure:", response);
             });
