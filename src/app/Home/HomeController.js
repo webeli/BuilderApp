@@ -4,6 +4,8 @@ module.exports = function(app) {
         $scope.demoBtn = "Få mer information";
         $scope.inputDisabled = false;
 
+        $scope.currentTab = 'tab1';
+
         $scope.cartvid = false;
         $scope.flowvid = false;
         $scope.finalvid = false;
