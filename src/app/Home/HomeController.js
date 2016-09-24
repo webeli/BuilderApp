@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('HomeController', ['$scope', 'FireRef', '$state', function($scope, FireRef, $state) {
+    app.controller('HomeController', ['$scope', '$state', function($scope, $state) {
 
         $scope.demoBtn = "Få mer information";
         $scope.inputDisabled = false;
@@ -12,7 +12,7 @@ module.exports = function(app) {
 
         $scope.requestDemo = function(data) {
             if (data) {
-                var demoRef = FireRef.child("demoRequest");
+                var demoRef = firebase.database().ref("demoRequest");
                 demoRef.push(data);
                 $scope.demoBtn = "Tack, vi hör av oss inom kort!"
                 $scope.inputDisabled = true;
