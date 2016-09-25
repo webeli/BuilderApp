@@ -30,7 +30,7 @@ module.exports = function(app) {
 
         // Bool
         $scope.displayLightbox = false;
-        $scope.customerConfirmInfo = false;
+        $scope.areYouSureDialog = false;
         $scope.showStartPage = true;
 
         // Vars
@@ -253,17 +253,28 @@ module.exports = function(app) {
             $scope.customer.project = projectKey;
             $scope.customer.date = new Date().toLocaleDateString();
             $scope.customer.$save();
+            $scope.sendingMail = true;
 
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
                 data: {projectKey: projectKey, customerKey:$scope.myKey}
             }).then(function successCallback(response) {
-                $scope.customerConfirmInfo = false;
-                $scope.customer.confirmed = true;
+
+                $scope.sendingMail = false;
+                $scope.areYouSureDialog = false;
+
+                $scope.confirmCustomer(true);
+
             }, function errorCallback(response) {
+                $scope.sendingMail = false;
                 console.log("failure:", response);
             });
+        };
+
+        $scope.confirmCustomer = function() {
+            $scope.customer.confirmed = true;
+            $scope.customer.$save();
         };
 
         $scope.downloadPDF = function () {

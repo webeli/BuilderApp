@@ -108,7 +108,7 @@ module.exports = function(app) {
             doc.text(customerInfo.col('right'), customerInfo.row(1), customer.date);
 
             doc.text(customerInfo.col('left'), customerInfo.row(2), 'Namn:');
-            doc.text(customerInfo.col('right'), customerInfo.row(2), customer.customerOne);
+            doc.text(customerInfo.col('right'), customerInfo.row(2), customer.name);
             if (customer.customerTwo) {
                 doc.text(customerInfo.col('right'), customerInfo.row(3), customer.customerTwo);
             }

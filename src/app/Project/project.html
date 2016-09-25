@@ -62,8 +62,8 @@
                 </div><!-- /mobile nav -->
 
                 <!-- left nav -->
-                <div class="text-center hidden-xs">
-                    <img src="/assets/loader50.gif" alt="loading-gif" ng-if="allCategories.length == 0">
+                <div class="text-center hidden-xs" ng-if="allCategories.length == 0">
+                    <img src="/assets/loader50.gif" alt="loading-gif">
                 </div>
 
                 <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
@@ -213,12 +213,12 @@
     <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
 
         <div ng-show="!customer.confirmed">
-            <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="customerConfirmInfo = true">
+            <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="areYouSureDialog = true">
                 <div class="row">
 
                     <div class="col-xs-12 col-md-6">
                         <label>Namn <span>*</span>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.customerOne" ng-change="customer.$save()" required>
+                            <input type="text" class="form-control" placeholder="" ng-model="customer.name" ng-change="customer.$save()" required>
                         </label>
                     </div>
 
@@ -258,15 +258,19 @@
             </span>
 
                 <div class="row">
-                    <div class="col-xs-12 text-right" ng-show="!customerConfirmInfo">
+                    <div class="col-xs-12 text-right" ng-show="!areYouSureDialog">
                         <p></p>
                         <button type="submit" class="btn btn-default m-t-10">Bekräfta</button>
                     </div>
-                    <div class="col-xs-12 text-right" ng-show="customerConfirmInfo">
+                    <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
                         <label style="margin-right: 3px" class="m-t-10">Detta är slutgiltigt, är ni säkra?</label>
 
                         <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
-                        <button type="button" class="btn btn-default m-t-10" ng-click="customerConfirmInfo = false">Nej</button>
+                        <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
+                    </div>
+
+                    <div class="col-xs-12 text-right" ng-show="sendingMail">
+                        <img src="/assets/loader50.gif" alt="loading-gif">
                     </div>
                 </div>
             </form>
