@@ -167,7 +167,7 @@ module.exports = function(app) {
         };
 
         $scope.zoomItemOption = function (item) {
-            $scope.lightboxImage = "./assets/loader.gif";
+            $scope.lightboxImage = "./assets/loader50.gif";
             $scope.displayLightbox = !$scope.displayLightbox;
             $timeout(function() {
                 $scope.lightboxData = item;
