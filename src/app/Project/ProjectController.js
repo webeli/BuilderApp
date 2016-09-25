@@ -7,13 +7,6 @@ module.exports = function(app) {
         var projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child(projectKey);
 
-        // Get days until deadline
-        projectRef.child("deadline").on('value', function(data) {
-            var getDeadline = moment(new Date(data.val()));
-            var getToday = moment(Date.now());
-            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
-        });
-
         /*
          ** Scope variables
          */
@@ -24,6 +17,7 @@ module.exports = function(app) {
 
         // Objects
         $scope.cart = null;
+        $scope.projectSettings = {};
 
         // Arrays
         $scope.allCategories = [];
@@ -35,27 +29,33 @@ module.exports = function(app) {
 
         // Vars
         $scope.currentCategoryItem = null;
-        $scope.projectTitle = null;
 
         /*
          ** Init
          */
-        validateProjectKey();
+        getProjectSettings();
         getAllCategories();
         getUser();
 
         /*
          ** Private functions
          */
-        function validateProjectKey() {
-            projectRef.once("value", function (snapshot) {
+        function getProjectSettings() {
+            projectRef.child("projectSettings").once("value", function (snapshot) {
                 var projectKey = snapshot.exists();
                 if (projectKey === false) {
                     $state.go("home");
                 } else {
-                    $scope.projectTitle = snapshot.val().pName;
+                    $scope.projectSettings = snapshot.val();
+                    setDeadLine(snapshot.val().projectDeadline);
                 }
             });
+        }
+
+        function setDeadLine(data) {
+            var getDeadline = moment(new Date(data));
+            var getToday = moment(Date.now());
+            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
         }
 
         function getAllCategories() {

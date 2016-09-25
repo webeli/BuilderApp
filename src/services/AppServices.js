@@ -70,7 +70,7 @@ module.exports = function(app) {
                 leftCol: 20,
                 middleCol: 80,
                 rightCol: 160,
-                rowStart: 65,
+                rowStart: 100,
                 rowMargin: margin,
                 row: function(nr) {
                     return this.rowStart + (nr * this.rowMargin);
@@ -98,20 +98,19 @@ module.exports = function(app) {
             doc.setFontSize(26);
             doc.text(20, 20, 'Orderbekräftelse');
 
-            // Customer info
-            doc.setFontSize(fontSize);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer:');
-            doc.text(customerInfo.col('right'), customerInfo.row(0), customer.appartmentnumber);
+           doc.setFontSize(fontSize);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum:');
-            doc.text(customerInfo.col('right'), customerInfo.row(1), customer.date);
+           doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer: ' + customer.appartmentnumber);
+           doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum: ' + customer.date);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(2), 'Namn:');
-            doc.text(customerInfo.col('right'), customerInfo.row(2), customer.name);
-            if (customer.customerTwo) {
-                doc.text(customerInfo.col('right'), customerInfo.row(3), customer.customerTwo);
-            }
+           doc.setFontType("bold");
+           doc.text(customerInfo.col('left'), customerInfo.row(3), 'Kund');
+           doc.setFontType("normal");
+
+           doc.text(customerInfo.col('left'), customerInfo.row(4), customer.name);
+           doc.text(customerInfo.col('left'), customerInfo.row(5), customer.phone);
+           doc.text(customerInfo.col('left'), customerInfo.row(6), customer.email);
 
 
             // Cart
