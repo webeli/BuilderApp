@@ -31,6 +31,7 @@ module.exports = function(app) {
         // Bool
         $scope.displayLightbox = false;
         $scope.customerConfirmInfo = false;
+        $scope.showStartPage = true;
 
         // Vars
         $scope.currentCategoryItem = null;
@@ -191,9 +192,10 @@ module.exports = function(app) {
 
             // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
-
             // For now: empty it so that the site doesn't feel laggy when switching categories
 
+            //Empty and reset
+            $scope.showStartPage = false;
             $scope.itemOptions = [];
 
             // Store data as object and use in scope

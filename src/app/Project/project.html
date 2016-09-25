@@ -38,7 +38,7 @@
 
                         </button>
 
-                        <img src="/assets/loader.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
+                        <img src="/assets/loader24.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
 
                         <a class="navbar-brand" href="#">{{ currentCategoryItem.title != null ?  currentCategoryItem.title : 'Välj' }}</a>
                     </div>
@@ -61,6 +61,10 @@
                         </div><!--/.nav-collapse -->
                 </div><!-- /mobile nav -->
 
+                <!-- left nav -->
+                <div class="text-center hidden-xs">
+                    <img src="/assets/loader50.gif" alt="loading-gif" ng-if="allCategories.length == 0">
+                </div>
 
                 <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
                     <div class="panel-heading">{{category.title}}</div>
@@ -79,7 +83,7 @@
 
                 <!-- ** New Template ** -->
                 <div class="row">
-                    <div ng-if="!itemOptions.length">
+                    <div ng-if="showStartPage">
                         <div class="col-md-12">
                             <h4>Titel</h4>
                         </div>
