@@ -279,7 +279,7 @@ module.exports = function(app) {
 
         $scope.downloadPDF = function () {
 
-            var doc = $scope.pdfHelper.createPdf($scope.projectTitle, $scope.customer, $scope.cart, $scope.totalPrice);
+            var doc = $scope.pdfHelper.createPdf($scope.projectSettings, $scope.customer, $scope.cart, $scope.totalPrice);
             // Saving pdf
             doc.save('Sammanfattning.pdf');
         };
