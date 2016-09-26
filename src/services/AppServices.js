@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
     app.factory("GetChildElementsByKey", ["$timeout", function ($timeout) {
         var ref = new Firebase("https://100meter.firebaseio.com/");
         return ref;
@@ -22,13 +22,13 @@ module.exports = function(app) {
                 value = 0;
             }
             var rest = priceLength - 3;
-            if (rest > 0  && rest <= 3) {
+            if (rest > 0 && rest <= 3) {
                 value++;
                 return value;
             }
             if (rest > 3) {
                 //Recursive: remove one from the rest
-                return this.countSpaces(priceLength - 3-1, value+1);
+                return this.countSpaces(priceLength - 3 - 1, value + 1);
             }
             return value;
         };
@@ -37,27 +37,27 @@ module.exports = function(app) {
         };
     });
 
-    app.service('pdfHelper', ['htmlHelper', function(htmlHelper) {
-       this.createPdf = function(projectname, customer, cart, total) {
+    app.service('pdfHelper', ['htmlHelper', function (htmlHelper) {
+        this.createPdf = function (projectSettings, customer, cart, total) {
 
-            if (!projectname || !customer || !cart || !total) {
+            if (!projectSettings || !customer || !cart || !total) {
                 debugger;
             }
 
             var doc = new jsPDF();
 
             var fontSize = 14;
-            var margin = (fontSize/12 * 5);
+            var margin = (fontSize / 12 * 5);
 
             var customerInfo = {
                 leftCol: 20,
                 rightCol: 120,
-                rowStart: 40,
+                rowStart: 50,
                 rowMargin: margin,
-                row: function(nr) {
+                row: function (nr) {
                     return this.rowStart + (nr * this.rowMargin);
                 },
-                col: function(direction) {
+                col: function (direction) {
                     if (direction === 'left') {
                         return this.leftCol;
                     } else {
@@ -70,9 +70,9 @@ module.exports = function(app) {
                 leftCol: 20,
                 middleCol: 80,
                 rightCol: 160,
-                rowStart: 65,
+                rowStart: 100,
                 rowMargin: margin,
-                row: function(nr) {
+                row: function (nr) {
                     return this.rowStart + (nr * this.rowMargin);
                 },
                 col: function (direction, pricelength, fontsize) {
@@ -85,9 +85,9 @@ module.exports = function(app) {
                             return this.rightCol;
                         case 'priceRight':
                             var spaceValue = htmlHelper.countSpaces(pricelength);    // Value increases foreach 3
-                            var spaceSize = (spaceValue * (fontsize*2/10)/2);  // Moves to right
-                            var priceFontSize = (10 * fontsize*2/10);            // Moves to right
-                            var priceSize = (pricelength * (fontsize*2/10));   // Moves to left
+                            var spaceSize = (spaceValue * (fontsize * 2 / 10) / 2);  // Moves to right
+                            var priceFontSize = (10 * fontsize * 2 / 10);            // Moves to right
+                            var priceSize = (pricelength * (fontsize * 2 / 10));   // Moves to left
                             return this.rightCol - priceSize + priceFontSize + spaceSize;
                     }
                     return 0;
@@ -98,21 +98,32 @@ module.exports = function(app) {
             doc.setFontSize(26);
             doc.text(20, 20, 'Orderbekräftelse');
 
-            // Customer info
+            doc.setFontSize(18);
+            doc.text(20, 30, projectSettings.projectName);
+
             doc.setFontSize(fontSize);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer:');
-            doc.text(customerInfo.col('right'), customerInfo.row(0), customer.appartmentnumber);
+            doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer: ' + customer.appartmentnumber);
+            doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum: ' + customer.date);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum:');
-            doc.text(customerInfo.col('right'), customerInfo.row(1), customer.date);
+            // Customer
+            doc.setFontType("bold");
+            doc.text(customerInfo.col('left'), customerInfo.row(3), 'Kund');
+            doc.setFontType("normal");
 
-            doc.text(customerInfo.col('left'), customerInfo.row(2), 'Namn:');
-            doc.text(customerInfo.col('right'), customerInfo.row(2), customer.customerOne);
-            if (customer.customerTwo) {
-                doc.text(customerInfo.col('right'), customerInfo.row(3), customer.customerTwo);
-            }
+            doc.text(customerInfo.col('left'), customerInfo.row(4), customer.name);
+            doc.text(customerInfo.col('left'), customerInfo.row(5), customer.phone);
+            doc.text(customerInfo.col('left'), customerInfo.row(6), customer.email);
 
+            // Company
+            doc.setFontType("bold");
+            doc.text(customerInfo.col('right'), customerInfo.row(3), projectSettings.companyName);
+            doc.setFontType("normal");
+
+            doc.text(customerInfo.col('right'), customerInfo.row(4), projectSettings.companyStreet);
+            doc.text(customerInfo.col('right'), customerInfo.row(5), projectSettings.companyZip + " " + projectSettings.companyCity);
+            doc.text(customerInfo.col('right'), customerInfo.row(6), projectSettings.companyPhone);
+            doc.text(customerInfo.col('right'), customerInfo.row(7), projectSettings.companyWebsite);
 
             // Cart
 
@@ -125,28 +136,28 @@ module.exports = function(app) {
             doc.setFontType("normal");
 
 
-            doc.setFontSize(fontSize-2);
+            doc.setFontSize(fontSize - 2);
 
             // Object.keys(obj)
             // Each Cart
 
-           // TODO: cart is now an object, not an array
+            // TODO: cart is now an object, not an array
 
-           var offset = 1;
+            var offset = 1;
 
-           //x y längd y
-           doc.line(cartInfo.col('left'), cartInfo.row(offset-1) + 2, 190, cartInfo.row(offset-1) + 2); // horizontal line
+            //x y längd y
+            doc.line(cartInfo.col('left'), cartInfo.row(offset - 1) + 2, 190, cartInfo.row(offset - 1) + 2); // horizontal line
 
-           for (var category in cart) {
+            for (var category in cart) {
                 // Title: cart[category].categoryTitle
-               offset++;
-               doc.setFontType("bold");
-               doc.text(cartInfo.col('left'), cartInfo.row(offset), cart[category].categoryTitle);
-               doc.setFontType("normal");
-               offset++;
+                offset++;
+                doc.setFontType("bold");
+                doc.text(cartInfo.col('left'), cartInfo.row(offset), cart[category].categoryTitle);
+                doc.setFontType("normal");
+                offset++;
 
 
-               for  (var categoryItem in cart[category]) {
+                for (var categoryItem in cart[category]) {
 
 
                     if (categoryItem != 'categoryTitle') {
@@ -156,38 +167,13 @@ module.exports = function(app) {
                         var priceLength = formatedPrice.toString().length;
 
                         doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryItemTitle);
-                        doc.text(cartInfo.col('middle'), cartInfo.row(offset), item.title);
-                        doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
+                        doc.text(cartInfo.col('middle'), cartInfo.row(offset), item.title==item.categoryItemTitle ? "Ja":item.title);
+                        doc.text(cartInfo.col('priceRight', priceLength, fontSize - 2), cartInfo.row(offset), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
 
                         offset++;
                     }
                 }
-           }
-
-           // cart.forEach(function(item, index){
-           //      var formatedPrice = htmlHelper.formatPrice(item.price);
-           //      var priceLength = formatedPrice.toString().length;
-           //
-           //      // Prints out category titles
-           //      if (index == 0) {
-           //          doc.setFontType("bold");
-           //          doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryTitle);
-           //          offset++;
-           //          doc.setFontType("normal");
-           //
-           //      } else if (cart[index-1].categoryTitle != cart[index].categoryTitle) {
-           //          doc.setFontType("bold");
-           //          offset ++;
-           //          doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryTitle);
-           //          offset ++;
-           //          doc.setFontType("normal");
-           //      }
-           //
-           //      // Each item
-           //      doc.text(cartInfo.col('left'), cartInfo.row(offset + index), item.categoryItemTitle);
-           //      doc.text(cartInfo.col('middle'), cartInfo.row(offset + index), item.title);
-           //      doc.text(cartInfo.col('priceRight', priceLength, fontSize-2), cartInfo.row(offset + index), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
-           //  });
+            }
 
             // Total
             var formatedTotal = htmlHelper.formatPrice(total);
@@ -197,8 +183,8 @@ module.exports = function(app) {
             doc.setFontType("bold");
             doc.text(cartInfo.col('middle') + 40, cartInfo.row(offset + 1), 'Totalt inkl. moms:');
 
-           //x y längd y
-           doc.line(cartInfo.col('left'), cartInfo.row(offset), 190, cartInfo.row(offset)); // horizontal line
+            //x y längd y
+            doc.line(cartInfo.col('left'), cartInfo.row(offset), 190, cartInfo.row(offset)); // horizontal line
 
             return doc;
         }

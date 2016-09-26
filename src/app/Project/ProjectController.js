@@ -7,13 +7,6 @@ module.exports = function(app) {
         var projectKey = $stateParams.projectKey;
         var projectRef = FireRef.child(projectKey);
 
-        // Get days until deadline
-        projectRef.child("deadline").on('value', function(data) {
-            var getDeadline = moment(new Date(data.val()));
-            var getToday = moment(Date.now());
-            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
-        });
-
         /*
          ** Scope variables
          */
@@ -24,37 +17,45 @@ module.exports = function(app) {
 
         // Objects
         $scope.cart = null;
+        $scope.projectSettings = {};
 
         // Arrays
         $scope.allCategories = [];
 
         // Bool
         $scope.displayLightbox = false;
-        $scope.customerConfirmInfo = false;
+        $scope.areYouSureDialog = false;
+        $scope.showStartPage = true;
 
         // Vars
         $scope.currentCategoryItem = null;
-        $scope.projectTitle = null;
 
         /*
          ** Init
          */
-        validateProjectKey();
+        getProjectSettings();
         getAllCategories();
         getUser();
 
         /*
          ** Private functions
          */
-        function validateProjectKey() {
-            projectRef.once("value", function (snapshot) {
+        function getProjectSettings() {
+            projectRef.child("projectSettings").once("value", function (snapshot) {
                 var projectKey = snapshot.exists();
                 if (projectKey === false) {
                     $state.go("home");
                 } else {
-                    $scope.projectTitle = snapshot.val().pName;
+                    $scope.projectSettings = snapshot.val();
+                    setDeadLine(snapshot.val().projectDeadline);
                 }
             });
+        }
+
+        function setDeadLine(data) {
+            var getDeadline = moment(new Date(data));
+            var getToday = moment(Date.now());
+            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
         }
 
         function getAllCategories() {
@@ -166,7 +167,7 @@ module.exports = function(app) {
         };
 
         $scope.zoomItemOption = function (item) {
-            $scope.lightboxImage = "./assets/loader.gif";
+            $scope.lightboxImage = "./assets/loader50.gif";
             $scope.displayLightbox = !$scope.displayLightbox;
             $timeout(function() {
                 $scope.lightboxData = item;
@@ -191,9 +192,10 @@ module.exports = function(app) {
 
             // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
-
             // For now: empty it so that the site doesn't feel laggy when switching categories
 
+            //Empty and reset
+            $scope.showStartPage = false;
             $scope.itemOptions = [];
 
             // Store data as object and use in scope
@@ -251,22 +253,33 @@ module.exports = function(app) {
             $scope.customer.project = projectKey;
             $scope.customer.date = new Date().toLocaleDateString();
             $scope.customer.$save();
+            $scope.sendingMail = true;
 
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
-                data: {key:$scope.myKey}
+                data: {projectKey: projectKey, customerKey:$scope.myKey}
             }).then(function successCallback(response) {
-                $scope.customerConfirmInfo = false;
-                $scope.customer.confirmed = true;
+
+                $scope.sendingMail = false;
+                $scope.areYouSureDialog = false;
+
+                $scope.confirmCustomer(true);
+
             }, function errorCallback(response) {
+                $scope.sendingMail = false;
                 console.log("failure:", response);
             });
         };
 
+        $scope.confirmCustomer = function() {
+            $scope.customer.confirmed = true;
+            $scope.customer.$save();
+        };
+
         $scope.downloadPDF = function () {
 
-            var doc = $scope.pdfHelper.createPdf($scope.projectTitle, $scope.customer, $scope.cart, $scope.totalPrice);
+            var doc = $scope.pdfHelper.createPdf($scope.projectSettings, $scope.customer, $scope.cart, $scope.totalPrice);
             // Saving pdf
             doc.save('Sammanfattning.pdf');
         };

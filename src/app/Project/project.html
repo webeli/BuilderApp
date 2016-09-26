@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="/assets/tival-logo-rgb.png" alt="logo" width="202px">
-                    <h2>{{projectTitle}}</h2>
+                    <h2>{{projectSettings.projectName}}</h2>
                     <h4>{{daysUntilDeadline}}</h4>
                 </div>
                 <div class="col-md-8 hidden-xs">
@@ -18,7 +18,6 @@
         </div>
 
         <!-- Site -->
-
         <div class="row main-site">
 
             <!-- Left col -->
@@ -38,7 +37,7 @@
 
                         </button>
 
-                        <img src="/assets/loader.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
+                        <img src="/assets/loader24.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
 
                         <a class="navbar-brand" href="#">{{ currentCategoryItem.title != null ?  currentCategoryItem.title : 'Välj' }}</a>
                     </div>
@@ -61,6 +60,10 @@
                         </div><!--/.nav-collapse -->
                 </div><!-- /mobile nav -->
 
+                <!-- left nav -->
+                <div class="text-center hidden-xs" ng-if="allCategories.length == 0">
+                    <img src="/assets/loader50.gif" alt="loading-gif">
+                </div>
 
                 <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
                     <div class="panel-heading">{{category.title}}</div>
@@ -79,6 +82,27 @@
 
                 <!-- ** New Template ** -->
                 <div class="row">
+                    <div ng-if="showStartPage">
+                        <div class="col-md-12">
+                            <h4>Titel</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <p>
+                                I denna tillvalskatalog väljer ni inredning genom att kryssa i de önskade alternativen under kategorierna till vänster. När du är klar med dina val så trycker du "Gå vidare", fyller i dina uppgifter och bekräftar dina val. Du får sedan en orderbekräftelse skickad till din e-post.
+                            </p>
+                            <p>
+                                TIVAL förbehåller sig rätten till konstruktionsförändringar
+                                samt utbyte av leverantör, material och
+                                sakvaror som är beroende av produktutvecklingen
+                                eller andra skäl som gäller vid leveranstillfället.
+                                Vi reserverar oss för tryckfel och sortimentsförändringar.
+                            </p>
+                            <img src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:450,fit:max/https://cdn.filestackcontent.com/T3U80KP0SDOS28r7Q1c7" alt="">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:425,fit:max/https://cdn.filestackcontent.com/E04OUnBRTKcmuXqHT7b2" alt="">
+                        </div>
+                    </div>
 
                     <!-- item -->
                     <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1">
@@ -143,7 +167,7 @@
             </div>
 
             <!-- your choices -->
-            <div class="col-md-2" ng-if="customer && !customer.confirmed && cart">
+            <div class="col-md-2" ng-if="customer && !customer.confirmed && cart && itemOptions">
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -188,12 +212,12 @@
     <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
 
         <div ng-show="!customer.confirmed">
-            <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="customerConfirmInfo = true">
+            <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="areYouSureDialog = true">
                 <div class="row">
 
                     <div class="col-xs-12 col-md-6">
                         <label>Namn <span>*</span>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.customerOne" ng-change="customer.$save()" required>
+                            <input type="text" class="form-control" placeholder="" ng-model="customer.name" ng-change="customer.$save()" required>
                         </label>
                     </div>
 
@@ -205,7 +229,7 @@
 
                     <div class="col-xs-12 col-md-6">
                         <label>Epost <span>*</span>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.email" ng-change="customer.$save()" required>
+                            <input type="email" class="form-control" placeholder="" ng-model="customer.email" ng-change="customer.$save()" required>
                         </label>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -233,15 +257,19 @@
             </span>
 
                 <div class="row">
-                    <div class="col-xs-12 text-right" ng-show="!customerConfirmInfo">
+                    <div class="col-xs-12 text-right" ng-show="!areYouSureDialog">
                         <p></p>
                         <button type="submit" class="btn btn-default m-t-10">Bekräfta</button>
                     </div>
-                    <div class="col-xs-12 text-right" ng-show="customerConfirmInfo">
+                    <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
                         <label style="margin-right: 3px" class="m-t-10">Detta är slutgiltigt, är ni säkra?</label>
 
                         <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
-                        <button type="button" class="btn btn-default m-t-10" ng-click="customerConfirmInfo = false">Nej</button>
+                        <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
+                    </div>
+
+                    <div class="col-xs-12 text-right" ng-show="sendingMail">
+                        <img src="/assets/loader50.gif" alt="loading-gif">
                     </div>
                 </div>
             </form>
