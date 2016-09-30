@@ -137,28 +137,36 @@ module.exports = function(app) {
         /*
          ** Scope functions
          */
-        $scope.selectOption = function (itemOption, categoryItem, value) {
+        $scope.selectOption = function (itemOption, categoryItem, fullPageItem, added) {
             // Make it an object
             if ($scope.cart == null) { $scope.cart = {}; }
 
-            if (value) {
-                var currentItem = {
+            if (fullPageItem) {
+                var data = {
+                    title: added ? "Ja" : "Nej",
+                    price: added ? itemOption.price : 0,
+                    key: itemOption.key,
+                    categoryItemTitle: categoryItem.title
+                }
+            } else {
+                var data = {
                     title: itemOption.title,
                     price: itemOption.price,
                     key: itemOption.key,
                     categoryItemTitle: categoryItem.title
                     //categoryTitle: $scope.currentCategory.title /dont need right now i think
                 };
-
-                if ($scope.cart[$scope.currentCategory.$id] === undefined) {
-                    $scope.cart[$scope.currentCategory.$id] = {categoryTitle: $scope.currentCategory.title};
-                }
-
-                $scope.cart[$scope.currentCategory.$id][categoryItem.key] = currentItem;
-
-            } else {
-                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
             }
+
+            if ($scope.cart[$scope.currentCategory.$id] === undefined) {
+                $scope.cart[$scope.currentCategory.$id] = {categoryTitle: $scope.currentCategory.title};
+            }
+
+            $scope.cart[$scope.currentCategory.$id][categoryItem.key] = data;
+
+            /*} /*else {
+                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
+            }*/
 
             var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
             cartRef.set($scope.cart);

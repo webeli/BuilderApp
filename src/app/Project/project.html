@@ -129,7 +129,7 @@
                                 <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
                                 <p></p>
 
-                                <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
+                                <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
                             </div>
                         </div>
@@ -154,8 +154,8 @@
                     <div class="card-footer text-muted">
 
                         <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
-                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true)">Ja</button>
-                            <button type="button" class="btn" ng-class="!(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, false)">Nej</button>
+                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
+                            <button type="button" class="btn" ng-class="!(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
                         </div>
                         <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
                     </div>
