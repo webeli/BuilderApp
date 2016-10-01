@@ -167,7 +167,7 @@ module.exports = function (app) {
                         var priceLength = formatedPrice.toString().length;
 
                         doc.text(cartInfo.col('left'), cartInfo.row(offset), item.categoryItemTitle);
-                        doc.text(cartInfo.col('middle'), cartInfo.row(offset), item.title==item.categoryItemTitle ? "Ja":item.title);
+                        doc.text(cartInfo.col('middle'), cartInfo.row(offset), item.title);
                         doc.text(cartInfo.col('priceRight', priceLength, fontSize - 2), cartInfo.row(offset), htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix());
 
                         offset++;

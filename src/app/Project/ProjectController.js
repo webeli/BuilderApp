@@ -154,7 +154,6 @@ module.exports = function(app) {
                     price: itemOption.price,
                     key: itemOption.key,
                     categoryItemTitle: categoryItem.title
-                    //categoryTitle: $scope.currentCategory.title /dont need right now i think
                 };
             }
 
