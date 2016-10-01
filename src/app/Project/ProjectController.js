@@ -179,7 +179,7 @@ module.exports = function(app) {
             $scope.displayLightbox = !$scope.displayLightbox;
             $timeout(function() {
                 $scope.lightboxData = item;
-                $scope.lightboxImage = "https://process.filestackapi.com/Axj8r9t8RAKP5R3oUw8J9z/resize=width:1024,fit:max/" + $scope.lightboxData.image;
+                $scope.lightboxImage = $scope.lightboxData.image;
             }, 10);
         };
 
