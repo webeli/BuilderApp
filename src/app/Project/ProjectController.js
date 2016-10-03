@@ -119,7 +119,7 @@ module.exports = function (app) {
             });
             var totalRef = projectRef.child("sessionCarts").child(key).child("total");
             totalRef.on("value", function (snapshot) {
-                if (snapshot.val()) {
+                if (snapshot.val() || snapshot.val() == 0) {
                     $scope.totalPrice = snapshot.val();
                 }
             });
@@ -164,10 +164,6 @@ module.exports = function (app) {
             }
 
             $scope.cart[$scope.currentCategory.$id][categoryItem.key] = data;
-
-            /*} /*else {
-             projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
-             }*/
 
             var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
             cartRef.set($scope.cart);
