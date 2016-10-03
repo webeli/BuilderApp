@@ -7,7 +7,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="/assets/tival-logo-rgb.png" alt="logo" width="202px">
+                    <img src="/assets/tival-logo-rgb.png" class="logo" alt="logo" width="202px" ng-click="showStartPage = true">
                     <h2>{{projectSettings.projectName}}</h2>
                     <h4>{{daysUntilDeadline}}</h4>
                 </div>
@@ -103,7 +103,7 @@
 
 
             <!-- MAIN CONT -->
-            <div class="col-md-8">
+            <div class="col-md-8" ng-if="!showStartPage">
 
                 <!-- ** New Template ** -->
                 <div class="row">

@@ -1,5 +1,5 @@
-module.exports = function(app) {
-    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', 'pdfHelper', '$http', function($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment, pdfHelper, $http) {
+module.exports = function (app) {
+    app.controller('ProjectController', ['$scope', 'FireRef', '$stateParams', '$state', '$firebaseArray', '$firebaseObject', '$timeout', 'htmlHelper', '$filter', 'moment', 'pdfHelper', '$http', function ($scope, FireRef, $stateParams, $state, $firebaseArray, $firebaseObject, $timeout, htmlHelper, $filter, moment, pdfHelper, $http) {
 
         /*
          ** Refs
@@ -128,7 +128,7 @@ module.exports = function(app) {
 
             var customerInfo = $firebaseObject(customerInfoRef.child("customerInfo"));
             customerInfo.$loaded(
-                function(data) {
+                function (data) {
                     $scope.customer = data;
                 }
             );
@@ -139,7 +139,9 @@ module.exports = function(app) {
          */
         $scope.selectOption = function (itemOption, categoryItem, fullPageItem, added) {
             // Make it an object
-            if ($scope.cart == null) { $scope.cart = {}; }
+            if ($scope.cart == null) {
+                $scope.cart = {};
+            }
 
             if (fullPageItem) {
                 var data = {
@@ -164,8 +166,8 @@ module.exports = function(app) {
             $scope.cart[$scope.currentCategory.$id][categoryItem.key] = data;
 
             /*} /*else {
-                projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
-            }*/
+             projectRef.child("sessionCarts").child($scope.myKey).child("cart").child($scope.currentCategory.$id).child(categoryItem.key).remove();
+             }*/
 
             var cartRef = projectRef.child("sessionCarts").child($scope.myKey).child("cart");
             cartRef.set($scope.cart);
@@ -176,7 +178,7 @@ module.exports = function(app) {
         $scope.zoomItemOption = function (item) {
             $scope.lightboxImage = "./assets/loader50.gif";
             $scope.displayLightbox = !$scope.displayLightbox;
-            $timeout(function() {
+            $timeout(function () {
                 $scope.lightboxData = item;
                 $scope.lightboxImage = $scope.lightboxData.image;
             }, 10);
@@ -240,7 +242,7 @@ module.exports = function(app) {
                 });
             });
             // Sort it:
-            function getItemOptionsCallback (result) {
+            function getItemOptionsCallback(result) {
                 var orderBy = $filter('orderBy');
                 $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
 
@@ -255,7 +257,7 @@ module.exports = function(app) {
             }
         };
 
-        $scope.saveAndConfirm = function() {
+        $scope.saveAndConfirm = function () {
 
             $scope.customer.project = projectKey;
             $scope.customer.date = new Date().toLocaleDateString();
@@ -265,7 +267,7 @@ module.exports = function(app) {
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
-                data: {projectKey: projectKey, customerKey:$scope.myKey}
+                data: {projectKey: projectKey, customerKey: $scope.myKey}
             }).then(function successCallback(response) {
 
                 $scope.sendingMail = false;
@@ -279,7 +281,7 @@ module.exports = function(app) {
             });
         };
 
-        $scope.confirmCustomer = function() {
+        $scope.confirmCustomer = function () {
             $scope.customer.confirmed = true;
             $scope.customer.$save();
         };
