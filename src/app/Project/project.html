@@ -77,32 +77,37 @@
             </div>
 
 
+            <div class="col-md-10" ng-if="showStartPage">
+
+                <div class="col-md-7">
+                    <h4>Välkommen till demoprojektet!</h4>
+
+                    <p>
+                        I denna tillvalskatalog väljer ni inredning genom att kryssa i de önskade alternativen under kategorierna till vänster. När du är klar med dina val så trycker du "Gå vidare", fyller i dina uppgifter och bekräftar dina val. Du får sedan en orderbekräftelse skickad till din e-post.
+                    </p>
+                    <p>
+                        TIVAL förbehåller sig rätten till konstruktionsförändringar
+                        samt utbyte av leverantör, material och
+                        sakvaror som är beroende av produktutvecklingen
+                        eller andra skäl som gäller vid leveranstillfället.
+                        Vi reserverar oss för tryckfel och sortimentsförändringar.
+                    </p>
+                    <p>&nbsp;</p>
+                    <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg2.png?alt=media&token=86f2620c-9081-4eba-8a3a-62bdfef537bc" alt="">
+                    <br>
+                </div>
+                <div class="col-md-5">
+                    <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg1.png?alt=media&token=a78b4a16-aba4-40cd-9047-600f772c25bd" alt="">
+                </div>
+            </div>
+
+
             <!-- MAIN CONT -->
             <div class="col-md-8">
 
                 <!-- ** New Template ** -->
                 <div class="row">
-                    <div ng-if="showStartPage">
-                        <div class="col-md-12">
-                            <h4>Välkommen till demoprojektet!</h4>
-                        </div>
-                        <div class="col-md-7">
-                            <p>
-                                I denna tillvalskatalog väljer ni inredning genom att kryssa i de önskade alternativen under kategorierna till vänster. När du är klar med dina val så trycker du "Gå vidare", fyller i dina uppgifter och bekräftar dina val. Du får sedan en orderbekräftelse skickad till din e-post.
-                            </p>
-                            <p>
-                                TIVAL förbehåller sig rätten till konstruktionsförändringar
-                                samt utbyte av leverantör, material och
-                                sakvaror som är beroende av produktutvecklingen
-                                eller andra skäl som gäller vid leveranstillfället.
-                                Vi reserverar oss för tryckfel och sortimentsförändringar.
-                            </p>
-                            <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg2.png?alt=media&token=86f2620c-9081-4eba-8a3a-62bdfef537bc" alt="">
-                        </div>
-                        <div class="col-md-5">
-                            <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg1.png?alt=media&token=a78b4a16-aba4-40cd-9047-600f772c25bd" alt="">
-                        </div>
-                    </div>
+
 
                     <!-- item -->
                     <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1">
