@@ -11,6 +11,11 @@ module.exports = function(app) {
                 template: require('./Project/project.html'),
                 controller: 'ProjectController'
             })
+            .state('demo', {
+                url: '/demo',
+                template: require('./Project/project.html'),
+                controller: 'ProjectController'
+            });
 
         $urlRouterProvider.otherwise('/home/');
     }]);
