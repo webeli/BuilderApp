@@ -1,6 +1,11 @@
 {
   "hosting": {
     "public": "./build",
+    "redirects": [ {
+      "source" : "/demo",
+      "destination" : "/#/project/-KESA7C1tXztJQdkz77E",
+      "type" : 301
+    }],
     "rewrites": [
       {
         "source": "**",
