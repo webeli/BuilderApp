@@ -10,11 +10,6 @@ module.exports = function(app) {
                 url: '/project/:projectKey',
                 template: require('./Project/project.html'),
                 controller: 'ProjectController'
-            })
-            .state('demo', {
-                url: '/demo',
-                template: require('./Project/project.html'),
-                controller: 'ProjectController'
             });
 
         $urlRouterProvider.otherwise('/home/');

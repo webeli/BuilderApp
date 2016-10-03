@@ -5,11 +5,6 @@ module.exports = function (app) {
          ** Refs
          */
         var projectKey = $stateParams.projectKey;
-
-        if (window.location.hash.replace("#/", "") == "demo") {
-            projectKey = "-KESA7C1tXztJQdkz77E";
-        }
-
         var projectRef = FireRef.child(projectKey);
 
         /*
