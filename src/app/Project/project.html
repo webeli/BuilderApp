@@ -12,7 +12,7 @@
                     <h4>{{daysUntilDeadline}}</h4>
                 </div>
                 <div class="col-md-8 hidden-xs">
-                    <img src="/assets/homepicture.jpg" width="100%" height="250px" alt="header">
+                    <img src="/assets/homepicture.png" width="100%" height="250px" alt="header">
                 </div>
             </div>
         </div>
@@ -93,11 +93,11 @@
                         Vi reserverar oss för tryckfel och sortimentsförändringar.
                     </p>
                     <p>&nbsp;</p>
-                    <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg2.png?alt=media&token=86f2620c-9081-4eba-8a3a-62bdfef537bc" alt="">
+                    <img class="img-responsive" src="/assets/Startpage-image-left.png" alt="">
                     <br>
                 </div>
                 <div class="col-md-5">
-                    <img class="img-responsive" src="https://firebasestorage.googleapis.com/v0/b/project-8799195801841300390.appspot.com/o/temp%2Fimg1.png?alt=media&token=a78b4a16-aba4-40cd-9047-600f772c25bd" alt="">
+                    <img class="img-responsive" src="/assets/Startpage-image-right.png" alt="">
                 </div>
             </div>
 
@@ -113,9 +113,9 @@
                     <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1">
 
                         <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
-                            <div class="col-md-12">
-                                <h4 ng-show="option.default">Standard</h4>
-                                <h4 ng-show="!option.default">Tillval</h4>
+                            <div class="col-md-12 type-of-option">
+                                <h4 ng-show="option.default"><span class="white-border">Standard</span></h4>
+                                <h4 ng-show="!option.default"><span class="white-border">Tillval</span></h4>
                             </div>
                         </div>
 
