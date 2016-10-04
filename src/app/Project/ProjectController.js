@@ -115,6 +115,10 @@ module.exports = function (app) {
             ref.on("value", function (snapshot) {
                 if (snapshot.val()) {
                     $scope.cart = snapshot.val();
+                } else {
+                    // Key doesn't fit, remove it and get new one
+                    localStorage.removeItem("userKey");
+                    getUser();
                 }
             });
             var totalRef = projectRef.child("sessionCarts").child(key).child("total");
