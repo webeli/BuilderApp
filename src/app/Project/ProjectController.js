@@ -274,6 +274,8 @@ module.exports = function (app) {
 
             if (!allValid()) {
                 $scope.showCorrection = true;
+                //TODO: find different solution
+                $(".navbar-toggle:visible").click();
                 return true;
             }
 
