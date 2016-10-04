@@ -26,6 +26,7 @@ module.exports = function (app) {
         $scope.displayLightbox = false;
         $scope.areYouSureDialog = false;
         $scope.showStartPage = true;
+        $scope.showCorrection = false;
 
         // Vars
         $scope.currentCategoryItem = null;
@@ -73,6 +74,24 @@ module.exports = function (app) {
             });
 
             return true;
+        }
+
+        function allValid() {
+            statement = true;
+            angular.forEach($scope.allCategories, function(categoryItem) {
+                angular.forEach(categoryItem.categoryItems, function(itemOption) {
+
+                    var inCart = $scope.inCart(itemOption.key);
+
+                    if (inCart) {
+
+                    } else {
+                        statement = false;
+                    }
+
+                });
+            });
+            return statement;
         }
 
         function getCategoryItem(category) {
@@ -252,9 +271,27 @@ module.exports = function (app) {
 
         // Toggle modal
         $scope.toggleModal = function (modal) {
+
+            if (!allValid()) {
+                $scope.showCorrection = true;
+                return true;
+            }
+
+            $scope.showCorrection = true;
+
             if (modal === "summary") {
                 $scope.modalSummary = !$scope.modalSummary;
             }
+        };
+
+        $scope.inCart = function (key) {
+            for (var categoryItem in $scope.cart) {
+                if (typeof($scope.cart[categoryItem][key]) == "object")
+                {
+                    return true;
+                }
+            }
+            return false;
         };
 
         $scope.saveAndConfirm = function () {

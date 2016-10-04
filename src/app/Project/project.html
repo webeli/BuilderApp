@@ -19,7 +19,7 @@
 
         <!-- Site -->
         <div class="row main-site">
-
+            <button class="btn btn-default pull-right" ng-click="toggleModal('summary')" style="margin: 15px;">Gå vidare</button>
             <!-- Left col -->
             <div class="col-md-2">
 
@@ -70,7 +70,11 @@
                     <ul class="list-group">
                         <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">
                             {{item.title}}
-                            <span style="color: #26b6b4" class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="cart[category.$id][item.key]"></span>
+                            <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="!showCorrection && cart[category.$id][item.key]"></span>
+{{ showCorrection }}
+                            <span class="pull-right glyphicon glyphicon-ok-circle" aria-hidden="true" ng-if="showCorrection && inCart(item.key)"></span>
+
+                            <span class="pull-right glyphicon glyphicon-remove-circle" aria-hidden="true" ng-if="showCorrection && !inCart(item.key)"></span>
                         </a>
                     </ul>
                 </div>
