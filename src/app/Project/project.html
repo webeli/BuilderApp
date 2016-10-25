@@ -205,6 +205,9 @@
                 <!-- /dina val som ska synas -->
                 <!--<span class="navbar-brand visible-xs" ng-if="showCorrection">Ni har inte valt alla objekt</span>-->
                 <button class="btn btn-default pull-right" ng-click="toggleModal('summary')" style="margin: 15px;">Gå vidare</button>
+                <div class="col-xs-12">
+                    <small><i>Detta är bara en demo. Testa gärna hela flödet.</i></small>
+                </div>
 
             </div>
 
@@ -223,6 +226,9 @@
     <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
 
         <div ng-show="!customer.confirmed">
+            <div class="col-xs-12">
+                <small><i>Detta är bara en demo, men ange gärna er riktiga email för att få ett exemplet mailat till er.</i></small>
+            </div>
             <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="areYouSureDialog = true">
                 <div class="row">
 
@@ -273,7 +279,10 @@
                         <button type="submit" class="btn btn-default m-t-10">Bekräfta</button>
                     </div>
                     <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
-                        <label style="margin-right: 3px" class="m-t-10">Detta är slutgiltigt, är ni säkra?</label>
+                        <i style="margin-right: 3px" class="m-t-10">Är ni färdiga med er beställning?</i>
+                        <div class="col-xs-12">
+                            <small class="pull-left"><i>Obs, ingen riktig beställning.</i></small>
+                        </div>
 
                         <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
                         <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
