@@ -295,7 +295,8 @@ module.exports = function (app) {
         $scope.saveAndConfirm = function () {
 
             $scope.customer.project = projectKey;
-            $scope.customer.date = new Date().toLocaleDateString();
+            //Sets the format date
+            $scope.customer.date = moment().format("YYYY-MM-DD");
             $scope.customer.$save();
             $scope.sendingMail = true;
 
