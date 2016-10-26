@@ -83,12 +83,9 @@ module.exports = function (app) {
 
                     var inCart = $scope.inCart(itemOption.key);
 
-                    if (inCart) {
-
-                    } else {
+                    if (!inCart) {
                         statement = false;
                     }
-
                 });
             });
             return statement;
@@ -227,7 +224,7 @@ module.exports = function (app) {
             $scope.currentCategory = category;
 
             var counter = 0;
-            var result = [];
+            var allItems = {standard: [], tillval: []};
 
             // Get node "refs" on category
             var categoryItemKeyRefs = projectRef.child("categoryItems").child(item.key).child("refs");
@@ -238,18 +235,22 @@ module.exports = function (app) {
                 var itemKey = snapshot.key;
                 counter++;
 
-                projectRef.child("itemOptions").child(itemKey).once('value', function (snapshot) {
+                projectRef.child("itemOptions").child(itemKey).orderByChild("default").once('value', function (snapshot) {
                     $timeout(function () {
                         if (snapshot.val() === null) {
                             delete $scope.itemOptions[itemKey];
                             counter--;
                         }
                         else {
-                            result.push(snapshot.val());
+                            if (snapshot.val().default) {
+                                allItems.standard.push(snapshot.val());
+                            } else {
+                                allItems.tillval.push(snapshot.val());
+                            }
                         }
 
-                        if (counter === result.length) {
-                            getItemOptionsCallback(result);
+                        if (counter === allItems.standard.length + allItems.tillval.length) {
+                            getItemOptionsCallback(allItems);
                         }
 
                     });
@@ -257,9 +258,20 @@ module.exports = function (app) {
                 });
             });
             // Sort it:
-            function getItemOptionsCallback(result) {
+            function getItemOptionsCallback(items) {
                 var orderBy = $filter('orderBy');
-                $scope.itemOptions = orderBy(result, ['-default', 'attribute', 'price']);
+
+                $scope.itemOptions = {
+                    standard: {
+                        name: "Standard",
+                        items: orderBy(items.standard, ['default', 'price'])
+                    },
+                    tillval: {
+                        name: "Tillval",
+                        items: orderBy(items.tillval, ['default', 'price'])
+                    }
+                };
+                console.log($scope.itemOptions);
 
                 // TODO: scroll into view? async problem
             }

@@ -113,71 +113,76 @@
                 <!-- ** New Template ** -->
                 <div class="row">
 
+                    <!-- all optionItems -->
+                    <div ng-repeat="group in itemOptions">
 
-                    <!-- item -->
-                    <div ng-repeat="option in itemOptions" ng-if="itemOptions.length > 1">
+                        <!-- ** Many items template ** -->
+                        <div class="new-line" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length !== 1">
 
-                        <div class="new-line" ng-show="itemOptions[$index-1].default != option.default">
-                            <div class="col-md-12 type-of-option">
-                                <h4 ng-show="option.default"><span class="white-border">Standard</span></h4>
-                                <h4 ng-show="!option.default"><span class="white-border">Tillval</span></h4>
+                            <div class="col-xs-12">
+                                <h4><span class="white-border">{{ group.name }}</span></h4>
                             </div>
-                        </div>
 
-                        <div class="col-md-4 col-xs-6 option-item">
+                            <!-- item -->
+                            <div ng-repeat="option in group.items | onlyActive">
 
-                            <div class="option-inner">
+                                <div class="col-md-4 col-xs-6 option-item">
+                                    <div class="option-inner">
+                                        <div class="imgholder">
+                                            <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)">
+                                        </div>
+                                        <h4>{{option.title}}</h4>
+                                        <p class="option-description">{{option.desc}}</p>
+                                        <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
+                                        <p></p>
+                                        <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
-                                <div class="imgholder">
-                                    <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)">
+                                    </div>
+                                </div>
+                            </div><!-- /item -->
+
+                        </div><!-- /Many items template -->
+
+                        <!-- ** Full page item ** -->
+                        <div class="col-md-12" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length === 1">
+
+                            <!-- Item -->
+                            <div ng-repeat="option in group.items | onlyActive">
+
+                                <h4><span class="white-border">{{ group.name }}</span></h4>
+
+                                <div class="col-md-4">
+                                    <p></p>
+                                    <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
                                 </div>
 
-                                <h4>{{option.title}}</h4>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <p class="lead">{{option.title}}</p>
+                                        <p class="option-description">{{option.desc}}</p>
+                                        <p></p>
+                                        <div class="card-footer text-muted">
 
-                                <p class="option-description">{{option.desc}}</p>
+                                            <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
+                                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
+                                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
+                                            </div>
+                                            <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                        </div>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div><!-- /item -->
 
-                                <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
-                                <p></p>
+                        </div><!-- /full page item -->
 
-                                <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /item -->
-
+                    </div><!-- /all optionItems -->
                 </div><!-- /row -->
-
-                <!-- ** Full page item ** -->
-                <div class="col-md-12" ng-repeat="option in itemOptions | onlyActive" ng-if="itemOptions.length === 1">
-
-                    <div class="col-md-4">
-                        <p></p>
-                        <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
-                    </div>
-
-                <div class="panel panel-default">
-                <div class="panel-body">
-                    <p class="lead">{{option.title}}</p>
-                    <p class="option-description">{{option.desc}}</p>
-                    <p></p>
-                    <div class="card-footer text-muted">
-
-                        <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
-                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
-                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
-                        </div>
-                        <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
-                    </div>
-                    <p></p>
-                </div>
-                </div>
-                </div>
-                <!-- /full page item -->
             </div>
 
             <!-- your choices -->
-            <div class="col-md-2" ng-if="customer && !customer.confirmed && cart && itemOptions && !showStartPage">
+            <div class="col-md-2" ng-if="customer && !customer.confirmed && cart && !showStartPage">
 
                 <div class="panel panel-default">
                     <div class="panel-heading">

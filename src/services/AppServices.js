@@ -103,27 +103,27 @@ module.exports = function (app) {
 
             doc.setFontSize(fontSize);
 
-            doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer: ' + customer.appartmentnumber);
-            doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum: ' + customer.date);
+            doc.text(customerInfo.col('left'), customerInfo.row(0), 'Lägenhetsnummer: ' + (customer.appartmentnumber ? customer.appartmentnumber : ""));
+            doc.text(customerInfo.col('left'), customerInfo.row(1), 'Upprättad datum: ' + (customer.date ? customer.date : ""));
 
             // Customer
             doc.setFontType("bold");
             doc.text(customerInfo.col('left'), customerInfo.row(3), 'Kund');
             doc.setFontType("normal");
 
-            doc.text(customerInfo.col('left'), customerInfo.row(4), customer.name);
-            doc.text(customerInfo.col('left'), customerInfo.row(5), customer.phone);
-            doc.text(customerInfo.col('left'), customerInfo.row(6), customer.email);
+            doc.text(customerInfo.col('left'), customerInfo.row(4), customer.name ? customer.name : "");
+            doc.text(customerInfo.col('left'), customerInfo.row(5), customer.phone ? customer.phone : "");
+            doc.text(customerInfo.col('left'), customerInfo.row(6), customer.email ? customer.email : "");
 
             // Company
             doc.setFontType("bold");
-            doc.text(customerInfo.col('right'), customerInfo.row(3), projectSettings.companyName);
+            doc.text(customerInfo.col('right'), customerInfo.row(3), projectSettings.companyName ? projectSettings.companyName : "");
             doc.setFontType("normal");
 
-            doc.text(customerInfo.col('right'), customerInfo.row(4), projectSettings.companyStreet);
-            doc.text(customerInfo.col('right'), customerInfo.row(5), projectSettings.companyZip + " " + projectSettings.companyCity);
-            doc.text(customerInfo.col('right'), customerInfo.row(6), projectSettings.companyPhone);
-            doc.text(customerInfo.col('right'), customerInfo.row(7), projectSettings.companyWebsite);
+            doc.text(customerInfo.col('right'), customerInfo.row(4), projectSettings.companyStreet ? projectSettings.companyStreet : "");
+            doc.text(customerInfo.col('right'), customerInfo.row(5), (projectSettings.companyZip && projectSettings.companyCity ? projectSettings.companyZip + " " + projectSettings.companyCity : ""));
+            doc.text(customerInfo.col('right'), customerInfo.row(6), projectSettings.companyPhone ? projectSettings.companyPhone : "");
+            doc.text(customerInfo.col('right'), customerInfo.row(7), projectSettings.companyWebsite ? projectSettings.companyWebsite : "");
 
             // Cart
 
