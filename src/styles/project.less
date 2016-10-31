@@ -56,11 +56,35 @@
     font-size: 16px;
   }
 
+  .option-overlay {
+    transition: max-height 0.25s ease-out;
+    position:relative;
+    background:#26b6b4;
+    overflow: hidden;
+    color:#FFF;
+    max-height:0;
+    width:100%;
+    font-weight:bold;
+    z-index:10001;
+    cursor:pointer;
+    &.hovering {
+      transition: max-height 0.35s ease-in;
+      max-height:300px;
+    }
+  }
   .option-inner .option-description {
     max-height: 60px;
     min-height: 40px;
     font-size: 12px;
-    white-space: pre-line;
+    //white-space: pre-line;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+    cursor:pointer;
+    &:hover {
+      text-decoration:underline;
+      color:#26b6b4;
+    }
   }
 
   .option-inner .imgholder {

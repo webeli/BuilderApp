@@ -127,16 +127,23 @@
                             <div ng-repeat="option in group.items | onlyActive">
 
                                 <div class="col-md-4 col-xs-6 option-item">
+
+                                    <div class="option-overlay" ng-class="{hovering: overlay.over}" ng-click="overlay.over=!overlay.over">
+                                        <div style="padding:20px;">
+                                            {{option.desc || 'Ingen information angiven'}}
+                                        </div>
+                                    </div>
+
                                     <div class="option-inner">
                                         <div class="imgholder">
                                             <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)">
                                         </div>
                                         <h4>{{option.title}}</h4>
-                                        <p class="option-description">{{option.desc}}</p>
+                                        <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
                                         <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
                                         <p></p>
-                                        <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
 
+                                        <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
                                     </div>
                                 </div>
                             </div><!-- /item -->
