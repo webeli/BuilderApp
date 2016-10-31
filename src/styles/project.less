@@ -57,17 +57,22 @@
   }
 
   .option-overlay {
-    transition: max-height 0.25s ease-out;
-    position:relative;
-    background:#26b6b4;
+    transition: opacity 0.35s ease-out;
+    position:absolute;
+    background:rgba(0, 0, 0, 0.7);
     overflow: hidden;
+    font-weight:bold;
     color:#FFF;
-    max-height:0;
+    opacity:0;
+    //max-height:0;
+    height:0;
     width:100%;
     cursor:pointer;
     &.hovering {
-      transition: max-height 0.35s ease-in;
-      max-height:300px;
+      transition: opacity 0.25s ease-out;
+      opacity:1;
+      //max-height:600px;
+      height:100%;
     }
   }
   .option-inner .option-description {
