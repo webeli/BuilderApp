@@ -54,9 +54,10 @@ module.exports = function (app) {
         }
 
         function setDeadLine(data) {
+            console.log(data);
             var getDeadline = moment(new Date(data));
             var getToday = moment(Date.now());
-            $scope.daysUntilDeadline = getDeadline.diff(getToday, 'days') + " dagar kvar";
+            $scope.daysUntilDeadline = "Slutdatum: "+data+" ("+getDeadline.diff(getToday, 'days') + " dagar kvar)";
         }
 
         function getAllCategories() {
