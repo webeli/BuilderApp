@@ -338,7 +338,7 @@ module.exports = function (app) {
 
             var doc = $scope.pdfHelper.createPdf($scope.projectSettings, $scope.customer, $scope.cart, $scope.totalPrice);
             // Saving pdf
-            doc.save('Sammanfattning.pdf');
+            doc.save('Orderbekräftelse_Demoprojekt2016.pdf');
         };
 
     }]);
