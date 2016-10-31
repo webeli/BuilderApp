@@ -65,6 +65,7 @@
     color:#FFF;
     opacity:0;
     //max-height:0;
+    z-index:10;
     height:0;
     width:100%;
     cursor:pointer;
@@ -83,11 +84,16 @@
     white-space: nowrap;
     overflow:hidden !important;
     text-overflow: ellipsis;
+  }
+  .option-description {
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+  }
+  .option-description:hover {
+    text-decoration:underline;
+    color:#26b6b4;
     cursor:pointer;
-    &:hover {
-      text-decoration:underline;
-      color:#26b6b4;
-    }
   }
 
   .option-inner .imgholder {

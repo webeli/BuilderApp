@@ -157,28 +157,36 @@
 
                             <!-- Item -->
                             <div ng-repeat="option in group.items | onlyActive">
-
                                 <h4><span class="white-border">{{ group.name }}</span></h4>
 
-                                <div class="col-md-4">
-                                    <p></p>
-                                    <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
-                                </div>
+                                <div style="display:block;position:relative;">
 
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <p class="lead">{{option.title}}</p>
-                                        <p class="option-description">{{option.desc}}</p>
-                                        <p></p>
-                                        <div class="card-footer text-muted">
-
-                                            <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
-                                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
-                                            <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
-                                            </div>
-                                            <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                    <div class="option-overlay" ng-class="{hovering: overlay.over}" ng-click="overlay.over=!overlay.over">
+                                        <div style="padding:15px;">
+                                            {{option.desc || 'Ingen information angiven'}}
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <p></p>
+                                        <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <p class="lead">{{option.title}}</p>
+                                            <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
+                                            <p></p>
+                                            <div class="card-footer text-muted">
+
+                                                <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
+                                                <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
+                                                <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
+                                                </div>
+                                                <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                            </div>
+                                            <p></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div><!-- /item -->
