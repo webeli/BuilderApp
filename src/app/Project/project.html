@@ -1,36 +1,49 @@
-
-
-
-
 <div id="project">
     <!-- börjar här -->
     <div class="wrapper">
 
         <header>
-            
+
             <img src="/assets/tival-logo-rgb-white.png" alt="Tillvalshantering">
             <!-- <h3>Hej</h3> -->
         </header>
 
         <main>
-<br>
-<br>
-<br>
-<br>
-<br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <!-- MAIN MENU -->
             <div class="flex-row flex-start">
 
-                <div class="circle-container complete" ng-repeat="category in allCategories">
-                    <div class="circle">
+                <div class="circle-container"
+                        ng-repeat="category in allCategories"
+                        ng-class="{active: category.selected}"
+                        ng-click="selectCategory(category)">
+                    <div class="circle" ng-class="{'active' : true}">
                         <i class="fas fa-home"></i>
                     </div>
                     <div class="line">&nbsp;</div>
                     <label>{{category.title}}</label>
                 </div>
 
-               
+            </div>
+
+            <!-- SUBCAT -->
+            <div class="flex-row flex-start">
+
+                    <div class="small-circle-container" ng-repeat="subCategory in currentSubCategory.categoryItems" >
+                        <div class="circle">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="line">&nbsp;</div>
+                        <label>{{subCategory.title}}</label>
+                    </div>
 
             </div>
+
 
         </main>
     </div>
@@ -114,7 +127,7 @@
 
                     <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
                         <div class="panel-heading">{{category.title}}</div>
-                        
+
                         <ul class="list-group">
                             <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">
                                 {{item.title}}
@@ -280,14 +293,14 @@
                                         </div>
                                     </span>
                                 </span>
-                            </lspan>
+                                </lspan>
                         </ul>
                         <!-- right column -->
                         <ul class="list-group">
                             <li class="list-group-item" ng-if="totalPrice">
                                 Totalt:
                                 <span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
-                            </lspan>
+                                </lspan>
                         </ul>
                     </div>
                     <!-- /dina val som ska synas -->
@@ -379,14 +392,14 @@
                         </div>
                         <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
                             <i style="margin-right: 3px" class="m-t-10">Är ni färdiga med er beställning?</span>
-                            <div class="col-xs-12">
-                                <small class="pull-left">
-                                    <span>Obs, ingen riktig beställning.</span>
-                                </small>
-                            </div>
+                                <div class="col-xs-12">
+                                    <small class="pull-left">
+                                        <span>Obs, ingen riktig beställning.</span>
+                                    </small>
+                                </div>
 
-                            <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
-                            <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
+                                <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
+                                <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
                         </div>
 
                         <div class="col-xs-12 text-right" ng-show="sendingMail">
@@ -411,5 +424,5 @@
         </modal>
 
     </div>
+
 </noscript>
-    

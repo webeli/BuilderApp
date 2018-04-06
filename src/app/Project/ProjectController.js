@@ -30,6 +30,7 @@ module.exports = function (app) {
 
         // Vars
         $scope.currentCategoryItem = null;
+        $scope.currentSubCategory;
 
         /*
          ** Init
@@ -257,6 +258,8 @@ module.exports = function (app) {
 
                 });
             });
+
+
             // Sort it:
             function getItemOptionsCallback(items) {
                 var orderBy = $filter('orderBy');
@@ -276,6 +279,18 @@ module.exports = function (app) {
                 // TODO: scroll into view? async problem
             }
         };
+
+        $scope.selectCategory = function(category, e) {
+            $scope.currentSubCategory = $scope.allCategories.find(item => item.$id === category.$id);
+
+            const oldCat = $scope.allCategories.find(cat => cat.selected);
+            
+            !!oldCat ? oldCat.selected = false : '';
+
+            category['selected'] = true;
+
+            $scope.selectedCategory = category;
+        }
 
         // Toggle modal
         $scope.toggleModal = function (modal) {
