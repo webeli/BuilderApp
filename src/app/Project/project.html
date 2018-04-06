@@ -1,334 +1,415 @@
-<nav class="navbar navbar-default" role="navigation">
 
-</nav>
-<div class="container">
-    <!-- header section -->
-    <div id="builder-project">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="/assets/tival-logo-rgb.png" class="logo" alt="logo" width="202px" ng-click="showStartPage = true">
-                    <h2>{{projectSettings.projectName}}</h2>
-                    <h4>{{daysUntilDeadline}}</h4>
+
+
+
+<div id="project">
+    <!-- börjar här -->
+    <div class="wrapper">
+
+        <header>
+            
+            <img src="/assets/tival-logo-rgb-white.png" alt="Tillvalshantering">
+            <!-- <h3>Hej</h3> -->
+        </header>
+
+        <main>
+<br>
+<br>
+<br>
+<br>
+<br>
+            <div class="flex-row flex-start">
+
+                <div class="circle-container complete" ng-repeat="category in allCategories">
+                    <div class="circle">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="line">&nbsp;</div>
+                    <label>{{category.title}}</label>
                 </div>
-                <div class="col-md-8 hidden-xs">
-                    <img src="/assets/homepicture.png" width="100%" height="250px" alt="header">
+
+               
+
+            </div>
+
+        </main>
+    </div>
+
+</div>
+
+
+<noscript>
+    <nav class="navbar navbar-default" role="navigation">
+
+    </nav>
+    <div class="container">
+        <!-- header section -->
+        <div id="builder-project">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="/assets/tival-logo-rgb.png" class="logo" alt="logo" width="202px" ng-click="showStartPage = true">
+                        <h2>{{projectSettings.projectName}}</h2>
+                        <h4>{{daysUntilDeadline}}</h4>
+                    </div>
+                    <div class="col-md-8 hidden-xs">
+                        <img src="/assets/homepicture.png" width="100%" height="250px" alt="header">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Site -->
-        <div class="row main-site">
+            <!-- Site -->
+            <div class="row main-site">
 
-            <!-- Left col -->
-            <div class="col-md-2">
+                <!-- Left col -->
+                <div class="col-md-2">
 
-                <!-- mobile nav -->
-                <div class="navbar navbar-default navbar-fixed-top visible-xs" role="navigation">
+                    <!-- mobile nav -->
+                    <div class="navbar navbar-default navbar-fixed-top visible-xs" role="navigation">
 
-                    <div class="navbar-header">
+                        <div class="navbar-header">
 
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-if="allCategories.length > 0">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-if="allCategories.length > 0">
 
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
 
-                        </button>
+                            </button>
 
-                        <img src="/assets/loader24.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
-                        <a class="navbar-brand" href="javascript:void(0);">{{ currentCategoryItem.title != null ?  currentCategoryItem.title : 'Meny' }}</a>
+                            <img src="/assets/loader24.gif" class="navbar-toggle" style="border: 0px;" alt="loading-gif" ng-if="allCategories.length == 0">
+                            <a class="navbar-brand" href="javascript:void(0);">{{ currentCategoryItem.title != null ? currentCategoryItem.title : 'Meny' }}</a>
 
-                    </div>
+                        </div>
 
 
-                    <div class="collapse navbar-collapse">
+                        <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav" style="margin:0 -15px">
 
 
                                 <div class="panel panel-default" ng-repeat="category in allCategories" style="margin: 0px;">
                                     <div class="panel-heading">{{category.title}}</div>
-                                        <ul class="list-group">
-                                            <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)" data-toggle="collapse" data-target=".navbar-collapse">
-                                                {{item.title}}
-                                                <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="!showCorrection && cart[category.$id][item.key]"></span>
-                                                <span class="pull-right glyphicon glyphicon-ok-circle" aria-hidden="true" ng-if="showCorrection && inCart(item.key)"></span>
-                                                <span class="pull-right glyphicon glyphicon-remove-circle" aria-hidden="true" ng-if="showCorrection && !inCart(item.key)"></span>
+                                    <ul class="list-group">
+                                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)" data-toggle="collapse"
+                                            data-target=".navbar-collapse">
+                                            {{item.title}}
+                                            <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="!showCorrection && cart[category.$id][item.key]"></span>
+                                            <span class="pull-right glyphicon glyphicon-ok-circle" aria-hidden="true" ng-if="showCorrection && inCart(item.key)"></span>
+                                            <span class="pull-right glyphicon glyphicon-remove-circle" aria-hidden="true" ng-if="showCorrection && !inCart(item.key)"></span>
                                         </a>
                                     </ul>
                                 </div>
 
                             </ul>
-                        </div><!--/.nav-collapse -->
-                </div><!-- /mobile nav -->
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                    <!-- /mobile nav -->
 
-                <!-- left nav -->
-                <div class="text-center hidden-xs" ng-if="allCategories.length == 0">
-                    <img src="/assets/loader50.gif" alt="loading-gif">
+                    <!-- left nav -->
+                    <div class="text-center hidden-xs" ng-if="allCategories.length == 0">
+                        <img src="/assets/loader50.gif" alt="loading-gif">
+                    </div>
+
+                    <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
+                        <div class="panel-heading">{{category.title}}</div>
+                        
+                        <ul class="list-group">
+                            <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">
+                                {{item.title}}
+                                <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="!showCorrection && cart[category.$id][item.key]"></span>
+                                <span class="pull-right glyphicon glyphicon-ok-circle" aria-hidden="true" ng-if="showCorrection && inCart(item.key)"></span>
+                                <span class="pull-right glyphicon glyphicon-remove-circle" aria-hidden="true" ng-if="showCorrection && !inCart(item.key)"></span>
+                            </a>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="panel panel-default hidden-xs" ng-repeat="category in allCategories">
-                    <div class="panel-heading">{{category.title}}</div>
-                    <ul class="list-group">
-                        <a href class="list-group-item" ng-repeat="item in category.categoryItems" ng-click="getItemOptions(item, category)">
-                            {{item.title}}
-                            <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true" ng-if="!showCorrection && cart[category.$id][item.key]"></span>
-                            <span class="pull-right glyphicon glyphicon-ok-circle" aria-hidden="true" ng-if="showCorrection && inCart(item.key)"></span>
-                            <span class="pull-right glyphicon glyphicon-remove-circle" aria-hidden="true" ng-if="showCorrection && !inCart(item.key)"></span>
-                        </a>
-                    </ul>
+
+                <div class="col-md-10" ng-if="showStartPage">
+
+                    <div class="col-md-7">
+                        <h4>Välkommen till demoprojektet!</h4>
+
+                        <p>
+                            I denna tillvalskatalog väljer ni inredning genom att kryssa i de önskade alternativen under kategorierna till vänster. När
+                            du är klar med dina val så trycker du "Gå vidare", fyller i dina uppgifter och bekräftar dina
+                            val. Du får sedan en orderbekräftelse skickad till din e-post.
+                        </p>
+                        <p>
+                            TIVAL förbehåller sig rätten till konstruktionsförändringar samt utbyte av leverantör, material och sakvaror som är beroende
+                            av produktutvecklingen eller andra skäl som gäller vid leveranstillfället. Vi reserverar oss
+                            för tryckfel och sortimentsförändringar.
+                        </p>
+                        <p>&nbsp;</p>
+                        <img class="img-responsive" src="/assets/startpage-image-left.png" alt="">
+                        <br>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="img-responsive" src="/assets/startpage-image-right.png" alt="">
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="col-md-10" ng-if="showStartPage">
+                <!-- MAIN CONT -->
+                <div class="col-md-8" ng-if="!showStartPage">
 
-                <div class="col-md-7">
-                    <h4>Välkommen till demoprojektet!</h4>
+                    <!-- ** New Template ** -->
+                    <div class="row">
 
-                    <p>
-                        I denna tillvalskatalog väljer ni inredning genom att kryssa i de önskade alternativen under kategorierna till vänster. När du är klar med dina val så trycker du "Gå vidare", fyller i dina uppgifter och bekräftar dina val. Du får sedan en orderbekräftelse skickad till din e-post.
-                    </p>
-                    <p>
-                        TIVAL förbehåller sig rätten till konstruktionsförändringar
-                        samt utbyte av leverantör, material och
-                        sakvaror som är beroende av produktutvecklingen
-                        eller andra skäl som gäller vid leveranstillfället.
-                        Vi reserverar oss för tryckfel och sortimentsförändringar.
-                    </p>
-                    <p>&nbsp;</p>
-                    <img class="img-responsive" src="/assets/startpage-image-left.png" alt="">
-                    <br>
-                </div>
-                <div class="col-md-5">
-                    <img class="img-responsive" src="/assets/startpage-image-right.png" alt="">
-                </div>
-            </div>
+                        <!-- all optionItems -->
+                        <div ng-repeat="group in itemOptions">
 
+                            <!-- ** Many items template ** -->
+                            <div class="new-line" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length !== 1">
 
-            <!-- MAIN CONT -->
-            <div class="col-md-8" ng-if="!showStartPage">
+                                <div class="col-xs-12">
+                                    <h4>
+                                        <span class="white-border">{{ group.name }}</span>
+                                    </h4>
+                                </div>
 
-                <!-- ** New Template ** -->
-                <div class="row">
+                                <!-- item -->
+                                <div ng-repeat="option in group.items | onlyActive">
 
-                    <!-- all optionItems -->
-                    <div ng-repeat="group in itemOptions">
+                                    <div class="col-md-4 col-xs-6 option-item">
+                                        <div style="display:block;position:relative;">
+                                            <div class="option-overlay" ng-class="{hovering: overlay.over}" ng-click="overlay.over=!overlay.over">
+                                                <div style="padding:15px;">
+                                                    {{option.desc || 'Ingen information angiven'}}
+                                                </div>
+                                            </div>
 
-                        <!-- ** Many items template ** -->
-                        <div class="new-line" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length !== 1">
+                                            <div class="option-inner">
+                                                <div class="imgholder">
+                                                    <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)">
+                                                </div>
+                                                <h4>{{option.title}}</h4>
+                                                <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
+                                                <div>
+                                                    <span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                                </div>
+                                                <p></p>
 
-                            <div class="col-xs-12">
-                                <h4><span class="white-border">{{ group.name }}</span></h4>
+                                                <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'"
+                                                    ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key)
+                                                    == true ? 'Vald' : 'Välj'; }}</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /item -->
+
                             </div>
+                            <!-- /Many items template -->
 
-                            <!-- item -->
-                            <div ng-repeat="option in group.items | onlyActive">
+                            <!-- ** Full page item ** -->
+                            <div class="col-md-12" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length === 1">
 
-                                <div class="col-md-4 col-xs-6 option-item">
+                                <!-- Item -->
+                                <div ng-repeat="option in group.items | onlyActive">
+                                    <h4>
+                                        <span class="white-border">{{ group.name }}</span>
+                                    </h4>
+
                                     <div style="display:block;position:relative;">
+
                                         <div class="option-overlay" ng-class="{hovering: overlay.over}" ng-click="overlay.over=!overlay.over">
                                             <div style="padding:15px;">
                                                 {{option.desc || 'Ingen information angiven'}}
                                             </div>
                                         </div>
 
-                                        <div class="option-inner">
-                                            <div class="imgholder">
-                                                <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)">
+                                        <div class="col-md-4">
+                                            <p></p>
+                                            <div>
+                                                <img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)">
                                             </div>
-                                            <h4>{{option.title}}</h4>
-                                            <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
-                                            <div><span>{{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span></div>
-                                            <p></p>
-
-                                            <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem)">{{ (cart[currentCategory.$id][currentCategoryItem.key].key == option.key) == true ? 'Vald' : 'Välj'; }}</button>
                                         </div>
-                                    </div>
 
-                                </div>
-                            </div><!-- /item -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <p class="lead">{{option.title}}</p>
+                                                <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
+                                                <p></p>
+                                                <div class="card-footer text-muted">
 
-                        </div><!-- /Many items template -->
-
-                        <!-- ** Full page item ** -->
-                        <div class="col-md-12" ng-if="itemOptions.standard.items.length + itemOptions.tillval.items.length === 1">
-
-                            <!-- Item -->
-                            <div ng-repeat="option in group.items | onlyActive">
-                                <h4><span class="white-border">{{ group.name }}</span></h4>
-
-                                <div style="display:block;position:relative;">
-
-                                    <div class="option-overlay" ng-class="{hovering: overlay.over}" ng-click="overlay.over=!overlay.over">
-                                        <div style="padding:15px;">
-                                            {{option.desc || 'Ingen information angiven'}}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p></p>
-                                        <div><img class="img-responsive" ng-src="{{option.image}}" ng-click="zoomItemOption(option)"></div>
-                                    </div>
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <p class="lead">{{option.title}}</p>
-                                            <p class="option-description" ng-click="overlay.over=!overlay.over">{{option.desc}}</p>
-                                            <p></p>
-                                            <div class="card-footer text-muted">
-
-                                                <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
-                                                <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
-                                                <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'" ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
+                                                    <div class="btn-group" id="toggle_event_editing" ng-if="!customer.confirmed">
+                                                        <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].price == option.price) ? 'btn-builder-active':'btn-default'"
+                                                            ng-click="selectOption(option, currentCategoryItem, true, true)">Ja</button>
+                                                        <button type="button" class="btn" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) && (cart[currentCategory.$id][currentCategoryItem.key].price != option.price) ? 'btn-builder-active':'btn-default'"
+                                                            ng-click="selectOption(option, currentCategoryItem, true, false)">Nej</button>
+                                                    </div>
+                                                    <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
                                                 </div>
-                                                <span class="pull-right">Pris: {{htmlHelper.formatPrice(option.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                                <p></p>
                                             </div>
-                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
-                            </div><!-- /item -->
+                                <!-- /item -->
 
-                        </div><!-- /full page item -->
+                            </div>
+                            <!-- /full page item -->
 
 
-                    </div><!-- /all optionItems -->
-                </div><!-- /row -->
-            </div>
-
-            <!-- your choices -->
-            <div class="col-md-2" ng-if="customer && !customer.confirmed && cart && !showStartPage">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Mina val
+                        </div>
+                        <!-- /all optionItems -->
                     </div>
-
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span ng-repeat="categoryItems in cart">
-                                <span ng-repeat="item in categoryItems">
-                                    <div ng-if="item != categoryItems.categoryTitle">
-                                        <span class="small">{{item.categoryItemTitle}}</span><span class="pull-right small">{{htmlHelper.formatPrice(item.price)}} {{htmlHelper.priceSuffix()}}</span><br>
-                                    </div>
-                                </span>
-                            </span>
-                        </li>
-                    </ul>
-                    <!-- right column -->
-                    <ul class="list-group">
-                        <li class="list-group-item" ng-if="totalPrice">
-                            Totalt:<span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /dina val som ska synas -->
-                <!--<span class="navbar-brand visible-xs" ng-if="showCorrection">Ni har inte valt alla objekt</span>-->
-                <button class="btn btn-default pull-right" ng-click="toggleModal('summary')" style="margin: 15px;">Gå vidare</button>
-                <div class="col-xs-12">
-                    <small><i>Detta är bara en demo. Testa gärna hela flödet.</i></small>
+                    <!-- /row -->
                 </div>
 
-            </div>
+                <!-- your choices -->
+                <div class="col-md-2" ng-if="customer && !customer.confirmed && cart && !showStartPage">
 
-        </div>
-    </div>
-
-    <div id="lightbox-overlay" ng-show="displayLightbox" ng-click="displayLightbox = !displayLightbox"></div>
-    <div id="lightbox" ng-show="displayLightbox">
-        <div class="lightbox-close" ng-click="displayLightbox = !displayLightbox">x</div>
-        <div class="lightbox-header">{{lightboxData.title}}</div>
-        <div class="lightbox-content">
-            <img class="lightbox-img" ng-src="{{lightboxImage}}">
-        </div>
-    </div>
-
-    <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
-
-        <div ng-show="!customer.confirmed">
-            <div class="col-xs-12">
-                <small><i>Detta är bara en demo, men ange gärna er riktiga email för att få ett exemplet mailat till er.</i></small>
-            </div>
-            <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="areYouSureDialog = true">
-                <div class="row">
-
-                    <div class="col-xs-12 col-md-6">
-                        <label>Namn <small>Valfritt</small>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.name" ng-change="customer.$save()">
-                        </label>
-                    </div>
-
-                    <div class="col-xs-12 col-md-6">
-                        <label>Bostadsnr <small>Valfritt</small>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.appartmentnumber" ng-change="customer.$save()">
-                        </label>
-                    </div>
-
-                    <div class="col-xs-12 col-md-6">
-                        <label>Epost <small>Obligatorisk*</small>
-                            <input type="email" class="form-control" placeholder="" ng-model="customer.email" ng-change="customer.$save()" required>
-                        </label>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <label>Telefon <small>Valfritt</small>
-                            <input type="text" class="form-control" placeholder="" ng-model="customer.phone" ng-change="customer.$save()">
-                        </label>
-                    </div>
-
-                </div>
-                <hr>
-
-            <span ng-repeat="categoryItems in cart">
-                <label>{{categoryItems.categoryTitle}}</label>
-                <span ng-repeat="item in categoryItems">
-
-                    <div ng-if="categoryItems.categoryTitle != item">
-                        {{item.categoryItemTitle}}: {{item.title}}<span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span><br>
-                    </div>
-                </span>
-            </span>
-
-            <hr>
-            <span ng-if="totalPrice">
-                <label>Totalt:</label><span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
-            </span>
-
-                <div class="row">
-                    <div class="col-xs-12 text-right" ng-show="!areYouSureDialog">
-                        <p></p>
-                        <button type="submit" class="btn btn-default m-t-10">Bekräfta</button>
-                    </div>
-                    <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
-                        <i style="margin-right: 3px" class="m-t-10">Är ni färdiga med er beställning?</i>
-                        <div class="col-xs-12">
-                            <small class="pull-left"><i>Obs, ingen riktig beställning.</i></small>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Mina val
                         </div>
 
-                        <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
-                        <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span ng-repeat="categoryItems in cart">
+                                    <span ng-repeat="item in categoryItems">
+                                        <div ng-if="item != categoryItems.categoryTitle">
+                                            <span class="small">{{item.categoryItemTitle}}</span>
+                                            <span class="pull-right small">{{htmlHelper.formatPrice(item.price)}} {{htmlHelper.priceSuffix()}}</span>
+                                            <br>
+                                        </div>
+                                    </span>
+                                </span>
+                            </lspan>
+                        </ul>
+                        <!-- right column -->
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-if="totalPrice">
+                                Totalt:
+                                <span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+                            </lspan>
+                        </ul>
+                    </div>
+                    <!-- /dina val som ska synas -->
+                    <!--<span class="navbar-brand visible-xs" ng-if="showCorrection">Ni har inte valt alla objekt</span>-->
+                    <button class="btn btn-default pull-right" ng-click="toggleModal('summary')" style="margin: 15px;">Gå vidare</button>
+                    <div class="col-xs-12">
+                        <small>
+                            <span>Detta är bara en demo. Testa gärna hela flödet.</span>
+                        </small>
                     </div>
 
-                    <div class="col-xs-12 text-right" ng-show="sendingMail">
-                        <img src="/assets/loader50.gif" alt="loading-gif">
-                    </div>
                 </div>
-            </form>
-        </div>
 
-        <div class="row" ng-show="customer.confirmed">
-            <div class="col-md-12" >
-                <h2>Tack för din beställning!</h2>
-                <br>
-                <p>Du får även en orderbekräftelse skickad till din e-post</p>
-
-                <button class="btn btn-success" ng-click="downloadPDF()">Spara som PDF</button>
-
-                <hr>
             </div>
         </div>
 
-    </modal>
+        <div id="lightbox-overlay" ng-show="displayLightbox" ng-click="displayLightbox = !displayLightbox"></div>
+        <div id="lightbox" ng-show="displayLightbox">
+            <div class="lightbox-close" ng-click="displayLightbox = !displayLightbox">x</div>
+            <div class="lightbox-header">{{lightboxData.title}}</div>
+            <div class="lightbox-content">
+                <img class="lightbox-img" ng-src="{{lightboxImage}}">
+            </div>
+        </div>
 
-</div>
+        <modal class="project-summary-modal" title="Bekräfta dina val" visible="modalSummary">
+
+            <div ng-show="!customer.confirmed">
+                <div class="col-xs-12">
+                    <small>
+                        <span>Detta är bara en demo, men ange gärna er riktiga email för att få ett exemplet mailat till er.</span>
+                    </small>
+                </div>
+                <form class="form-horizontal" role="form" name="customerForm" ng-disabled="customer.confirmed" required ng-submit="areYouSureDialog = true">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <label>Namn
+                                <small>Valfritt</small>
+                                <input type="text" class="form-control" placeholder="" ng-model="customer.name" ng-change="customer.$save()">
+                            </label>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <label>Bostadsnr
+                                <small>Valfritt</small>
+                                <input type="text" class="form-control" placeholder="" ng-model="customer.appartmentnumber" ng-change="customer.$save()">
+                            </label>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <label>Epost
+                                <small>Obligatorisk*</small>
+                                <input type="email" class="form-control" placeholder="" ng-model="customer.email" ng-change="customer.$save()" required>
+                            </label>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label>Telefon
+                                <small>Valfritt</small>
+                                <input type="text" class="form-control" placeholder="" ng-model="customer.phone" ng-change="customer.$save()">
+                            </label>
+                        </div>
+
+                    </div>
+                    <hr>
+
+                    <span ng-repeat="categoryItems in cart">
+                        <label>{{categoryItems.categoryTitle}}</label>
+                        <span ng-repeat="item in categoryItems">
+
+                            <div ng-if="categoryItems.categoryTitle != item">
+                                {{item.categoryItemTitle}}: {{item.title}}
+                                <span class="pull-right">{{ htmlHelper.formatPrice(item.price) + htmlHelper.priceSuffix()}}</span>
+                                <br>
+                            </div>
+                        </span>
+                    </span>
+
+                    <hr>
+                    <span ng-if="totalPrice">
+                        <label>Totalt:</label>
+                        <span class="pull-right">{{htmlHelper.formatPrice(totalPrice)}} {{htmlHelper.priceSuffix()}}</span>
+                    </span>
+
+                    <div class="row">
+                        <div class="col-xs-12 text-right" ng-show="!areYouSureDialog">
+                            <p></p>
+                            <button type="submit" class="btn btn-default m-t-10">Bekräfta</button>
+                        </div>
+                        <div class="col-xs-12 text-right" ng-show="areYouSureDialog && !sendingMail">
+                            <i style="margin-right: 3px" class="m-t-10">Är ni färdiga med er beställning?</span>
+                            <div class="col-xs-12">
+                                <small class="pull-left">
+                                    <span>Obs, ingen riktig beställning.</span>
+                                </small>
+                            </div>
+
+                            <button type="button" style="margin-right: 3px" class="btn btn-default m-t-10" ng-click="saveAndConfirm()">Ja</button>
+                            <button type="button" class="btn btn-default m-t-10" ng-click="areYouSureDialog = false">Nej</button>
+                        </div>
+
+                        <div class="col-xs-12 text-right" ng-show="sendingMail">
+                            <img src="/assets/loader50.gif" alt="loading-gif">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row" ng-show="customer.confirmed">
+                <div class="col-md-12">
+                    <h2>Tack för din beställning!</h2>
+                    <br>
+                    <p>Du får även en orderbekräftelse skickad till din e-post</p>
+
+                    <button class="btn btn-success" ng-click="downloadPDF()">Spara som PDF</button>
+
+                    <hr>
+                </div>
+            </div>
+
+        </modal>
+
+    </div>
+</noscript>
+    

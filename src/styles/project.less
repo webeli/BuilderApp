@@ -1,157 +1,128 @@
-/* PROJECT */
-#builder-project {
-  * {
-    border-radius: 0!important;
+#project {
+
+  .wrapper {
+      // display: flex;
+      // justify-content: space-between;
+      // flex-direction: column;
+      min-height: 100%;
+      width: 100%;
+      position: absolute;
   }
 
-  .logo {
-    cursor: pointer;
+  // Flex
+  .flex-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      // align-items: center;
+      width: 100%;
   }
 
-  .btn:not(.btn-default) {
-    color: #fff;
-  }
-  .panel-default>.panel-heading {
-    background-color: #26b6b4;
-    color: #fff;
-  }
-  /* BUTTONS */
-  .btn-builder {
-    background-color: #adadad;
-  }
-  .btn-builder:hover {
-    background-color: #597DD0;
-  }
-  .btn-builder-active {
-    background-color: #1748B8;
-  }
-  a.list-group-item:hover {
-    background-color: #fff;
-  }
-  .page-header {
-    padding-bottom:10px;
-    margin:10px 0 10px;
+  .flex-row {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      &.flex-start {
+        justify-content: flex-start;
+      }
   }
 
-  .panel-thumbnail {
-    min-height: 170px;
+
+  // Header
+  header {
+      height: 75px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #337ab7;
+      img {
+          margin-left: 20%;
+          height: 50px;
+      }
   }
 
-  /** optionItem **/
-  .option-inner {
-    border: 1px solid #ededed;
-    padding: 15px;
-    margin-bottom: 15px;
-  }
-
-  .option-inner > * {
+  main {
+    top: 75px;
+    position: absolute;
     width: 100%;
   }
 
-  .option-inner div:not(.imgholder) {
-    text-align: right;
-  }
+  // Circle
+  .circle-container {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .option-inner div span {
-    font-size: 16px;
-  }
+    & .line {
+      width: 100%;
+      height: 7px;
+      background: lightgray;
+      top: -40px;
+      position: relative;
+    }
+    & .circle {
+      width: 75px;
+      min-height: 75px;
+      border-radius: 50%;
+      z-index: 10;
+      background-color: lightgray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #fff;
+    }
 
-  .option-overlay {
-    transition: opacity 0.35s ease-out;
-    position:absolute;
-    background:rgba(0, 0, 0, 0.7);
-    overflow: hidden;
-    font-weight:bold;
-    color:#FFF;
-    opacity:0;
-    //max-height:0;
-    z-index:10;
-    height:0;
-    width:100%;
-    cursor:pointer;
-    &.hovering {
-      transition: opacity 0.25s ease-out;
-      opacity:1;
-      //max-height:600px;
-      height:100%;
+    &.active {
+      & .circle {
+        background-color: lightblue;
+      }
+      & .line {
+        background-color: lightblue;
+      }
+    }
+
+    &.complete {
+      & .circle {
+        background-color: lightgreen;
+      }
+      & .line {
+        background-color: lightgreen;
+      }
     }
   }
-  .option-inner .option-description {
-    max-height: 60px;
-    min-height: 40px;
-    font-size: 12px;
-    //white-space: pre-line;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
-  }
-  .option-description {
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
-  }
-  .option-description:hover {
-    text-decoration:underline;
-    color:#26b6b4;
-    cursor:pointer;
-  }
-
-  .option-inner .imgholder {
-    text-align: center;
-    height: 140px;
-  }
-
-  .option-inner h4 {
-    font-size: 16px;
-  }
-
-  .new-line {
-    width: 100%;
-    float: left;
-  }
-
-  .imgholder img {
-    cursor: pointer;
-    max-height: 140px;
-    display: inline-block;
-    //max-width: 180px;
-  }
-
-  .white-border {
-    border: 1px solid #ccc;
-    padding: 2px 7px 2px 7px;
-  }
-
-  .glyphicon:not(.glyphicon-remove-circle) {
-    color: #26b6b4;
-  }
-
-  .glyphicon-remove-circle {
-    color: rgba(205, 78, 35, 0.79)
-  }
-
-  .glyphicon-ok-circle, .glyphicon-remove-circle {
-    font-size: 20px;
-  }
-
-}
-
-.btn-builder-link {
-  background-color: #74DADA;
-  color: #fff;
-}
-.btn-builder-link:hover {
-  background-color: #04A9A9;
-  color: #fff;
-}
-
-.modal.project-summary-modal {
-  label {
-    margin: 10px 0px 0px 0px;
-  }
-}
 
 
-@media print {
-  .page-header { display: none; }
-}
+    // label {
+    //   margin-top: 50px;
+    // }
+    
+  //   &:after {
+  //     content: '';
+  //     width: 10%;
+  //     height: 5px;
+  //     background-color: lightgray;
+  //     position: absolute;
+  //     top: 22px;
+  //     z-index: -10;
+  //   }
+  // }
+
+  // .circle.active {
+  //   background-color: lightblue;
+  //   &:after {
+  //     background-color: lightblue;
+  //   }
+  // }
+  // .circle.complete {
+  //   background-color: lightgreen;
+  //   &:after {
+  //     background-color: lightgreen;
+  //   }
+  // }
+
+
+
+} 
+

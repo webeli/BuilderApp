@@ -38,6 +38,7 @@ require('./src/services/AppServices')(app);
  ** Controllers
  */
 require('./src/app/Home/HomeController')(app);
+require('./src/app/Start/StartController')(app); 
 require('./src/app/Project/ProjectController')(app);
 
 /*
@@ -46,6 +47,7 @@ require('./src/app/Project/ProjectController')(app);
 require("./src/styles/home-theme.less");
 require("./src/styles/main.css");
 require("./src/styles/animations.css");
+require("./src/styles/start.less");
 require("./src/styles/project.less");
 require("./src/styles/account.less");
 require("./src/styles/lightbox.less");

@@ -6,6 +6,11 @@ module.exports = function(app) {
                 template: require('./Home/home.html'),
                 controller: 'HomeController'
             })
+            .state('start', {
+                url: '/start/',
+                template: require('./Start/start.html'),
+                controller: 'StartController'
+            })
             .state('project', {
                 url: '/project/:projectKey',
                 template: require('./Project/project.html'),
