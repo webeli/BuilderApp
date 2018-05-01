@@ -56,8 +56,6 @@
                         <img ng-src="{{option.image}}" ng-click="zoomItemOption(option, true)" alt="">
                         <h3>{{option.title}}</h3>
 
-                        <p>{{option.desc}}</p>
-
                         <div class="flex-row space-between w100">
                             <button class="btn btn-block btn-xs" ng-if="!customer.confirmed" ng-class="(cart[currentCategory.$id][currentCategoryItem.key].key == option.key) ? 'active':''"
                                 ng-click="selectOption(option, currentCategoryItem)">
