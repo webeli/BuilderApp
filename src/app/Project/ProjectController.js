@@ -29,8 +29,12 @@ module.exports = function (app) {
         $scope.showCorrection = false;
 
         // Vars
+        $scope.currentCategory = null;
         $scope.currentCategoryItem = null;
+        $scope.selectedSubCategory = null;
         $scope.currentSubCategory;
+        $scope.categoryClass = "";
+        $scope.subCategoryClass = "";
 
         /*
          ** Init
@@ -57,7 +61,7 @@ module.exports = function (app) {
         function setDeadLine(data) {
             var getDeadline = moment(new Date(data));
             var getToday = moment(Date.now());
-            $scope.daysUntilDeadline = "Slutdatum: "+data+" ("+getDeadline.diff(getToday, 'days') + " dagar kvar)";
+            $scope.daysUntilDeadline = "Slutdatum: " + data + " (" + getDeadline.diff(getToday, 'days') + " dagar kvar)";
         }
 
         function getAllCategories() {
@@ -72,15 +76,19 @@ module.exports = function (app) {
                     allCats.push(categoryWithItems);
                 });
                 $scope.allCategories = allCats;
+
+                // Set class
+                $scope.categoryClass = "w" + (allCats.length > 10 ? 10 : allCats.length);
             });
+
 
             return true;
         }
 
         function allValid() {
             statement = true;
-            angular.forEach($scope.allCategories, function(categoryItem) {
-                angular.forEach(categoryItem.categoryItems, function(itemOption) {
+            angular.forEach($scope.allCategories, function (categoryItem) {
+                angular.forEach(categoryItem.categoryItems, function (itemOption) {
 
                     var inCart = $scope.inCart(itemOption.key);
 
@@ -177,7 +185,7 @@ module.exports = function (app) {
             }
 
             if ($scope.cart[$scope.currentCategory.$id] === undefined) {
-                $scope.cart[$scope.currentCategory.$id] = {categoryTitle: $scope.currentCategory.title};
+                $scope.cart[$scope.currentCategory.$id] = { categoryTitle: $scope.currentCategory.title };
             }
 
             $scope.cart[$scope.currentCategory.$id][categoryItem.key] = data;
@@ -210,7 +218,7 @@ module.exports = function (app) {
         };
 
         // Get the options for an item
-        $scope.getItemOptions = function (item, category) {
+        $scope.getItemOptions = function (item) {
 
             // TODO;
             // Maybe store each load in the view so that we don't have to repeat this process.
@@ -220,12 +228,14 @@ module.exports = function (app) {
             $scope.showStartPage = false;
             $scope.itemOptions = [];
 
+            var category = $scope.currentCategory;
+
             // Store data as object and use in scope
             $scope.currentCategoryItem = item;
-            $scope.currentCategory = category;
+            $scope.selectedSubCategory = category;
 
             var counter = 0;
-            var allItems = {standard: [], tillval: []};
+            var allItems = { standard: [], tillval: [] };
 
             // Get node "refs" on category
             var categoryItemKeyRefs = projectRef.child("categoryItems").child(item.key).child("refs");
@@ -259,7 +269,6 @@ module.exports = function (app) {
                 });
             });
 
-
             // Sort it:
             function getItemOptionsCallback(items) {
                 var orderBy = $filter('orderBy');
@@ -274,22 +283,32 @@ module.exports = function (app) {
                         items: orderBy(items.tillval, ['default', 'price'])
                     }
                 };
-                console.log($scope.itemOptions);
+                // console.log($scope.itemOptions);
 
                 // TODO: scroll into view? async problem
             }
+
+
+             // TODO: replace with data from cart
+            const oldCat = $scope.currentSubCategory.categoryItems.find(cat => cat.selected);
+            !!oldCat ? oldCat.selected = false : '';
+            item['selected'] = true;
+ 
         };
 
-        $scope.selectCategory = function(category, e) {
+        $scope.selectCategory = function (category, e) {
             $scope.currentSubCategory = $scope.allCategories.find(item => item.$id === category.$id);
 
+            // TODO: replace with data from cart
             const oldCat = $scope.allCategories.find(cat => cat.selected);
-            
             !!oldCat ? oldCat.selected = false : '';
-
             category['selected'] = true;
 
-            $scope.selectedCategory = category;
+            $scope.currentCategory = category;
+            $scope.itemOptions = [];
+
+            const len = $scope.currentSubCategory.categoryItems.length;
+            $scope.subCategoryClass = "w" + (len > 10 ? 10 : len);
         }
 
         // Toggle modal
@@ -309,10 +328,22 @@ module.exports = function (app) {
             }
         };
 
+        $scope.checkForComplete = function (category) {
+            if (!$scope.cart) return;
+            var categoryInCart = $scope.cart[category.$id];
+            if (!categoryInCart) return;
+            if (category.categoryItems.length === 0) return;
+
+            var subCategoriesInCart = Object.keys(categoryInCart);
+            var index = subCategoriesInCart.indexOf("categoryTitle");
+            if (index > -1) { subCategoriesInCart.splice(index, 1) };
+
+            return category.categoryItems.length === subCategoriesInCart.length;
+        }
+
         $scope.inCart = function (key) {
             for (var categoryItem in $scope.cart) {
-                if (typeof($scope.cart[categoryItem][key]) == "object")
-                {
+                if (typeof ($scope.cart[categoryItem][key]) == "object") {
                     return true;
                 }
             }
@@ -330,7 +361,7 @@ module.exports = function (app) {
             $http({
                 method: 'POST',
                 url: 'https://builderappmail.herokuapp.com/',
-                data: {projectKey: projectKey, customerKey: $scope.myKey}
+                data: { projectKey: projectKey, customerKey: $scope.myKey }
             }).then(function successCallback(response) {
 
                 $scope.sendingMail = false;

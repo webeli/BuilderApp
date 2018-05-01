@@ -27,6 +27,10 @@
       }
   }
 
+  .space-between {
+    justify-content: space-between;
+  }
+
 
   // Header
   header {
@@ -47,17 +51,12 @@
     width: 100%;
   }
 
+  // Circles
   .circle-container {
-    width: 25%;
-  }
-  .small-circle-container {
-    width: 10%;
-  }
-  // Circle
-  .circle-container, .small-circle-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 
     & .line {
       width: 100%;
@@ -67,8 +66,8 @@
       position: relative;
     }
     & .circle {
-      width: 75px;
-      min-height: 75px;
+      width: 100px;
+      min-height: 100px;
       border-radius: 50%;
       z-index: 10;
       background-color: lightgray;
@@ -77,6 +76,12 @@
       justify-content: center;
       font-size: 32px;
       color: #fff;
+    }
+ 
+
+    & label {
+      font-size: 20px;
+      font-weight: bold;
     }
 
     &.active {
@@ -95,8 +100,74 @@
       & .line {
         background-color: lightgreen;
       }
+      &.active .circle {
+        box-sizing: border-box;
+        border: 5px solid lightblue;
+      }
     }
   }
+
+  .circle-container.subcircle {
+    & .circle {
+      width: 75px;
+      min-height: 75px;
+    }
+
+    & label {
+      font-size: 16px;
+      font-weight: normal;
+    }
+  }
+
+
+  // Products
+  .option-item-container   {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    box-sizing: border-box;
+    // border: 1px solid lightgray;
+    // border-radius: 4px;
+    padding: 15px;
+
+    & img {
+      height: 420px;
+    }
+
+    & button {
+      padding: 5px;
+      font-size: 16px;
+      color: #000;
+      background: #fff;
+      border: 1px solid lightgray;
+      cursor: pointer;
+      &.active {
+        background: cornflowerblue;
+        color: #fff;
+      }
+      &.active:hover {
+        border: 1px solid #fff;
+        box-sizing: border-box;
+        background: cornflowerblue;
+        color: #000;
+      }
+    }
+    & button:hover {
+      background: cornflowerblue;
+    }
+  }
+
+  .w2 { width: 50%; } 
+  .w3 { width: 33.33%; }
+  .w4 { width: 25%; }
+  .w5 { width: 20%; }
+  .w6 { width: 16.5%; }
+  .w7 { width: 14%; }
+  .w8 { width: 12.5%; }
+  .w9 { width: 11%; }
+  .w10 { width: 10%; }
+  .w100 { width: 100%; }
+  
 
 } 
 
